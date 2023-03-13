@@ -16,7 +16,9 @@ function TodoList(props: TodolistPropsType) {
     const [title, setTitle] = useState<string>('');
     const todoListItem = props.tasks.map((t) => {
 
-        const onClickButtonHandler = () => {props.removeTask(t.id)}
+        const onClickButtonHandler = () => {
+            props.removeTask(t.id)
+        }
 
         return (
             <li><input type="checkbox" checked={t.isDone}/>
@@ -36,7 +38,11 @@ function TodoList(props: TodolistPropsType) {
     const onKeyDownInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') onClickButtonHandler();
     }
-    const onChangeInputHandler = (e:ChangeEvent<HTMLInputElement>) => {setTitle(e.currentTarget.value)}
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    const isAddTaskNotPossible = title.length == 0 || title.length > 20
 
     const onClickAllChangeTodolistHandler = () => props.changeTodolistFilter('all')
     const onClickActiveChangeTodolistHandler = () => props.changeTodolistFilter('active')
@@ -53,7 +59,7 @@ function TodoList(props: TodolistPropsType) {
                         onChange={onChangeInputHandler}
                         onKeyDown={onKeyDownInputHandler}/>
                     <button
-                        disabled={title.length == 0 || title.length > 20}
+                        disabled={ isAddTaskNotPossible }
                         onClick={onClickButtonHandler}>+
                     </button>
                     {(title.length > 10 && title.length <= 20) ?
