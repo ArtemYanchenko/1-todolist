@@ -43,7 +43,9 @@ function TodoList(props: TodolistPropsType) {
     }
 
     const isAddTaskNotPossible = title.length == 0 || title.length > 20
-
+    const longTitleWarning = (title.length > 10 && title.length <= 20) ?
+        <div style={{color: 'white'}}>Title is too long</div> : '';
+    const longTitleError = title.length > 20 ? <div style={{color: 'red'}}>Title is too long</div> : ''
     const onClickAllChangeTodolistHandler = () => props.changeTodolistFilter('all')
     const onClickActiveChangeTodolistHandler = () => props.changeTodolistFilter('active')
     const onClickCompletedChangeTodolistHandler = () => props.changeTodolistFilter('completed')
@@ -59,12 +61,11 @@ function TodoList(props: TodolistPropsType) {
                         onChange={onChangeInputHandler}
                         onKeyDown={onKeyDownInputHandler}/>
                     <button
-                        disabled={ isAddTaskNotPossible }
+                        disabled={isAddTaskNotPossible}
                         onClick={onClickButtonHandler}>+
                     </button>
-                    {(title.length > 10 && title.length <= 20) ?
-                        <div style={{color: 'white'}}>Title is too long</div> : ''}
-                    {title.length > 20 ? <div style={{color: 'red'}}>Title is too long</div> : ''}
+                    {longTitleWarning}
+                    {longTitleError}
                 </div>
                 <ul>
                     {todoListItem}
@@ -77,6 +78,6 @@ function TodoList(props: TodolistPropsType) {
             </div>
         </div>
     );
-};
+}
 
 export default TodoList;

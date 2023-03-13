@@ -42,10 +42,10 @@ function App() {
         tasksForRender = tasks;
     }
     if (filter === 'active') {
-        tasksForRender = tasks.filter(t => t.isDone === false)
+        tasksForRender = tasks.filter(t => !t.isDone)
     }
     if (filter === 'completed') {
-        tasksForRender = tasks.filter(t => t.isDone === true)
+        tasksForRender = tasks.filter(t => t.isDone)
     }
 
 
