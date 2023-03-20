@@ -16,6 +16,7 @@ type TodolistPropsType = {
 function TodoList(props: TodolistPropsType) {
 
     const [title, setTitle] = useState<string>('');
+    const [error, setError] = useState<boolean>(false)
     const todoListItem = props.tasks.map((t) => {
 
         const onClickButtonHandler = () => {
@@ -39,12 +40,17 @@ function TodoList(props: TodolistPropsType) {
         if (title.trim()) {
             props.addTask(title);
             setTitle('');
+            setError(false);
+        } else {
+            setTitle('');
+            setError(true);
         }
     }
     const onKeyDownInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') onClickButtonHandler();
     }
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        error && setError(false);
         setTitle(e.currentTarget.value)
     }
 
@@ -72,6 +78,7 @@ function TodoList(props: TodolistPropsType) {
                     </button>
                     {longTitleWarning}
                     {longTitleError}
+                    {error ? <div className={'error'}>dont write spaces</div> : ''}
                 </div>
                 <ul>
                     {todoListItem}

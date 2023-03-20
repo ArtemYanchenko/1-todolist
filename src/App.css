@@ -28,3 +28,7 @@ color:green;
   background-color:pink;
   border: 0px;
 }
+
+.error {
+  color:red;
+}
