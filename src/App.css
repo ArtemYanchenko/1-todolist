@@ -15,3 +15,16 @@
   border-radius: 8px;
   padding:20px;
 }
+
+.task-done {
+color:green;
+}
+
+.task {
+  color:red;
+}
+
+.btn-active {
+  background-color:pink;
+  border: 0px;
+}

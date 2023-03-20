@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+import { v1 } from 'uuid';
 import './App.css';
 import TodoList from './TodoList';
-import {v1} from 'uuid';
 
 
 export type TaskType = {
@@ -61,6 +61,7 @@ function App() {
                 changeTodolistFilter={changeTodolistFilter}
                 addTask={addTask}
                 changeTaskStatus={changeTaskStatus}
+                filter={filter}
             />
         </div>
     );
