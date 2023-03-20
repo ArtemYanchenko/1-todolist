@@ -42,14 +42,19 @@ function App() {
     }
 
 
-    let tasksForRender: TaskType[] = tasks;
+    const getFilteredTasks = (tasksList:TaskType[],filterValue:FilterTaskType) => {
+        switch (filterValue) {
+            case 'active':
+                return tasksList.filter(t=>!t.isDone)
+            case 'completed':
+                return tasksList.filter(t=>t.isDone)
+            default:
+                return tasksList;
+        }
+    }
 
-    if (filter === 'active') {
-        tasksForRender = tasks.filter(t => !t.isDone)
-    }
-    if (filter === 'completed') {
-        tasksForRender = tasks.filter(t => t.isDone)
-    }
+
+    const tasksForRender = getFilteredTasks(tasks,filter);
 
 
     return (
