@@ -8,6 +8,7 @@ type TodolistPropsType = {
     removeTask: (taskId: string) => void
     changeTodolistFilter: (filter: FilterTaskType) => void
     addTask: (title: string) => void
+    changeTaskStatus:(taskId:string,isDone:boolean) => void
 }
 
 
@@ -21,7 +22,7 @@ function TodoList(props: TodolistPropsType) {
         }
 
         return (
-            <li><input type="checkbox" checked={t.isDone}/>
+            <li><input type="checkbox" onChange={e=>props.changeTaskStatus(t.id,e.currentTarget.checked)} checked={t.isDone}/>
                 <span>{t.title}</span>
                 <button onClick={onClickButtonHandler}>X
                 </button>

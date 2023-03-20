@@ -37,10 +37,13 @@ function App() {
         setFilter(filter);
     }
 
-    let tasksForRender: TaskType[] = [];
-    if (filter === 'all') {
-        tasksForRender = tasks;
+    const changeTaskStatus = (taskId:string,isDone:boolean) => {
+        setTasks(tasks.map(t=>t.id === taskId ? {...t,isDone} : t))
     }
+
+
+    let tasksForRender: TaskType[] = tasks;
+
     if (filter === 'active') {
         tasksForRender = tasks.filter(t => !t.isDone)
     }
@@ -57,6 +60,7 @@ function App() {
                 removeTask={removeTask}
                 changeTodolistFilter={changeTodolistFilter}
                 addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
             />
         </div>
     );
