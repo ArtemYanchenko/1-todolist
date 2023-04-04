@@ -19,7 +19,8 @@ type PropsType = {
     changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
-    changeTaskTitle:(todolistID: string, taskID: string, newTitle: string)=>void
+    changeTaskTitle: (todolistID: string, taskID: string, newTitle: string) => void
+    changeTodolistTitle: (todolistID: string, newTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -31,6 +32,11 @@ export function Todolist(props: PropsType) {
     }
     if (props.filter === 'completed') {
         tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+    }
+
+
+    const changeTodolistTitleHandler = (newTitle:string) => {
+        props.changeTodolistTitle(props.todolistID,newTitle)
     }
 
     const removeTodolistHandler = () => {
@@ -46,7 +52,8 @@ export function Todolist(props: PropsType) {
 
 
     return <div>
-        <h3>{props.title}
+        <h3>
+            <EditableSpan oldTitle={props.title} callback={changeTodolistTitleHandler}/>
             <button onClick={removeTodolistHandler}>X</button>
         </h3>
         <div>
@@ -60,15 +67,15 @@ export function Todolist(props: PropsType) {
                         props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
 
-                    const changeTaskTitleHandler = (newTitle:string) => {
-                        props.changeTaskTitle(props.todolistID,t.id,newTitle)
+                    const changeTaskTitleHandler = (newTitle: string) => {
+                        props.changeTaskTitle(props.todolistID, t.id, newTitle)
                     }
 
                     return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                         <input type="checkbox"
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
-                        <EditableSpan title={t.title} callback={changeTaskTitleHandler}/>
+                        <EditableSpan oldTitle={t.title} callback={changeTaskTitleHandler}/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
