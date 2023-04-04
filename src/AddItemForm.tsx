@@ -1,10 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type PropsType = {
-    callBack:(newTitle:string)=>void
+    callBack: (newTitle: string) => void
 }
 
-const AddItemForm = (props:PropsType) => {
+const AddItemForm = (props: PropsType) => {
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
