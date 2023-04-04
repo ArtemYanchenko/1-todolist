@@ -59,11 +59,14 @@ function App() {
         setTodolists(todolists.map(t => t.id === todolistID ? {...t, filter} : t))
     }
 
-
     function removeTodolist(todolistID: string) {
         setTodolists(todolists.filter(t => t.id !== todolistID))
         delete tasks[todolistID];
         setTasks({...tasks});
+    }
+
+    function addTodolist() {
+
     }
 
     return (
