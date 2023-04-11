@@ -4,6 +4,7 @@ import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import AddItemForm from './AddItemForm';
 import ButtonAppBar from './AppBar';
+import {Container, Grid, Paper} from '@mui/material';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -83,25 +84,34 @@ function App() {
     return (
         <div className="App">
             <ButtonAppBar/>
-            <AddItemForm callBack={addTodolist}/>
-            {todolists.map(el => {
-                return (
-                    <Todolist
-                        key={el.id}
-                        todolistID={el.id}
-                        title={el.title}
-                        tasks={tasks[el.id]}
-                        removeTask={removeTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeStatus}
-                        filter={el.filter}
-                        removeTodolist={removeTodolist}
-                        changeTaskTitle={changeTaskTitle}
-                        changeTodolistTitle={changeTodolistTitle}
-                    />
-                )
-            })}
+            <Container fixed>
+                <Grid container>
+
+                    <AddItemForm callBack={addTodolist}/>
+                </Grid>
+                <Grid container spacing={3}>{todolists.map(el => {
+                    return (
+                        <Grid item>
+                            <Paper elevation={3} style={{padding:'20px'}}>
+                                <Todolist
+                                    key={el.id}
+                                    todolistID={el.id}
+                                    title={el.title}
+                                    tasks={tasks[el.id]}
+                                    removeTask={removeTask}
+                                    changeFilter={changeFilter}
+                                    addTask={addTask}
+                                    changeTaskStatus={changeStatus}
+                                    filter={el.filter}
+                                    removeTodolist={removeTodolist}
+                                    changeTaskTitle={changeTaskTitle}
+                                    changeTodolistTitle={changeTodolistTitle}
+                                />
+                            </Paper>
+                        </Grid>
+                    )
+                })}</Grid>
+            </Container>
         </div>
     );
 }
