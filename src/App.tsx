@@ -85,16 +85,14 @@ function App() {
         <div className="App">
             <ButtonAppBar/>
             <Container fixed>
-                <Grid container>
-
+                <Grid container style={{padding:'20px'}}>
                     <AddItemForm callBack={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>{todolists.map(el => {
                     return (
-                        <Grid item>
+                        <Grid item key={el.id}>
                             <Paper elevation={3} style={{padding:'20px'}}>
                                 <Todolist
-                                    key={el.id}
                                     todolistID={el.id}
                                     title={el.title}
                                     tasks={tasks[el.id]}
