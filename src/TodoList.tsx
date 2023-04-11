@@ -2,6 +2,8 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import AddItemForm from './AddItemForm';
 import {FilterValuesType} from './App';
 import EditableSpan from './EditableSpan';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 export type TaskType = {
     id: string
@@ -35,8 +37,8 @@ export function Todolist(props: PropsType) {
     }
 
 
-    const changeTodolistTitleHandler = (newTitle:string) => {
-        props.changeTodolistTitle(props.todolistID,newTitle)
+    const changeTodolistTitleHandler = (newTitle: string) => {
+        props.changeTodolistTitle(props.todolistID, newTitle)
     }
 
     const removeTodolistHandler = () => {
@@ -49,6 +51,10 @@ export function Todolist(props: PropsType) {
     const onAllClickHandler = () => props.changeFilter(props.todolistID, 'all');
     const onActiveClickHandler = () => props.changeFilter(props.todolistID, 'active');
     const onCompletedClickHandler = () => props.changeFilter(props.todolistID, 'completed');
+
+    const changeTaskTitleHandler = (newTitle: string, taskID: string) => {
+        props.changeTaskTitle(props.todolistID, taskID, newTitle)
+    }
 
 
     return <div>
@@ -67,16 +73,15 @@ export function Todolist(props: PropsType) {
                         props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
 
-                    const changeTaskTitleHandler = (newTitle: string) => {
-                        props.changeTaskTitle(props.todolistID, t.id, newTitle)
-                    }
-
                     return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                         <input type="checkbox"
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
-                        <EditableSpan oldTitle={t.title} callback={changeTaskTitleHandler}/>
-                        <button onClick={onClickHandler}>x</button>
+                        <EditableSpan oldTitle={t.title}
+                                      callback={(newTitle) => changeTaskTitleHandler(newTitle, t.id)}/>
+                        <IconButton onClick={onClickHandler}>
+                            <DeleteIcon/>
+                        </IconButton>
                     </li>
                 })
             }
