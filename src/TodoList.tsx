@@ -5,6 +5,7 @@ import EditableSpan from './EditableSpan';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox';
 
 export type TaskType = {
     id: string
@@ -68,7 +69,7 @@ export function Todolist(props: PropsType) {
         <div>
             <AddItemForm callBack={addTaskHandler}/>
         </div>
-        <ul>
+        <ul style={{listStyleType:'none',padding:'0px'}}>
             {
                 tasksForTodolist.map(t => {
                     const onClickHandler = () => props.removeTask(props.todolistID, t.id)
@@ -77,7 +78,7 @@ export function Todolist(props: PropsType) {
                     }
 
                     return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
-                        <input type="checkbox"
+                        <Checkbox
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
                         <EditableSpan oldTitle={t.title}

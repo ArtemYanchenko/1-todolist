@@ -42,15 +42,27 @@ const AddItemForm = (props: PropsType) => {
     return (
         <div>
             <TextField id="outlined-basic"
-                       label="Outlined"
+                       label={error ? "Title is required" : 'Please type here...'}
                        variant="outlined"
                        size='small'
                        value={title}
                    onChange={onChangeHandler}
                    onKeyDown={onKeyPressHandler}
+                       error={!!error}
             />
+
+            {/*<TextField*/}
+            {/*    size="small"*/}
+            {/*    id="outlined-basic"*/}
+            {/*    label={error ? "Title is required" : 'Please type here...'}*/}
+            {/*    variant="outlined"*/}
+            {/*    value={title}*/}
+            {/*    onChange={onChangeHandler}*/}
+            {/*    onKeyPress={onKeyPressHandler}*/}
+            {/*    error={!!error}*/}
+
+            {/*/>*/}
             <Button variant={'contained'} style={buttonStyle} onClick={addTask}>+</Button>
-            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };
