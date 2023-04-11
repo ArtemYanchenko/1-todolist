@@ -60,7 +60,9 @@ export function Todolist(props: PropsType) {
     return <div>
         <h3>
             <EditableSpan oldTitle={props.title} callback={changeTodolistTitleHandler}/>
-            <button onClick={removeTodolistHandler}>X</button>
+            <IconButton onClick={removeTodolistHandler}>
+                <DeleteIcon/>
+            </IconButton>
         </h3>
         <div>
             <AddItemForm callBack={addTaskHandler}/>
