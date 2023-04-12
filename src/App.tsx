@@ -5,7 +5,7 @@ import {v1} from 'uuid';
 import AddItemForm from './AddItemForm';
 import ButtonAppBar from './AppBar';
 import {Container, Grid, Paper} from '@mui/material';
-import {addTodolistAC, todolistReducer} from './reducers/todolistReducer';
+import {addTodolistAC, changeTodolistTitleAC, todolistReducer} from './reducers/todolistReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -68,7 +68,7 @@ function App() {
     }
 
     function changeTodolistTitle(todolistID: string, newTitle: string) {
-        // setTodolists(todolists.map(t => t.id === todolistID ? {...t, title: newTitle} : t))
+        dispatchTodolists(changeTodolistTitleAC(todolistID,newTitle))
     }
 
     function changeFilter(todolistID: string, filter: FilterValuesType) {

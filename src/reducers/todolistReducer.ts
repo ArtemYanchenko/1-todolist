@@ -13,6 +13,8 @@ export const todolistReducer = (state: TodolistsType[], action: ActionTypes) => 
             }
             return [newTodolist, ...state];
         }
+        case 'CHANGE-TODOLIST-TITLE':
+            return state.map(el => el.id === action.payload.todolistID ? {...el, title: action.payload.newTitle} : el)
         default:
             return state;
     }
