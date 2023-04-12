@@ -12,7 +12,7 @@ import {
     removeTodolistAC,
     todolistReducer
 } from './reducers/todolistReducer';
-import {addTaskAC, changeStatusAC, changeTaskTitleAC, tasksReducer} from './reducers/tasksReducer';
+import {addTaskAC, changeStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './reducers/tasksReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -64,7 +64,7 @@ function App() {
     }
 
     function removeTask(todolistID: string, taskID: string) {
-
+        dispatchTasks(removeTaskAC(todolistID,taskID))
     }
 
     function addTodolist(titleTodo: string) {
