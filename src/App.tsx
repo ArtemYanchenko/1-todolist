@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import AddItemForm from './AddItemForm';
 import ButtonAppBar from './AppBar';
 import {Container, Grid, Paper} from '@mui/material';
+import {addTodolistAC, todolistReducer} from './reducers/todolistReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -20,7 +21,7 @@ function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    let [todolists, dispatchTodolists] = useReducer(todolistReducer,[
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
@@ -62,23 +63,22 @@ function App() {
 
     function addTodolist(titleTodo: string) {
         const newID = v1();
-        const newTodolist: TodolistsType = {id: newID, title: titleTodo, filter: 'all'}
-        setTodolists([newTodolist, ...todolists])
-        setTasks({...tasks, [newID]: [{id: v1(), title: 'HTML&CSS2', isDone: false}]})
+        dispatchTodolists(addTodolistAC(titleTodo,newID))
+        setTasks({...tasks,[newID]:[]})
     }
 
     function changeTodolistTitle(todolistID: string, newTitle: string) {
-        setTodolists(todolists.map(t => t.id === todolistID ? {...t, title: newTitle} : t))
+        // setTodolists(todolists.map(t => t.id === todolistID ? {...t, title: newTitle} : t))
     }
 
     function changeFilter(todolistID: string, filter: FilterValuesType) {
-        setTodolists(todolists.map(t => t.id === todolistID ? {...t, filter} : t))
+        // setTodolists(todolists.map(t => t.id === todolistID ? {...t, filter} : t))
     }
 
     function removeTodolist(todolistID: string) {
-        setTodolists(todolists.filter(t => t.id !== todolistID))
-        delete tasks[todolistID];
-        setTasks({...tasks});
+        // setTodolists(todolists.filter(t => t.id !== todolistID))
+        // delete tasks[todolistID];
+        // setTasks({...tasks});
     }
 
     return (
