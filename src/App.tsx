@@ -5,7 +5,7 @@ import {v1} from 'uuid';
 import AddItemForm from './AddItemForm';
 import ButtonAppBar from './AppBar';
 import {Container, Grid, Paper} from '@mui/material';
-import {addTodolistAC, changeTodolistTitleAC, todolistReducer} from './reducers/todolistReducer';
+import {addTodolistAC, changeFilterAC, changeTodolistTitleAC, todolistReducer} from './reducers/todolistReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -21,7 +21,7 @@ function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolists, dispatchTodolists] = useReducer(todolistReducer,[
+    let [todolists, dispatchTodolists] = useReducer(todolistReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
@@ -63,16 +63,16 @@ function App() {
 
     function addTodolist(titleTodo: string) {
         const newID = v1();
-        dispatchTodolists(addTodolistAC(titleTodo,newID))
-        setTasks({...tasks,[newID]:[]})
+        dispatchTodolists(addTodolistAC(titleTodo, newID))
+        setTasks({...tasks, [newID]: []})
     }
 
     function changeTodolistTitle(todolistID: string, newTitle: string) {
-        dispatchTodolists(changeTodolistTitleAC(todolistID,newTitle))
+        dispatchTodolists(changeTodolistTitleAC(todolistID, newTitle))
     }
 
-    function changeFilter(todolistID: string, filter: FilterValuesType) {
-        // setTodolists(todolists.map(t => t.id === todolistID ? {...t, filter} : t))
+    function changeFilter(todolistID: string, filterValue: FilterValuesType) {
+        dispatchTodolists(changeFilterAC(todolistID, filterValue))
     }
 
     function removeTodolist(todolistID: string) {
@@ -85,13 +85,13 @@ function App() {
         <div className="App">
             <ButtonAppBar/>
             <Container fixed>
-                <Grid container style={{padding:'20px'}}>
+                <Grid container style={{padding: '20px'}}>
                     <AddItemForm callBack={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>{todolists.map(el => {
                     return (
                         <Grid item key={el.id}>
-                            <Paper elevation={3} style={{padding:'20px'}}>
+                            <Paper elevation={3} style={{padding: '20px'}}>
                                 <Todolist
                                     todolistID={el.id}
                                     title={el.title}
