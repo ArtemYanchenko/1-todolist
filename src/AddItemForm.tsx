@@ -1,21 +1,24 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import {IconButton, TextField} from "@mui/material";
+import {AddBox} from "@mui/icons-material";
 
-type PropsType = {
-    callBack: (newTitle: string) => void
+
+
+type AddItemFormPropsType = {
+    addItem: (title: string) => void
 }
 
-const AddItemForm = (props: PropsType) => {
-    let [title, setTitle] = useState('')
+export function AddItemForm(props: AddItemFormPropsType) {
+
+    let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
-    const addTask = () => {
-        if (title.trim() !== '') {
-            props.callBack(title.trim());
-            setTitle('');
+    const addItem = () => {
+        if (title.trim() !== "") {
+            props.addItem(title);
+            setTitle("");
         } else {
-            setError('Title is required');
+            setError("Title is required");
         }
     }
 
@@ -25,46 +28,22 @@ const AddItemForm = (props: PropsType) => {
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
-        if (e.key === 'Enter') {
-            addTask();
+        if (e.charCode === 13) {
+            addItem();
         }
     }
 
-    const buttonStyle = {
-        maxWidth: '38px',
-        maxHeight: '38px',
-        minWidth: '38px',
-        minHeight: '38px',
-        backgroundColor: 'green'
-    }
-
-
-    return (
-        <div>
-            <TextField id="outlined-basic"
-                       label={error ? "Title is required" : 'Please type here...'}
-                       variant="outlined"
-                       size='small'
-                       value={title}
+    return <div>
+        <TextField variant="outlined"
+                   error={!!error}
+                   value={title}
                    onChange={onChangeHandler}
-                   onKeyDown={onKeyPressHandler}
-                       error={!!error}
-            />
-
-            {/*<TextField*/}
-            {/*    size="small"*/}
-            {/*    id="outlined-basic"*/}
-            {/*    label={error ? "Title is required" : 'Please type here...'}*/}
-            {/*    variant="outlined"*/}
-            {/*    value={title}*/}
-            {/*    onChange={onChangeHandler}*/}
-            {/*    onKeyPress={onKeyPressHandler}*/}
-            {/*    error={!!error}*/}
-
-            {/*/>*/}
-            <Button variant={'contained'} style={buttonStyle} onClick={addTask}>+</Button>
-        </div>
-    );
-};
-
-export default AddItemForm;
+                   onKeyPress={onKeyPressHandler}
+                   label="Title"
+                   helperText={error}
+        />
+        <IconButton color="primary" onClick={addItem}>
+            <AddBox />
+        </IconButton>
+    </div>
+}
