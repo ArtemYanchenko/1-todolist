@@ -27,6 +27,9 @@ export const tasksReducer = (state: TasksType, action: ActionType) => {
                 } : el)
             }
         }
+        case 'REMOVE-TASK': {
+            return {...state,[action.payload.todolistID]:state[action.payload.todolistID].filter(el=>el.id !== action.payload.taskID)}
+        }
         default:
             return state;
     }
