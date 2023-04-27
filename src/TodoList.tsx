@@ -18,19 +18,19 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string, todolistId: string) => void
-    changeFilter: (value: FilterValuesType, todolistId: string) => void
-    addTask: (title: string, todolistId: string) => void
-    changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
+    removeTask: (todolistId: string,taskId: string) => void
+    changeFilter: (todolistId: string,valueFilter: FilterValuesType ) => void
+    addTask: (todolistId: string,title: string) => void
+    changeTaskStatus: (todolistId: string, id: string, isDone: boolean) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
-    changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
+    changeTaskTitle: (todolistId: string,taskId: string, newTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
     const addTask = (title: string) => {
-        props.addTask(title, props.id);
+        props.addTask(props.id,title);
     }
 
     const removeTodolist = () => {
@@ -40,12 +40,12 @@ export function Todolist(props: PropsType) {
         props.changeTodolistTitle(props.id, title);
     }
 
-    const onAllClickHandler = () => props.changeFilter("all", props.id);
-    const onActiveClickHandler = () => props.changeFilter("active", props.id);
-    const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
+    const onAllClickHandler = () => props.changeFilter(props.id,"all");
+    const onActiveClickHandler = () => props.changeFilter(props.id,"active");
+    const onCompletedClickHandler = () => props.changeFilter(props.id,"completed");
 
     const onChangeHandler = (taskID:string,checked:boolean) => {
-        props.changeTaskStatus(taskID, checked, props.id);
+        props.changeTaskStatus(props.id,taskID, checked);
     }
 
     return <div>
@@ -58,10 +58,10 @@ export function Todolist(props: PropsType) {
         <div>
             {
                 props.tasks.map(t => {
-                    const onClickHandler = () => props.removeTask(t.id, props.id)
+                    const onClickHandler = () => props.removeTask(props.id,t.id)
 
                     const onTitleChangeHandler = (newValue: string) => {
-                        props.changeTaskTitle(t.id, newValue, props.id);
+                        props.changeTaskTitle(props.id,t.id, newValue);
                     }
 
 

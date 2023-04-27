@@ -26,11 +26,11 @@ export const todolistReducer = (state: TodolistType[], action: ActionsType): Tod
 }
 
 export type AddTodolistACType = ReturnType<typeof addTodolistAC>
-export const addTodolistAC = (title: string) => {
+export const addTodolistAC = (todolistId:string,title: string) => {
     return {
         type: 'ADD-TODOLIST',
         payload: {
-            todolistId: v1(),
+            todolistId,
             title
         }
     } as const
