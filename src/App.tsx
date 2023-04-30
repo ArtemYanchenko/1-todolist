@@ -75,12 +75,12 @@ export function App() {
         dispatchTodolist(changeFilterAC(todolistId, valueFilter))
     }
 
-    function changeTodolistTitle(id: string, title: string) {
-        dispatchTodolist(changeTodolistTitleAC(id, title))
+    function changeTodolistTitle(todolistId: string, title: string) {
+        dispatchTodolist(changeTodolistTitleAC(todolistId, title))
     }
 
-    function removeTodolist(id: string) {
-        dispatchTodolist(removeTodolistAC(id))
+    function removeTodolist(todolistId: string) {
+        dispatchTodolist(removeTodolistAC(todolistId))
     }
 
     return (
