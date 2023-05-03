@@ -66,9 +66,9 @@ export function App() {
     }
 
     function addTodolist(title: string) {
-        const todolistId = v1()
-        dispatchToTodolist(addTodolistAC(todolistId, title))
-        dispatchToTasks(addTodolistAC(todolistId, title))
+        const action = addTodolistAC(title);
+        dispatchToTodolist(action);
+        dispatchToTasks(action);
     }
 
     function changeFilter(todolistId: string, valueFilter: FilterValuesType) {
@@ -81,6 +81,7 @@ export function App() {
 
     function removeTodolist(todolistId: string) {
         dispatchToTodolist(removeTodolistAC(todolistId))
+        dispatchToTasks(removeTodolistAC(todolistId))
     }
 
     return (
