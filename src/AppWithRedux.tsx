@@ -1,6 +1,5 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import './App.css';
-import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
@@ -11,7 +10,6 @@ import {
     changeFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
-    todolistReducer
 } from './reducers/todolistReducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './reducers/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
