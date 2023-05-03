@@ -3,7 +3,9 @@ import {v1} from 'uuid';
 
 export type TodolistsActionsType = AddTodolistACType | ChangeFilterACType | ChangeTodolistTitleACType | RemoveTodolistACType
 
-export const todolistReducer = (state: TodolistType[], action: TodolistsActionsType): TodolistType[] => {
+const initialState:TodolistType[] = [];
+
+export const todolistReducer = (state = initialState, action: TodolistsActionsType): TodolistType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST': {
             return [{id: action.payload.todolistId, title: action.payload.title, filter: 'all'},...state]
