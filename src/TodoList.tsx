@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button, Checkbox} from '@mui/material';
 import {SuperCheckBox} from './SuperCheckBox';
+import Task from './Task';
 
 
 export type TaskType = {
@@ -29,23 +30,39 @@ type PropsType = {
 }
 
 export const Todolist = memo((props: PropsType) => {
+
     const addTask = useCallback((title: string) => {
         props.addTask(props.id, title);
-    },[props.addTask,props.id])
+    }, [props.addTask, props.id])
 
     const removeTodolist = () => {
         props.removeTodolist(props.id);
     }
-    const changeTodolistTitle = (title: string) => {
+    const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title);
-    }
+    }, [props.id, props.changeTodolistTitle])
 
     const onAllClickHandler = () => props.changeFilter(props.id, 'all');
     const onActiveClickHandler = () => props.changeFilter(props.id, 'active');
     const onCompletedClickHandler = () => props.changeFilter(props.id, 'completed');
 
-    const onChangeHandler = (taskID: string, checked: boolean) => {
+    const changeTaskStatus = (taskID: string, checked: boolean) => {
         props.changeTaskStatus(props.id, taskID, checked);
+    }
+    const removeTask = (tasksID:string) => props.removeTask(props.id, tasksID)
+
+    const changeTaskTitle = (taskID:string,newValue: string) => {
+        props.changeTaskTitle(props.id, taskID, newValue);
+    }
+
+    let allTodolistTasks = props.tasks;
+    let tasksForTodolist = allTodolistTasks;
+
+    if (props.filter === 'active') {
+        tasksForTodolist = allTodolistTasks.filter(t => t.isDone === false);
+    }
+    if (props.filter === 'completed') {
+        tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
     }
 
     return <div>
@@ -57,29 +74,7 @@ export const Todolist = memo((props: PropsType) => {
         <AddItemForm addItem={addTask}/>
         <div>
             {
-                props.tasks.map(t => {
-                    const onClickHandler = () => props.removeTask(props.id, t.id)
-
-                    const onTitleChangeHandler = (newValue: string) => {
-                        props.changeTaskTitle(props.id, t.id, newValue);
-                    }
-
-
-                    return <div key={t.id} className={t.isDone ? 'is-done' : ''}>
-                        {/*<Checkbox*/}
-                        {/*    checked={t.isDone}*/}
-                        {/*    color="primary"*/}
-                        {/*    onChange={onChangeHandler}*/}
-                        {/*/>*/}
-
-                        <SuperCheckBox callBack={(checked: boolean) => onChangeHandler(t.id, checked)}
-                                       isDone={t.isDone}/>
-                        <EditableSpan value={t.title} onChange={onTitleChangeHandler}/>
-                        <IconButton onClick={onClickHandler}>
-                            <Delete/>
-                        </IconButton>
-                    </div>
-                })
+                allTodolistTasks.map(t => <Task task={t} removeTask={removeTask} changeTaskTitle={changeTaskTitle} changeTaskStatus={changeTaskStatus}/>)
             }
         </div>
         <div>
