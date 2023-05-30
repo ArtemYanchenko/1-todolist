@@ -48,8 +48,16 @@ export const UpdateTodolistTitle = () => {
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        TodolistsApi.getTask('481129f4-78c3-49e8-8128-ec09b3ab674c').then((res)=>setState(res.data));
+        TodolistsApi.getTasks('481129f4-78c3-49e8-8128-ec09b3ab674c').then((res)=>setState(res.data));
     }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
 
+export const GreateTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        TodolistsApi.createTask('481129f4-78c3-49e8-8128-ec09b3ab674c',
+            'newTitle')
+    }, [])
     return <div>{JSON.stringify(state)}</div>
 }
