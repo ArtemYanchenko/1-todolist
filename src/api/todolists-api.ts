@@ -30,6 +30,8 @@ export const TodolistsApi = {
     },
     deleteTodo(id: string) {
         return instance.delete<ResponseType<{}>>(`/todo-lists/${id}`)
-
+    },
+    getTask(id:string){
+        return instance.get<any>(`/todo-lists/${id}/tasks`)
     }
 }
