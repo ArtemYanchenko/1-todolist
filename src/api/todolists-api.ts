@@ -36,5 +36,15 @@ export const TodolistsApi = {
     },
     createTask(id:string,title:string){
         return instance.post(`/todo-lists/${id}/tasks`,{title})
+    },
+    updateTask(todoId:string,taskId:string){
+        return instance.put(`/todo-lists/${todoId}/tasks/${taskId}`,{
+            title: 'oldTitle',
+            description: '',
+            completed: true,
+            status: 1,
+            priority: 0,
+            startDate: '',
+            deadline: ''})
     }
 }

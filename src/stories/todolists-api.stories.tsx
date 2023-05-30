@@ -53,11 +53,19 @@ export const GetTasks = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
-export const GreateTask = () => {
+export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         TodolistsApi.createTask('481129f4-78c3-49e8-8128-ec09b3ab674c',
             'newTitle')
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+
+export const UpdateTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        TodolistsApi.updateTask('481129f4-78c3-49e8-8128-ec09b3ab674c', '50fd87ed-82ae-4a75-a18b-84ed49454c2f')
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
