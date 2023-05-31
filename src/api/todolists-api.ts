@@ -23,7 +23,7 @@ export const TodolistsApi = {
         return instance.get<TodolistType[]>('/todo-lists')
     },
     createTodolist() {
-        return instance.post<ResponseType<{item:TodolistType}>>('/todo-lists', {title: 'newTodo'})
+        return instance.post<ResponseType<{ item: TodolistType }>>('/todo-lists', {title: 'newTodo'})
     },
     updateTitleTodo(id: string, title: string) {
         return instance.put<ResponseType<{}>>(`/todo-lists/${id}`, {title})
@@ -31,20 +31,21 @@ export const TodolistsApi = {
     deleteTodo(id: string) {
         return instance.delete<ResponseType<{}>>(`/todo-lists/${id}`)
     },
-    getTasks(id:string){
+    getTasks(id: string) {
         return instance.get<any>(`/todo-lists/${id}/tasks`)
     },
-    createTask(id:string,title:string){
-        return instance.post(`/todo-lists/${id}/tasks`,{title})
+    createTask(id: string, title: string) {
+        return instance.post(`/todo-lists/${id}/tasks`, {title})
     },
-    updateTask(todoId:string,taskId:string){
-        return instance.put(`/todo-lists/${todoId}/tasks/${taskId}`,{
-            title: 'oldTitle',
-            description: '',
-            completed: true,
-            status: 1,
-            priority: 0,
-            startDate: '',
-            deadline: ''})
+    updateTask(id: string, taskId: string) {
+        return instance.put(`/todo-lists/${id}/tasks/${taskId}`, {
+            "title": "2HELLOWORqweLD",
+            "description": null,
+            "completed": -5,
+            "status": 0,
+            "priority": 1,
+            "startDate": null,
+            "deadline": null
+        })
     }
 }
