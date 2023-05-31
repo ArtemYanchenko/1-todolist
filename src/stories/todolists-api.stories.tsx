@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import {TodolistsApi} from '../api/todolists-api';
+import {log} from 'util';
 
 export default {
     title: 'API'
@@ -48,7 +49,7 @@ export const UpdateTodolistTitle = () => {
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        TodolistsApi.getTasks('481129f4-78c3-49e8-8128-ec09b3ab674c').then((res)=>setState(res.data));
+        TodolistsApi.getTasks('d735fa6e-4157-4c05-8e40-369d64b486cb').then((res)=>setState(res.data));
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
@@ -65,7 +66,16 @@ export const CreateTask = () => {
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        TodolistsApi.updateTask('481129f4-78c3-49e8-8128-ec09b3ab674c', '50fd87ed-82ae-4a75-a18b-84ed49454c2f')
+        TodolistsApi.updateTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc')
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
+
+export const DeleteTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        TodolistsApi.deleteTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc')
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+
