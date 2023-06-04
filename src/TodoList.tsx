@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, {FC, memo, useCallback, useMemo} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
@@ -17,42 +17,34 @@ export type TaskType = {
 }
 
 type PropsType = {
-    id: string
+    todolistId: string
     title: string
-    tasks: Array<TaskType>
-    removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, valueFilter: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, id: string, isDone: boolean) => void
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (todolistId: string, newTitle: string) => void
     filter: FilterValuesType
-    changeTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
 }
 
-export const Todolist = memo((props: PropsType) => {
+export const Todolist:FC<PropsType> = memo((props) => {
 
     const dispatch = useDispatch()
 
-    function addTask(todolistId: string, title: string) {
+    const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskAC(todolistId, title))
-    }
+    },[props.todolistId,props.title])
 
-    function changeStatus(todolistId: string, id: string, isDone: boolean) {
+    const changeStatus = (todolistId: string, id: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(todolistId, id, isDone))
     }
 
-    function changeTaskTitle(todolistId: string, id: string, newTitle: string) {
+    const changeTaskTitle = (todolistId: string, id: string, newTitle: string) => {
         dispatch(changeTaskTitleAC(todolistId, id, newTitle))
     }
 
-    function removeTask(todolistId: string, id: string) {
+    const removeTask = (todolistId: string, id: string) => {
         dispatch(removeTaskAC(todolistId, id))
     }
-
-    const addTask = useCallback((title: string) => {
-        props.addTask(props.id, title);
-    }, [props.addTask, props.id])
 
     const removeTodolist = () => {
         props.removeTodolist(props.id);
