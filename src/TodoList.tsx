@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import TaskWithRedux from './TaskWithRedux';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {useDispatch} from 'react-redux';
 
 
 export type TaskType = {
@@ -29,6 +31,24 @@ type PropsType = {
 }
 
 export const Todolist = memo((props: PropsType) => {
+
+    const dispatch = useDispatch()
+
+    function addTask(todolistId: string, title: string) {
+        dispatch(addTaskAC(todolistId, title))
+    }
+
+    function changeStatus(todolistId: string, id: string, isDone: boolean) {
+        dispatch(changeTaskStatusAC(todolistId, id, isDone))
+    }
+
+    function changeTaskTitle(todolistId: string, id: string, newTitle: string) {
+        dispatch(changeTaskTitleAC(todolistId, id, newTitle))
+    }
+
+    function removeTask(todolistId: string, id: string) {
+        dispatch(removeTaskAC(todolistId, id))
+    }
 
     const addTask = useCallback((title: string) => {
         props.addTask(props.id, title);

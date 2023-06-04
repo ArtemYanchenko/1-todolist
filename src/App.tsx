@@ -56,21 +56,7 @@ export function App() {
     // });
 
 
-    function addTask(todolistId: string, title: string) {
-        dispatch(addTaskAC(todolistId, title))
-    }
 
-    function changeStatus(todolistId: string, id: string, isDone: boolean) {
-        dispatch(changeTaskStatusAC(todolistId, id, isDone))
-    }
-
-    function changeTaskTitle(todolistId: string, id: string, newTitle: string) {
-        dispatch(changeTaskTitleAC(todolistId, id, newTitle))
-    }
-
-    function removeTask(todolistId: string, id: string) {
-        dispatch(removeTaskAC(todolistId, id))
-    }
 
     function addTodolist(title: string) {
         dispatch(addTodolistAC(title));
