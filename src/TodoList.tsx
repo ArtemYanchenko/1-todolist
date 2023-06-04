@@ -47,23 +47,23 @@ export const Todolist:FC<PropsType> = memo((props) => {
     }
 
     const removeTodolist = () => {
-        props.removeTodolist(props.id);
+        props.removeTodolist(props.todolistId);
     }
     const changeTodolistTitle = useCallback((title: string) => {
-        props.changeTodolistTitle(props.id, title);
-    }, [props.id, props.changeTodolistTitle])
+        props.changeTodolistTitle(props.todolistId, title);
+    }, [props.todolistId, props.changeTodolistTitle])
 
-    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'),[props.id,props.changeFilter]);
-    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'),[props.id,props.changeFilter]);
-    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'),[props.id,props.changeFilter]);
+    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'),[props.todolistId,props.changeFilter]);
+    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'),[props.todolistId,props.changeFilter]);
+    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'),[props.todolistId,props.changeFilter]);
 
     const changeTaskStatus = (taskID: string, checked: boolean) => {
-        props.changeTaskStatus(props.id, taskID, checked);
+        props.changeTaskStatus(props.todolistId, taskID, checked);
     }
-    const removeTask = (tasksID:string) => props.removeTask(props.id, tasksID)
+    const removeTask = (tasksID:string) => props.removeTask(props.todolistId, tasksID)
 
     const changeTaskTitle = (taskID:string,newValue: string) => {
-        props.changeTaskTitle(props.id, taskID, newValue);
+        props.changeTaskTitle(props.todolistId, taskID, newValue);
     }
 
 
@@ -90,9 +90,6 @@ export const Todolist:FC<PropsType> = memo((props) => {
         </h3>
         <AddItemForm addItem={addTask}/>
         <div>
-            {/*{*/}
-            {/*    allTodolistTasks.map(t => <Task task={t} removeTask={removeTask} changeTaskTitle={changeTaskTitle} changeTaskStatus={changeTaskStatus}/>)*/}
-            {/*}*/}
             {
                 allTodolistTasks.map(t => <TaskWithRedux todoID={props.id} taskID={t.id} removeTask={removeTask} changeTaskTitle={changeTaskTitle} changeTaskStatus={changeTaskStatus}/>)
             }
