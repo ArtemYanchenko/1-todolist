@@ -4,7 +4,7 @@ import {AddItemForm} from '../AddItemForm';
 import {IconButton, TextField} from '@mui/material';
 import {AddBox} from '@mui/icons-material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Task} from '../Task';
+import Task from '../TaskWithRedux';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {
@@ -15,7 +15,7 @@ const meta: Meta<typeof Task> = {
         changeTaskTitle: action('title task did changed'),
         changeTaskStatus: action('status task did changed'),
         removeTask: action('tasks remove'),
-        task: {id: '111', isDone: false, title: 'JS'}
+        // task: {id: '111', isDone: false, title: 'JS'}
     }
 };
 
@@ -27,6 +27,6 @@ export const TaskTaskIsNotDone: Story = {};
 
 export const TaskTaskIsDone: Story = {
     args: {
-        task: {id: '111', isDone: true, title: 'JS'}
+        // task: {id: '111', isDone: true, title: 'JS'}
     },
 };

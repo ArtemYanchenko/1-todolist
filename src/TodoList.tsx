@@ -1,5 +1,4 @@
 import React, {FC, memo, useCallback, useMemo} from 'react';
-import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
@@ -9,7 +8,7 @@ import TaskWithRedux from './TaskWithRedux';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
-import {TasksStateType} from './AppWithRedux';
+import {FilterValuesType} from './AppWithRedux';
 
 
 export type TaskType = {
@@ -29,7 +28,7 @@ type PropsType = {
 
 export const Todolist: FC<PropsType> = memo((props) => {
 
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
     const dispatch = useDispatch()
 
     const addTask = useCallback((todolistId: string, title: string) => {
@@ -55,9 +54,9 @@ export const Todolist: FC<PropsType> = memo((props) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.todolistId, props.changeTodolistTitle])
 
-    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'), [props.todolistId, props.changeFilter]);
-    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'), [props.todolistId, props.changeFilter]);
-    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'), [props.todolistId, props.changeFilter]);
+    const onAllClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'all'), [props.todolistId, props.changeFilter]);
+    const onActiveClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'active'), [props.todolistId, props.changeFilter]);
+    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'completed'), [props.todolistId, props.changeFilter]);
 
     // const changeTaskStatus = (taskID: string, checked: boolean) => {
     //     props.changeTaskStatus(props.todolistId, taskID, checked);
@@ -88,7 +87,7 @@ export const Todolist: FC<PropsType> = memo((props) => {
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={(title)=>addTask(props.todolistId,title)}/>
         <div>
             {
                 allTodolistTasks.map(t => <TaskWithRedux

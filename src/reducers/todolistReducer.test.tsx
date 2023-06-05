@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import {v1} from 'uuid';
-import {FilterValuesType, TodolistType} from '../App';
 import {
     addTodolistAC,
     changeFilterAC,
@@ -9,6 +8,7 @@ import {
     removeTodolistAC,
     todolistReducer
 } from './todolistReducer';
+import {FilterValuesType, TodolistType} from '../AppWithRedux';
 
 let todolistId1: string;
 let todolistId2: string;
