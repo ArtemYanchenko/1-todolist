@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useCallback} from 'react';
+import React, {ChangeEvent, FC, memo, useCallback} from 'react';
 import {Checkbox} from '@mui/material';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
@@ -6,32 +6,31 @@ import {Delete} from '@mui/icons-material';
 import {TaskType} from './TodoList';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
 
 export type PropsType = {
-    todoID:string
-    taskID:string
+    todoID: string
+    taskID: string
 }
 
-export const Task:FC<PropsType> = ({todoID,taskID}) => {
+export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
 
-    const task = useSelector<AppRootStateType,TaskType>(state => state.tasks[todoID].filter(el=>el.id === taskID)[0])
+    const task = useSelector<AppRootStateType, TaskType>(state => state.tasks[todoID].filter(el => el.id === taskID)[0])
 
     const dispatch = useDispatch()
 
 
-
-    const changeStatus = (e:ChangeEvent<HTMLInputElement>) => {
+    const changeStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(changeTaskStatusAC(todoID, taskID, e.currentTarget.checked))
-    }
+    },[todoID,taskID])
 
-    const changeTaskTitle = (newTitle: string) => {
+    const changeTaskTitle = useCallback((newTitle: string) => {
         dispatch(changeTaskTitleAC(todoID, taskID, newTitle))
-    }
+    },[todoID,taskID])
 
-    const removeTask = () => {
+    const removeTask = useCallback(() => {
         dispatch(removeTaskAC(todoID, taskID))
-    }
+    },[todoID,taskID])
 
     return (
         <div key={task.id} className={task.isDone ? 'is-done' : ''}>
@@ -47,6 +46,6 @@ export const Task:FC<PropsType> = ({todoID,taskID}) => {
             </IconButton>
         </div>
     );
-};
+});
 
 export default Task;

@@ -31,47 +31,41 @@ export const Todolist: FC<PropsType> = memo((props) => {
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
     const dispatch = useDispatch()
 
-    const addTask = (title:string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(props.todolistId, title))
-    }
-
-    const removeTodolist = () => {
-        props.removeTodolist(props.todolistId);
-    }
+    },[props.todolistId])
 
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.todolistId, props.changeTodolistTitle])
 
+    const removeTodolist = useCallback(() => {
+        props.removeTodolist(props.todolistId);
+    },[props.todolistId])
+
+
+
+
     const onAllClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'all'), [props.todolistId, props.changeFilter]);
     const onActiveClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'active'), [props.todolistId, props.changeFilter]);
     const onCompletedClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'completed'), [props.todolistId, props.changeFilter]);
 
-    // const changeTaskStatus = (taskID: string, checked: boolean) => {
-    //     props.changeTaskStatus(props.todolistId, taskID, checked);
-    // }
-    // const removeTask = (tasksID:string) => props.removeTask(props.todolistId, tasksID)
-
-    // const changeTaskTitle = (taskID:string,newValue: string) => {
-    //     props.changeTaskTitle(props.todolistId, taskID, newValue);
-    // }
-
-
-    let allTodolistTasks = tasks;
-
-    useMemo(() => {
+    function filteredTasks(): TaskType[] {
         if (props.filter === 'active') {
-            allTodolistTasks = allTodolistTasks.filter(t => t.isDone === false);
+            return tasks.filter(t => !t.isDone);
         }
         if (props.filter === 'completed') {
-            allTodolistTasks = allTodolistTasks.filter(t => t.isDone === true);
+            return tasks.filter(t => t.isDone);
         }
-        return allTodolistTasks
-    }, [])
+        return tasks
+    }
 
+
+    let allTodolistTasks = filteredTasks();
 
     return <div>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
+        <h3>
+            <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
