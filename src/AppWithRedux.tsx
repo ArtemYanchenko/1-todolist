@@ -30,24 +30,7 @@ export type TasksStateType = {
 export function AppWithRedux() {
 
     const todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists);
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
     const dispatch = useDispatch()
-
-    const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(addTaskAC(todolistId, title))
-    }, [dispatch])
-
-    const changeStatus = useCallback((todolistId: string, id: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(todolistId, id, isDone))
-    }, [dispatch])
-
-    const changeTaskTitle = useCallback((todolistId: string, id: string, newTitle: string) => {
-        dispatch(changeTaskTitleAC(todolistId, id, newTitle))
-    }, [dispatch])
-
-    const removeTask = useCallback((todolistId: string, id: string) => {
-        dispatch(removeTaskAC(todolistId, id))
-    }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
@@ -91,19 +74,13 @@ export function AppWithRedux() {
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
                                         key={tl.id}
-                                        id={tl.id}
+                                        todolistId={tl.id}
                                         title={tl.title}
-                                        tasks={tasks[tl.id]}
-                                        removeTask={removeTask}
                                         changeFilter={changeFilter}
-                                        addTask={addTask}
-                                        changeTaskStatus={changeStatus}
                                         filter={tl.filter}
                                         removeTodolist={removeTodolist}
-                                        changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}
                                     />
-
                                 </Paper>
                             </Grid>
                         })

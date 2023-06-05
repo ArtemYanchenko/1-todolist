@@ -7,7 +7,9 @@ import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import TaskWithRedux from './TaskWithRedux';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from './reducers/store';
+import {TasksStateType} from './AppWithRedux';
 
 
 export type TaskType = {
@@ -20,19 +22,19 @@ type PropsType = {
     todolistId: string
     title: string
     changeFilter: (todolistId: string, valueFilter: FilterValuesType) => void
-    addTask: (todolistId: string, title: string) => void
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (todolistId: string, newTitle: string) => void
     filter: FilterValuesType
 }
 
-export const Todolist:FC<PropsType> = memo((props) => {
+export const Todolist: FC<PropsType> = memo((props) => {
 
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskAC(todolistId, title))
-    },[props.todolistId,props.title])
+    }, [props.todolistId, props.title])
 
     const changeStatus = (todolistId: string, id: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(todolistId, id, isDone))
@@ -53,25 +55,23 @@ export const Todolist:FC<PropsType> = memo((props) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.todolistId, props.changeTodolistTitle])
 
-    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'),[props.todolistId,props.changeFilter]);
-    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'),[props.todolistId,props.changeFilter]);
-    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'),[props.todolistId,props.changeFilter]);
+    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'), [props.todolistId, props.changeFilter]);
+    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'), [props.todolistId, props.changeFilter]);
+    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'), [props.todolistId, props.changeFilter]);
 
-    const changeTaskStatus = (taskID: string, checked: boolean) => {
-        props.changeTaskStatus(props.todolistId, taskID, checked);
-    }
-    const removeTask = (tasksID:string) => props.removeTask(props.todolistId, tasksID)
+    // const changeTaskStatus = (taskID: string, checked: boolean) => {
+    //     props.changeTaskStatus(props.todolistId, taskID, checked);
+    // }
+    // const removeTask = (tasksID:string) => props.removeTask(props.todolistId, tasksID)
 
-    const changeTaskTitle = (taskID:string,newValue: string) => {
-        props.changeTaskTitle(props.todolistId, taskID, newValue);
-    }
-
-
+    // const changeTaskTitle = (taskID:string,newValue: string) => {
+    //     props.changeTaskTitle(props.todolistId, taskID, newValue);
+    // }
 
 
-    let allTodolistTasks = props.tasks;
+    let allTodolistTasks = tasks;
 
-    useMemo(()=>{
+    useMemo(() => {
         if (props.filter === 'active') {
             allTodolistTasks = allTodolistTasks.filter(t => t.isDone === false);
         }
@@ -79,7 +79,7 @@ export const Todolist:FC<PropsType> = memo((props) => {
             allTodolistTasks = allTodolistTasks.filter(t => t.isDone === true);
         }
         return allTodolistTasks
-    },[])
+    }, [])
 
 
     return <div>
@@ -91,10 +91,16 @@ export const Todolist:FC<PropsType> = memo((props) => {
         <AddItemForm addItem={addTask}/>
         <div>
             {
-                allTodolistTasks.map(t => <TaskWithRedux todoID={props.id} taskID={t.id} removeTask={removeTask} changeTaskTitle={changeTaskTitle} changeTaskStatus={changeTaskStatus}/>)
+                allTodolistTasks.map(t => <TaskWithRedux
+                    todoID={props.todolistId}
+                    taskID={t.id}
+                    removeTask={(taskId: string) => removeTask(props.todolistId, taskId)}
+                    changeTaskTitle={(taskId, newTitle) => changeTaskTitle(props.todolistId, taskId, newTitle)}
+                    changeTaskStatus={(taskId, isDone) => changeStatus(props.todolistId, taskId, isDone)}
+                />)
             }
         </div>
-        <div style={{paddingTop: "10px"}}>
+        <div style={{paddingTop: '10px'}}>
             <ButtonWithMemo
                 title={'All'}
                 variant={props.filter === 'all' ? 'outlined' : 'text'}
