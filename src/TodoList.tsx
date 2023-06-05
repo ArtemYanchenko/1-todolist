@@ -31,25 +31,14 @@ export const Todolist: FC<PropsType> = memo((props) => {
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
     const dispatch = useDispatch()
 
-    const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(addTaskAC(todolistId, title))
-    }, [props.todolistId, props.title])
-
-    const changeStatus = (todolistId: string, id: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(todolistId, id, isDone))
-    }
-
-    const changeTaskTitle = (todolistId: string, id: string, newTitle: string) => {
-        dispatch(changeTaskTitleAC(todolistId, id, newTitle))
-    }
-
-    const removeTask = (todolistId: string, id: string) => {
-        dispatch(removeTaskAC(todolistId, id))
+    const addTask = (title:string) => {
+        dispatch(addTaskAC(props.todolistId, title))
     }
 
     const removeTodolist = () => {
         props.removeTodolist(props.todolistId);
     }
+
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.todolistId, props.changeTodolistTitle])
@@ -87,15 +76,12 @@ export const Todolist: FC<PropsType> = memo((props) => {
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={(title)=>addTask(props.todolistId,title)}/>
+        <AddItemForm addItem={addTask}/>
         <div>
             {
                 allTodolistTasks.map(t => <TaskWithRedux
                     todoID={props.todolistId}
                     taskID={t.id}
-                    removeTask={(taskId: string) => removeTask(props.todolistId, taskId)}
-                    changeTaskTitle={(taskId, newTitle) => changeTaskTitle(props.todolistId, taskId, newTitle)}
-                    changeTaskStatus={(taskId, isDone) => changeStatus(props.todolistId, taskId, isDone)}
                 />)
             }
         </div>

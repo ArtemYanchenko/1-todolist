@@ -12,9 +12,9 @@ const meta: Meta<typeof Task> = {
     component: Task,
     tags: ['autodocs'],
     args: {
-        changeTaskTitle: action('title task did changed'),
-        changeTaskStatus: action('status task did changed'),
-        removeTask: action('tasks remove'),
+        // changeTaskTitle: action('title task did changed'),
+        // changeTaskStatus: action('status task did changed'),
+        // removeTask: action('tasks remove'),
         // task: {id: '111', isDone: false, title: 'JS'}
     }
 };
