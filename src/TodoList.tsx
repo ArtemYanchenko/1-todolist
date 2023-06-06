@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType, TodolistDomainType} from './AppWithRedux';
 import {TodolistType} from './api/todolists-api';
+import {changeFilterAC} from './reducers/todolistReducer';
 
 
 export type TaskType = {
@@ -20,7 +21,6 @@ export type TaskType = {
 
 type PropsType = {
     todolistId: string
-    changeFilter: (todolistId: string, valueFilter: FilterValuesType) => void
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (todolistId: string, newTitle: string) => void
     filter: FilterValuesType
@@ -44,12 +44,6 @@ export const Todolist: FC<PropsType> = memo((props) => {
         props.removeTodolist(props.todolistId);
     },[props.todolistId])
 
-
-
-
-    const onAllClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'all'), [props.todolistId, props.changeFilter]);
-    const onActiveClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'active'), [props.todolistId, props.changeFilter]);
-    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'completed'), [props.todolistId, props.changeFilter]);
 
     function filteredTasks(): TaskType[] {
         if (props.filter === 'active') {
@@ -84,19 +78,19 @@ export const Todolist: FC<PropsType> = memo((props) => {
             <ButtonWithMemo
                 title={'All'}
                 variant={props.filter === 'all' ? 'outlined' : 'text'}
-                onClick={onAllClickHandler}
+                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'all'))}
                 color={'inherit'}
             />
             <ButtonWithMemo
                 title={'Active'}
                 variant={props.filter === 'active' ? 'outlined' : 'text'}
-                onClick={onActiveClickHandler}
+                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'active'))}
                 color={'primary'}
             />
             <ButtonWithMemo
                 title={'Completed'}
                 variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                onClick={onCompletedClickHandler}
+                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'completed'))}
                 color={'secondary'}
             />
         </div>

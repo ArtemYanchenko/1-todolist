@@ -45,10 +45,6 @@ export function AppWithRedux() {
         dispatch(removeTodolistAC(todolistId))
     }, [dispatch])
 
-
-    const changeFilter = useCallback((todolistId: string, valueFilter: FilterValuesType) => {
-        dispatch(changeFilterAC(todolistId, valueFilter))
-    }, [dispatch])
     return (
         <div className="App">
             <AppBar position="static">
@@ -74,7 +70,6 @@ export function AppWithRedux() {
                                     <Todolist
                                         key={tl.id}
                                         todolistId={tl.id}
-                                        changeFilter={changeFilter}
                                         filter={tl.filter}
                                         removeTodolist={removeTodolist}
                                         changeTodolistTitle={changeTodolistTitle}
