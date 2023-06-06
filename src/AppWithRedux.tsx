@@ -35,16 +35,7 @@ export function AppWithRedux() {
         const action = addTodolistAC(title);
         dispatch(action);
     }, [dispatch])
-
-
-    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
-    }, [dispatch])
-
-    const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId))
-    }, [dispatch])
-
+    
     return (
         <div className="App">
             <AppBar position="static">
@@ -71,8 +62,6 @@ export function AppWithRedux() {
                                         key={tl.id}
                                         todolistId={tl.id}
                                         filter={tl.filter}
-                                        removeTodolist={removeTodolist}
-                                        changeTodolistTitle={changeTodolistTitle}
                                     />
                                 </Paper>
                             </Grid>

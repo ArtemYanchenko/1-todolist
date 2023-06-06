@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType, TodolistDomainType} from './AppWithRedux';
 import {TodolistType} from './api/todolists-api';
-import {changeFilterAC} from './reducers/todolistReducer';
+import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistReducer';
 
 
 export type TaskType = {
@@ -21,35 +21,34 @@ export type TaskType = {
 
 type PropsType = {
     todolistId: string
-    removeTodolist: (todolistId: string) => void
-    changeTodolistTitle: (todolistId: string, newTitle: string) => void
     filter: FilterValuesType
 }
 
-export const Todolist: FC<PropsType> = memo((props) => {
+export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
 
-    const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
-    const todolists = useSelector<AppRootStateType,TodolistType | undefined>(state=>state.todolists.find(el=>el.id === props.todolistId))
+    const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todolistId])
+    const todolists = useSelector<AppRootStateType,TodolistType | undefined>(state=>state.todolists.find(el=>el.id === todolistId))
     const dispatch = useDispatch()
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskAC(props.todolistId, title))
-    },[props.todolistId])
+        dispatch(addTaskAC(todolistId, title))
+    },[todolistId])
+
 
     const changeTodolistTitle = useCallback((title: string) => {
-        props.changeTodolistTitle(props.todolistId, title);
-    }, [props.todolistId, props.changeTodolistTitle])
+        dispatch(changeTodolistTitleAC(todolistId, title))
+    }, [dispatch])
 
     const removeTodolist = useCallback(() => {
-        props.removeTodolist(props.todolistId);
-    },[props.todolistId])
+        dispatch(removeTodolistAC(todolistId))
+    }, [dispatch])
 
 
     function filteredTasks(): TaskType[] {
-        if (props.filter === 'active') {
+        if (filter === 'active') {
             return tasks.filter(t => !t.isDone);
         }
-        if (props.filter === 'completed') {
+        if (filter === 'completed') {
             return tasks.filter(t => t.isDone);
         }
         return tasks
@@ -69,7 +68,7 @@ export const Todolist: FC<PropsType> = memo((props) => {
         <div>
             {
                 allTodolistTasks.map(t => <TaskWithRedux
-                    todoID={props.todolistId}
+                    todoID={todolistId}
                     taskID={t.id}
                 />)
             }
@@ -77,20 +76,20 @@ export const Todolist: FC<PropsType> = memo((props) => {
         <div style={{paddingTop: '10px'}}>
             <ButtonWithMemo
                 title={'All'}
-                variant={props.filter === 'all' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'all'))}
+                variant={filter === 'all' ? 'outlined' : 'text'}
+                onClick={()=>dispatch(changeFilterAC(todolistId, 'all'))}
                 color={'inherit'}
             />
             <ButtonWithMemo
                 title={'Active'}
-                variant={props.filter === 'active' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'active'))}
+                variant={filter === 'active' ? 'outlined' : 'text'}
+                onClick={()=>dispatch(changeFilterAC(todolistId, 'active'))}
                 color={'primary'}
             />
             <ButtonWithMemo
                 title={'Completed'}
-                variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(props.todolistId, 'completed'))}
+                variant={filter === 'completed' ? 'outlined' : 'text'}
+                onClick={()=>dispatch(changeFilterAC(todolistId, 'completed'))}
                 color={'secondary'}
             />
         </div>
