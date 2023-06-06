@@ -8,11 +8,11 @@ import {
     removeTodolistAC,
     todolistReducer
 } from './todolistReducer';
-import {FilterValuesType, TodolistType} from '../AppWithRedux';
+import {FilterValuesType, TodolistDomainType} from '../AppWithRedux';
 
 let todolistId1: string;
 let todolistId2: string;
-let startState: TodolistType[] = [];
+let startState: TodolistDomainType[] = [];
 
 beforeEach(() => {
     todolistId1 = v1();
