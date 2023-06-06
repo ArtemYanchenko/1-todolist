@@ -9,6 +9,7 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType} from './AppWithRedux';
+import {TodolistType} from './api/todolists-api';
 
 
 export type TaskType = {
@@ -29,6 +30,7 @@ type PropsType = {
 export const Todolist: FC<PropsType> = memo((props) => {
 
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
+    const todolists = useSelector<AppRootStateType,TodolistType>(state=>state.todolists.filter(el=>el.id === props.todolistId)[0])
     const dispatch = useDispatch()
 
     const addTask = useCallback((title: string) => {
@@ -65,7 +67,7 @@ export const Todolist: FC<PropsType> = memo((props) => {
 
     return <div>
         <h3>
-            <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
+            <EditableSpan value={todolists.title} onChange={changeTodolistTitle}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
