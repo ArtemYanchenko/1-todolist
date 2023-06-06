@@ -74,7 +74,6 @@ export function AppWithRedux() {
                                     <Todolist
                                         key={tl.id}
                                         todolistId={tl.id}
-                                        title={tl.title}
                                         changeFilter={changeFilter}
                                         filter={tl.filter}
                                         removeTodolist={removeTodolist}
