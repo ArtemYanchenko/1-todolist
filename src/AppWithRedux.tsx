@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {AddItemForm} from './AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
@@ -8,13 +8,15 @@ import {TaskType, Todolist} from './TodoList';
 import {
     addTodolistAC,
     changeFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, fetchTodolistsTC,
     removeTodolistAC,
 } from './reducers/todolistReducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './reducers/store';
+import {AppDispatch, AppRootStateType} from './reducers/store';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
 import {TodolistType} from './api/todolists-api';
+import {AnyAction} from 'redux';
+import {useAppDispatch} from './hooks/hooks';
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -29,13 +31,17 @@ export type TasksStateType = {
 export function AppWithRedux() {
 
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists);
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+
+    useEffect(()=>{
+        dispatch(fetchTodolistsTC());
+    },[])
 
     const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
     }, [dispatch])
-    
+
     return (
         <div className="App">
             <AppBar position="static">

@@ -39,7 +39,7 @@ type GetTaskResponseType = {
     error: string
 }
 
-export const TodolistsApi = {
+export const todolistsApi = {
     getTodolists() {
         return instance.get<TodolistType[]>('/todo-lists')
     },
