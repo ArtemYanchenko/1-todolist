@@ -5,17 +5,10 @@ import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {TaskType, Todolist} from './TodoList';
-import {
-    addTodolistAC,
-    changeFilterAC,
-    changeTodolistTitleAC, fetchTodolistsTC,
-    removeTodolistAC,
-} from './reducers/todolistReducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, AppRootStateType} from './reducers/store';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {addTodolistAC, fetchTodolistsTC,} from './reducers/todolistReducer';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from './reducers/store';
 import {TodolistType} from './api/todolists-api';
-import {AnyAction} from 'redux';
 import {useAppDispatch} from './hooks/hooks';
 
 
