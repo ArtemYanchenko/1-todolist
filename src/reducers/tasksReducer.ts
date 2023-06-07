@@ -1,15 +1,18 @@
 import {v1} from 'uuid';
 import {AddTodolistACType, RemoveTodolistACType, SetTodolists} from './todolistReducer';
 import {TasksStateType} from '../App';
+import {Dispatch} from 'redux';
+import {TaskType, todolistsApi} from '../api/todolists-api';
 
 export type TasksActionsType =
-    AddTaskACType
+    | AddTaskACType
     | RemoveTaskACType
     | ChangeTaskStatusACType
     | ChangeTaskTitleACType
     | AddTodolistACType
     | RemoveTodolistACType
     | SetTodolists
+    | SetTasksACType
 
 
 const initialState: TasksStateType = {}
@@ -22,7 +25,18 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
                 [action.payload.todolistId]: [{
                     id: v1(),
                     title: action.payload.title,
-                    isDone: false
+
+                    description: '',
+                    completed: false,
+                    status: 0,
+                    priority: 0,
+                    startDate: '',
+                    deadline: '',
+                    todoListId: action.payload.todolistId,
+                    order: 0,
+                    addedDate: ''
+
+
                 }, ...state[action.payload.todolistId]]
             }
         }
@@ -60,10 +74,18 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
         }
         case 'SET-TODOLISTS': {
             const copyState = {...state}
-            action.payload.todolists.forEach(el=>{
+            action.payload.todolists.forEach(el => {
                 copyState[el.id] = []
             })
             return copyState
+        }
+        case 'SET-TASKS': {
+            // const copyState = {...state}
+            // copyState[action.payload.todolistId] = action.payload.tasks
+            // return copyState
+
+            return {...state,[action.payload.todolistId]:action.payload.tasks}
+
         }
         default:
             return state
@@ -115,4 +137,22 @@ export const changeTaskTitleAC = (todolistId: string, id: string, newTitle: stri
             newTitle
         }
     } as const
+}
+
+
+export type SetTasksACType = ReturnType<typeof setTasksAC>
+export const setTasksAC = (todolistId: string, tasks: TaskType[]) => {
+    return {
+        type: 'SET-TASKS',
+        payload: {
+            todolistId,
+            tasks
+        }
+    } as const
+}
+
+
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+    todolistsApi.getTasks(todolistId)
+        .then(res =>dispatch(setTasksAC(todolistId,res.data.items)))
 }

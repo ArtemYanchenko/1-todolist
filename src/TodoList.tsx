@@ -1,24 +1,19 @@
-import React, {FC, memo, useCallback} from 'react';
+import React, {FC, memo, useCallback, useEffect} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import TaskWithRedux from './Task';
-import {addTaskAC} from './reducers/tasksReducer';
-import {useDispatch, useSelector} from 'react-redux';
+import {addTaskAC, fetchTasksTC} from './reducers/tasksReducer';
+import {useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType} from './App';
-import {TodolistType} from './api/todolists-api';
+import {TaskType, TodolistType} from './api/todolists-api';
 import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistReducer';
 import {useAppDispatch} from './hooks/hooks';
 
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 type PropsType = {
     todolistId: string
@@ -31,9 +26,14 @@ export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
     const todolists = useSelector<AppRootStateType,TodolistType | undefined>(state=>state.todolists.find(el=>el.id === todolistId))
     const dispatch = useAppDispatch()
 
+    useEffect(()=>{
+        dispatch(fetchTasksTC(todolistId));
+    },[todolistId])
+
     const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(todolistId, title))
     },[todolistId])
+
 
 
     const changeTodolistTitle = useCallback((title: string) => {
@@ -47,10 +47,10 @@ export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
 
     function filteredTasks(): TaskType[] {
         if (filter === 'active') {
-            return tasks.filter(t => !t.isDone);
+            return tasks.filter(t => !t.completed);
         }
         if (filter === 'completed') {
-            return tasks.filter(t => t.isDone);
+            return tasks.filter(t => t.completed);
         }
         return tasks
     }

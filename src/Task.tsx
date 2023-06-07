@@ -3,10 +3,9 @@ import {Checkbox} from '@mui/material';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
-import {TaskType} from './TodoList';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './reducers/store';
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {TaskType} from './api/todolists-api';
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
 export type PropsType = {
     todoID: string
@@ -15,10 +14,8 @@ export type PropsType = {
 
 export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
 
-    const task = useSelector<AppRootStateType, TaskType>(state => state.tasks[todoID].filter(el => el.id === taskID)[0])
-
-    const dispatch = useDispatch()
-
+    const task = useAppSelector<TaskType>(state => state.tasks[todoID].filter(el => el.id === taskID)[0])
+    const dispatch = useAppDispatch()
 
     const changeStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(changeTaskStatusAC(todoID, taskID, e.currentTarget.checked))
@@ -33,9 +30,9 @@ export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
     },[todoID,taskID])
 
     return (
-        <div key={task.id} className={task.isDone ? 'is-done' : ''}>
+        <div key={task.id} className={task.completed ? 'is-done' : ''}>
             <Checkbox
-                checked={task.isDone}
+                checked={task.completed}
                 color="primary"
                 onChange={changeStatus}
             />

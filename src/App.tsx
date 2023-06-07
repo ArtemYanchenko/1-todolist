@@ -4,12 +4,10 @@ import {AddItemForm} from './AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import {Menu} from '@mui/icons-material';
-import {TaskType, Todolist} from './TodoList';
+import {Todolist} from './TodoList';
 import {addTodolistAC, fetchTodolistsTC,} from './reducers/todolistReducer';
-import {useSelector} from 'react-redux';
-import {AppRootStateType} from './reducers/store';
-import {TodolistType} from './api/todolists-api';
-import {useAppDispatch} from './hooks/hooks';
+import {TaskType, TodolistType} from './api/todolists-api';
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -23,7 +21,7 @@ export type TasksStateType = {
 
 export function App() {
 
-    const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists);
+    const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists);
     const dispatch = useAppDispatch()
 
     useEffect(()=>{
