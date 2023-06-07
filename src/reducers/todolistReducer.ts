@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {FilterValuesType, TodolistDomainType} from '../AppWithRedux';
+import {FilterValuesType, TodolistDomainType} from '../App';
 import {todolistsApi, TodolistType} from '../api/todolists-api';
 import {Dispatch} from 'redux';
 

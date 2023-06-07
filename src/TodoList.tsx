@@ -4,13 +4,14 @@ import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
-import TaskWithRedux from './TaskWithRedux';
+import TaskWithRedux from './Task';
 import {addTaskAC} from './reducers/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
-import {FilterValuesType} from './AppWithRedux';
+import {FilterValuesType} from './App';
 import {TodolistType} from './api/todolists-api';
 import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistReducer';
+import {useAppDispatch} from './hooks/hooks';
 
 
 export type TaskType = {
@@ -28,7 +29,7 @@ export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
 
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todolistId])
     const todolists = useSelector<AppRootStateType,TodolistType | undefined>(state=>state.todolists.find(el=>el.id === todolistId))
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(todolistId, title))

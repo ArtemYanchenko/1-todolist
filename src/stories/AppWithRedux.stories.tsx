@@ -1,17 +1,11 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {action} from '@storybook/addon-actions'
-import {AddItemForm} from '../AddItemForm';
-import {IconButton, TextField} from '@mui/material';
-import {AddBox} from '@mui/icons-material';
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {AppWithRedux} from '../AppWithRedux';
-import {Provider} from 'react-redux';
-import {store} from '../reducers/store';
+import React from 'react';
+import {App} from '../App';
 import reduxStoreProviderDecorator from '../reducers/decorator/reduxStoreProviderDecorator';
 
-const meta: Meta<typeof AppWithRedux> = {
+const meta: Meta<typeof App> = {
     title: 'TODOLISTS/AppWithRedux',
-    component: AppWithRedux,
+    component: App,
     tags: ['autodocs'],
     argTypes: {},
     args: {},
@@ -19,8 +13,8 @@ const meta: Meta<typeof AppWithRedux> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof AppWithRedux>;
+type Story = StoryObj<typeof App>;
 
 export const AppWithReduxStory: Story = {
-    render: () => <AppWithRedux/>
+    render: () => <App/>
 };

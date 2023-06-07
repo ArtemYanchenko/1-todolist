@@ -9,7 +9,7 @@ import {
     setTodolistsAC,
     todolistReducer
 } from './todolistReducer';
-import {FilterValuesType, TodolistDomainType} from '../AppWithRedux';
+import {FilterValuesType, TodolistDomainType} from '../App';
 
 let todolistId1: string;
 let todolistId2: string;
