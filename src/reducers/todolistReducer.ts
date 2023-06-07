@@ -4,7 +4,7 @@ import {todolistsApi, TodolistType} from '../api/todolists-api';
 import {Dispatch} from 'redux';
 
 export type TodolistsActionsType =
-    AddTodolistACType
+    | AddTodolistACType
     | ChangeFilterACType
     | ChangeTodolistTitleACType
     | RemoveTodolistACType

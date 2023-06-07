@@ -1,14 +1,14 @@
-import React, {FC, memo, useCallback, useMemo} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import TaskWithRedux from './TaskWithRedux';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {addTaskAC} from './reducers/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
-import {FilterValuesType, TodolistDomainType} from './AppWithRedux';
+import {FilterValuesType} from './AppWithRedux';
 import {TodolistType} from './api/todolists-api';
 import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistReducer';
 

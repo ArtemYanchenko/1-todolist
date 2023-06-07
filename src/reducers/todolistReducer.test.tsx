@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {v1} from 'uuid';
 import {
     addTodolistAC,
     changeFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC, setTodolistsAC,
+    removeTodolistAC,
+    setTodolistsAC,
     todolistReducer
 } from './todolistReducer';
 import {FilterValuesType, TodolistDomainType} from '../AppWithRedux';
