@@ -103,5 +103,9 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
     todolistsApi.deleteTodo(todolistId)
         .then((res) => dispatch(removeTodolistAC(todolistId)))
+}
 
+export const changeTodolistTitleTC = (todolistId:string,newTitle:string) => (dispatch:Dispatch) => {
+    todolistsApi.updateTitleTodo(todolistId,newTitle)
+        .then(()=>dispatch(changeTodolistTitleAC(todolistId,newTitle)))
 }
