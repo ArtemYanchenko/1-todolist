@@ -15,14 +15,8 @@ const initialState: TodolistDomainType[] = [];
 export const todolistReducer = (state = initialState, action: TodolistsActionsType): TodolistDomainType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST': {
-            return [
-                {
-                    id: action.payload.todolistId,
-                    title: action.payload.title,
-                    order: 0,
-                    addedDate: '',
-                    filter: 'all'
-                }, ...state]
+            const newTodo:TodolistDomainType = {...action.payload.todolist,filter:'all'}
+            return [newTodo, ...state]
         }
         case 'CHANGE-FILTER-TODOLIST': {
             return state.map(el => el.id === action.payload.todolistId ? {
@@ -38,7 +32,6 @@ export const todolistReducer = (state = initialState, action: TodolistsActionsTy
         }
         case 'SET-TODOLISTS': {
             return action.payload.todolists.map(el => ({...el, filter: 'all'}))
-
         }
         default:
             return state
@@ -46,12 +39,11 @@ export const todolistReducer = (state = initialState, action: TodolistsActionsTy
 }
 
 export type AddTodolistACType = ReturnType<typeof addTodolistAC>
-export const addTodolistAC = (title: string) => {
+export const addTodolistAC = (todolist: TodolistType) => {
     return {
         type: 'ADD-TODOLIST',
         payload: {
-            todolistId: v1(),
-            title
+            todolist
         }
     } as const
 }
@@ -103,9 +95,13 @@ export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
         .then(res => dispatch(setTodolistsAC(res.data)))
 }
 
+export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+    todolistsApi.createTodolist(title)
+        .then((res)=>dispatch(addTodolistAC(res.data.data.item)))
+}
 
-export const removeTodolistTC = (todolistId:string) => (dispatch:Dispatch) => {
+export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
     todolistsApi.deleteTodo(todolistId)
-        .then((res)=>dispatch(removeTodolistAC(todolistId)))
+        .then((res) => dispatch(removeTodolistAC(todolistId)))
 
 }

@@ -5,7 +5,7 @@ import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {Todolist} from './TodoList';
-import {addTodolistAC, fetchTodolistsTC,} from './reducers/todolistReducer';
+import {addTodolistAC, addTodolistTC, fetchTodolistsTC,} from './reducers/todolistReducer';
 import {TaskType, TodolistType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -29,9 +29,8 @@ export function App() {
     },[])
 
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title);
-        dispatch(action);
-    }, [dispatch])
+        dispatch(addTodolistTC(title))
+    }, [])
 
     return (
         <div className="App">

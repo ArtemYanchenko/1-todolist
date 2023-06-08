@@ -18,11 +18,11 @@ export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
     const dispatch = useAppDispatch()
 
     const changeStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeTaskStatusAC(todoID, taskID, e.currentTarget.checked))
+        // dispatch(changeTaskStatusAC(todoID, taskID, e.currentTarget.checked))
     },[todoID,taskID])
 
     const changeTaskTitle = useCallback((newTitle: string) => {
-        dispatch(changeTaskTitleAC(todoID, taskID, newTitle))
+        // dispatch(changeTaskTitleAC(todoID, taskID, newTitle))
     },[todoID,taskID])
 
     const removeTask = useCallback(() => {
