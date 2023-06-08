@@ -98,9 +98,14 @@ export const setTodolistsAC = (todolists: TodolistType[]) => {
     } as const
 }
 
-export const fetchTodolistsTC = () => {
-    return (dispatch: Dispatch) => {
-        todolistsApi.getTodolists()
-            .then(res => dispatch(setTodolistsAC(res.data)))
-    }
+export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+    todolistsApi.getTodolists()
+        .then(res => dispatch(setTodolistsAC(res.data)))
+}
+
+
+export const removeTodolistTC = (todolistId:string) => (dispatch:Dispatch) => {
+    todolistsApi.deleteTodo(todolistId)
+        .then((res)=>dispatch(removeTodolistAC(todolistId)))
+
 }

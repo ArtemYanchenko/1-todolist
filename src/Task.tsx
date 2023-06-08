@@ -3,7 +3,7 @@ import {Checkbox} from '@mui/material';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasksReducer';
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, removeTaskTC} from './reducers/tasksReducer';
 import {TaskType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -26,7 +26,7 @@ export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
     },[todoID,taskID])
 
     const removeTask = useCallback(() => {
-        dispatch(removeTaskAC(todoID, taskID))
+        dispatch(removeTaskTC(todoID,taskID))
     },[todoID,taskID])
 
     return (

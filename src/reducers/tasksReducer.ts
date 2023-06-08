@@ -2,7 +2,7 @@ import {v1} from 'uuid';
 import {AddTodolistACType, RemoveTodolistACType, SetTodolists} from './todolistReducer';
 import {TasksStateType} from '../App';
 import {Dispatch} from 'redux';
-import {TaskType, todolistsApi} from '../api/todolists-api';
+import {TaskType, todolistsApi, TodolistType} from '../api/todolists-api';
 
 export type TasksActionsType =
     | AddTaskACType
@@ -80,10 +80,6 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
             return copyState
         }
         case 'SET-TASKS': {
-            // const copyState = {...state}
-            // copyState[action.payload.todolistId] = action.payload.tasks
-            // return copyState
-
             return {...state,[action.payload.todolistId]:action.payload.tasks}
 
         }
@@ -152,7 +148,13 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) => {
 }
 
 
+
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     todolistsApi.getTasks(todolistId)
         .then(res =>dispatch(setTasksAC(todolistId,res.data.items)))
+}
+
+export const removeTaskTC = (todolistId:string,taskId:string) => (dispatch:Dispatch) => {
+    todolistsApi.deleteTask(todolistId,taskId)
+        .then(res=>dispatch(removeTaskAC(todolistId,taskId)))
 }

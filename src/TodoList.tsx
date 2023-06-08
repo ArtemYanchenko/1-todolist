@@ -10,9 +10,8 @@ import {useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType} from './App';
 import {TaskType, TodolistType} from './api/todolists-api';
-import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistReducer';
+import {changeFilterAC, changeTodolistTitleAC, removeTodolistAC, removeTodolistTC} from './reducers/todolistReducer';
 import {useAppDispatch} from './hooks/hooks';
-
 
 
 type PropsType = {
@@ -20,28 +19,26 @@ type PropsType = {
     filter: FilterValuesType
 }
 
-export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
-
+export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todolistId])
-    const todolists = useSelector<AppRootStateType,TodolistType | undefined>(state=>state.todolists.find(el=>el.id === todolistId))
+    const todolists = useSelector<AppRootStateType, TodolistType | undefined>(state => state.todolists.find(el => el.id === todolistId))
     const dispatch = useAppDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchTasksTC(todolistId));
-    },[todolistId])
+    }, [])
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskAC(todolistId, title))
-    },[todolistId])
-
+        // dispatch(addTaskAC(todolistId, title))
+    }, [dispatch])
 
 
     const changeTodolistTitle = useCallback((title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
+        // dispatch(changeTodolistTitleAC(todolistId, title))
     }, [dispatch])
 
     const removeTodolist = useCallback(() => {
-        dispatch(removeTodolistAC(todolistId))
+        dispatch(removeTodolistTC(todolistId))
     }, [dispatch])
 
 
@@ -78,19 +75,19 @@ export const Todolist: FC<PropsType> = memo(({todolistId,filter}) => {
             <ButtonWithMemo
                 title={'All'}
                 variant={filter === 'all' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(todolistId, 'all'))}
+                onClick={() => dispatch(changeFilterAC(todolistId, 'all'))}
                 color={'inherit'}
             />
             <ButtonWithMemo
                 title={'Active'}
                 variant={filter === 'active' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(todolistId, 'active'))}
+                onClick={() => dispatch(changeFilterAC(todolistId, 'active'))}
                 color={'primary'}
             />
             <ButtonWithMemo
                 title={'Completed'}
                 variant={filter === 'completed' ? 'outlined' : 'text'}
-                onClick={()=>dispatch(changeFilterAC(todolistId, 'completed'))}
+                onClick={() => dispatch(changeFilterAC(todolistId, 'completed'))}
                 color={'secondary'}
             />
         </div>
