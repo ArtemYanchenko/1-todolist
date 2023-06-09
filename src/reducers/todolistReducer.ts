@@ -1,4 +1,3 @@
-import {v1} from 'uuid';
 import {FilterValuesType, TodolistDomainType} from '../App';
 import {todolistsAPI, TodolistType} from '../api/api';
 import {Dispatch} from 'redux';

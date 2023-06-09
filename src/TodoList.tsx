@@ -9,7 +9,7 @@ import {addTaskTC, getTasksTC} from './reducers/tasksReducer';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType} from './App';
-import {TaskType, TodolistType} from './api/api';
+import {TaskStatuses, TaskType, TodolistType} from './api/api';
 import {changeFilterAC, changeTodolistTitleTC, removeTodolistTC} from './reducers/todolistReducer';
 import {useAppDispatch} from './hooks/hooks';
 
@@ -44,10 +44,10 @@ export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
 
     function filteredTasks(): TaskType[] {
         if (filter === 'active') {
-            return tasks.filter(t => !t.completed);
+            return tasks.filter(t => t.status === TaskStatuses.New);
         }
         if (filter === 'completed') {
-            return tasks.filter(t => t.completed);
+            return tasks.filter(t => t.status === TaskStatuses.Completed);
         }
         return tasks
     }
