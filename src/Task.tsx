@@ -12,6 +12,10 @@ export type PropsType = {
     taskID: string
 }
 
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
+
 export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
 
     const task = useAppSelector<TaskType>(state => state.tasks[todoID].filter(el => el.id === taskID)[0])

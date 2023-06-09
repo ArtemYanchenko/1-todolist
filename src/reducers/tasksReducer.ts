@@ -1,8 +1,8 @@
-import {TasksStateType} from '../App';
 import {Dispatch} from 'redux';
 import {TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType} from '../api/api';
 import {AppRootStateType} from './store';
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from './todolistReducer';
+import {TasksStateType} from '../Task';
 
 const initialState: TasksStateType = {}
 
@@ -89,15 +89,15 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) =>
 
 
 //thunks
-export const getTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const getTasksTC = (todolistId: string) => (dispatch: Dispatch<TasksActionsType>) => {
     tasksAPI.getTasks(todolistId)
         .then(res => dispatch(setTasksAC(todolistId, res.data.items)))
 }
-export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<TasksActionsType>) => {
     tasksAPI.addTask(todolistId, title)
         .then((res) => dispatch(addTaskAC(res.data.data.item)))
 }
-export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch<TasksActionsType>, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].filter(el => el.id === taskId)[0]
     const apiModel: UpdateTaskModelApiType = {
         priority: task.priority,
@@ -111,7 +111,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTa
     tasksAPI.updateTask(todolistId, taskId, {...apiModel})
         .then((res) => dispatch(updateTaskAC(todolistId, taskId, {...model})))
 }
-export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TasksActionsType>) => {
     tasksAPI.removeTask(todolistId, taskId)
         .then(res => dispatch(removeTaskAC(todolistId, taskId)))
 }
