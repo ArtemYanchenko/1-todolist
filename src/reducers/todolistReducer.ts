@@ -90,22 +90,23 @@ export const setTodolistsAC = (todolists: TodolistType[]) => {
     } as const
 }
 
-export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+export const getTodolistsTC = () => (dispatch: Dispatch) => {
     todolistsApi.getTodolists()
         .then(res => dispatch(setTodolistsAC(res.data)))
 }
 
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
-    todolistsApi.createTodolist(title)
+    todolistsApi.addTodolist(title)
         .then((res)=>dispatch(addTodolistAC(res.data.data.item)))
 }
 
+export const changeTodolistTitleTC = (todolistId:string,newTitle:string) => (dispatch:Dispatch) => {
+    todolistsApi.changeTodolistTitle(todolistId,newTitle)
+        .then(()=>dispatch(changeTodolistTitleAC(todolistId,newTitle)))
+}
+
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
-    todolistsApi.deleteTodo(todolistId)
+    todolistsApi.removeTodolist(todolistId)
         .then((res) => dispatch(removeTodolistAC(todolistId)))
 }
 
-export const changeTodolistTitleTC = (todolistId:string,newTitle:string) => (dispatch:Dispatch) => {
-    todolistsApi.updateTitleTodo(todolistId,newTitle)
-        .then(()=>dispatch(changeTodolistTitleAC(todolistId,newTitle)))
-}

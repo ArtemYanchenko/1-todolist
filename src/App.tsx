@@ -11,7 +11,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import {Menu} from '@mui/icons-material';
 import {Todolist} from './TodoList';
-import {addTodolistTC, fetchTodolistsTC,} from './reducers/todolistReducer';
+import {addTodolistTC, getTodolistsTC,} from './reducers/todolistReducer';
 import {TaskType, TodolistType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -31,7 +31,7 @@ export function App() {
     const dispatch = useAppDispatch()
 
     useEffect(()=>{
-        dispatch(fetchTodolistsTC());
+        dispatch(getTodolistsTC());
     },[])
 
     const addTodolist = useCallback((title: string) => {
