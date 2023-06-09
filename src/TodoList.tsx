@@ -9,7 +9,7 @@ import {addTaskTC, getTasksTC} from './reducers/tasksReducer';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from './reducers/store';
 import {FilterValuesType} from './App';
-import {TaskType, TodolistType} from './api/todolists-api';
+import {TaskType, TodolistType} from './api/api';
 import {changeFilterAC, changeTodolistTitleTC, removeTodolistTC} from './reducers/todolistReducer';
 import {useAppDispatch} from './hooks/hooks';
 

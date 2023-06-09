@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import {Menu} from '@mui/icons-material';
 import {Todolist} from './TodoList';
 import {addTodolistTC, getTodolistsTC,} from './reducers/todolistReducer';
-import {TaskType, TodolistType} from './api/todolists-api';
+import {TaskType, TodolistType} from './api/api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
 

@@ -3,8 +3,8 @@ import {Checkbox} from '@mui/material';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
-import {changeTaskTitleTC, removeTaskTC} from './reducers/tasksReducer';
-import {TaskType} from './api/todolists-api';
+import {changeTaskCompletedTC, changeTaskTitleTC, removeTaskTC} from './reducers/tasksReducer';
+import {TaskType} from './api/api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
 export type PropsType = {
@@ -18,7 +18,7 @@ export const Task: FC<PropsType> = memo(({todoID, taskID}) => {
     const dispatch = useAppDispatch()
 
     const changeStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        // dispatch(changeTaskStatusAC(todoID, taskID, e.currentTarget.checked))
+        dispatch(changeTaskCompletedTC(todoID, taskID, e.currentTarget.checked))
     },[todoID,taskID])
 
     const changeTaskTitle = useCallback((newTitle: string) => {

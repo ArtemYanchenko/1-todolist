@@ -5,6 +5,12 @@ const instance = axios.create({
     withCredentials: true
 })
 
+
+enum TaskStatuses {
+    New = 0
+
+}
+
 export type TaskType = {
     description: string
     title: string
@@ -49,7 +55,7 @@ export type UpdateTaskModel = {
     title: string
 }
 
-export const todolistsApi = {
+export const todolistsAPI = {
     getTodolists() {
         return instance.get<TodolistType[]>('/todo-lists')
     },
@@ -61,7 +67,10 @@ export const todolistsApi = {
     },
     removeTodolist(id: string) {
         return instance.delete<ResponseType>(`/todo-lists/${id}`)
-    },
+    }
+}
+
+export const tasksAPI = {
     getTasks(id: string) {
         return instance.get<GetTaskResponseType>(`/todo-lists/${id}/tasks`)
     },
