@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {tasksAPI, todolistsAPI} from '../api/api';
+import {tasksAPI, todolistsAPI, UpdateTaskModelApiType} from '../api/api';
 
 export default {
     title: 'API'
@@ -63,15 +63,7 @@ export const CreateTask = () => {
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        tasksAPI.updateTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc', {
-            deadline: '',
-            description: '',
-            completed: true,
-            priority: 1,
-            startDate: '',
-            status: 0,
-            title: '2H12ee12e12e12e12ELLOWORqweLD'
-        })
+        tasksAPI.updateTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc', {title:'hello'})
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
