@@ -56,7 +56,7 @@ export const GetTasks = () => {
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsApi.createTask('481129f4-78c3-49e8-8128-ec09b3ab674c',
+        todolistsApi.addTask('481129f4-78c3-49e8-8128-ec09b3ab674c',
             'newTitle')
     }, [])
     return <div>{JSON.stringify(state)}</div>
@@ -65,7 +65,15 @@ export const CreateTask = () => {
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsApi.updateTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc')
+        todolistsApi.updateTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc', {
+            deadline: '',
+            description: '',
+            completed: true,
+            priority: 1,
+            startDate: '',
+            status: 0,
+            title: '2H12ee12e12e12e12ELLOWORqweLD'
+        })
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
@@ -73,7 +81,7 @@ export const UpdateTask = () => {
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsApi.deleteTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc')
+        todolistsApi.removeTask('d735fa6e-4157-4c05-8e40-369d64b486cb', '97dde830-2252-4ebb-a7e1-a3af15a26ebc')
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
