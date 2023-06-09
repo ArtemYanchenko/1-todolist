@@ -1,6 +1,6 @@
-import {FilterValuesType, TodolistDomainType} from '../App';
-import {todolistsAPI, TodolistType} from '../api/api';
+import {todolistsAPI, TodolistType} from '../dal/api';
 import {Dispatch} from 'redux';
+import {FilterValuesType, TodolistDomainType} from '../features/TodolistList/TodolistsList';
 
 
 const initialState: TodolistDomainType[] = [];

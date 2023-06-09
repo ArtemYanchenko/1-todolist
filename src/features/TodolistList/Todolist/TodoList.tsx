@@ -1,18 +1,17 @@
 import React, {FC, memo, useCallback, useEffect} from 'react';
-import {AddItemForm} from './AddItemForm';
-import {EditableSpan} from './EditableSpan';
+import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
-import TaskWithRedux from './Task';
-import {addTaskTC, getTasksTC} from './reducers/tasksReducer';
+import TaskWithRedux from './Task/Task';
+import {addTaskTC, getTasksTC} from '../../../bll/tasksReducer';
 import {useSelector} from 'react-redux';
-import {AppRootStateType} from './reducers/store';
-import {TaskStatuses, TaskType, TodolistType} from './api/api';
-import {changeFilterAC, changeTodolistTitleTC, removeTodolistTC} from './reducers/todolistReducer';
-import {useAppDispatch} from './hooks/hooks';
-import {FilterValuesType} from './features/TodolistsList';
-
+import {AppRootStateType} from '../../../bll/store';
+import {TaskStatuses, TaskType, TodolistType} from '../../../dal/api';
+import {changeFilterAC, changeTodolistTitleTC, removeTodolistTC} from '../../../bll/todolistReducer';
+import {useAppDispatch} from '../../../hooks/hooks';
+import {FilterValuesType} from '../TodolistsList';
 
 type PropsType = {
     todolistId: string
@@ -42,7 +41,7 @@ export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
     }, [dispatch])
 
 
-    const filteredTasks = useCallback((): TaskType[] => {
+    const filteredTasks = (): TaskType[] => {
         if (filter === 'active') {
             return tasks.filter(t => t.status === TaskStatuses.New);
         }
@@ -50,7 +49,7 @@ export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
             return tasks.filter(t => t.status === TaskStatuses.Completed);
         }
         return tasks
-    },[filter]);
+    };
 
 
     let allTodolistTasks = filteredTasks();

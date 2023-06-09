@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
 import Grid from '@mui/material/Grid';
-import {AddItemForm} from '../AddItemForm';
+import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import Paper from '@mui/material/Paper';
-import {Todolist} from '../TodoList';
-import {addTodolistTC, getTodolistsTC} from '../reducers/todolistReducer';
-import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {Todolist} from './Todolist/TodoList';
+import {addTodolistTC, getTodolistsTC} from '../../bll/todolistReducer';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import Container from '@mui/material/Container';
-import {TodolistType} from '../api/api';
+import {TodolistType} from '../../dal/api';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {

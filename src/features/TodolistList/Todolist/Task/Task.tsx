@@ -1,11 +1,11 @@
 import React, {ChangeEvent, FC, memo, useCallback} from 'react';
 import {Checkbox} from '@mui/material';
-import {EditableSpan} from './EditableSpan';
+import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from '@mui/icons-material';
-import {removeTaskTC, updateTaskTC} from './reducers/tasksReducer';
-import {TaskStatuses, TaskType} from './api/api';
-import {useAppDispatch, useAppSelector} from './hooks/hooks';
+import {removeTaskTC, updateTaskTC} from '../../../../bll/tasksReducer';
+import {TaskStatuses, TaskType} from '../../../../dal/api';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 
 export type PropsType = {
     todoID: string

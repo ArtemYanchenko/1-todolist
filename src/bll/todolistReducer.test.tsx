@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {v1} from 'uuid';
 import {
     addTodolistAC,
@@ -9,7 +7,7 @@ import {
     setTodolistsAC,
     todolistReducer
 } from './todolistReducer';
-import {FilterValuesType, TodolistDomainType} from '../App';
+import {FilterValuesType, TodolistDomainType} from '../features/TodolistList/TodolistsList';
 
 let todolistId1: string;
 let todolistId2: string;
