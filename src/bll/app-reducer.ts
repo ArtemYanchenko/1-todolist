@@ -8,7 +8,9 @@ export type AppActionType = {
 }
 
 export const appReducer = (state = initialState,action:AppActionType) => {
-    switch () {
+    switch (action.type) {
 
     }
 }
+
+
