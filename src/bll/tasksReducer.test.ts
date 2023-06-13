@@ -90,10 +90,10 @@ test('correct task should be added to correct array', () => {
     const action = addTaskAC(task);
     const endState = tasksReducer(startState, action)
 
-    expect(endState['todolistId1'].length).toBe(3);
-    expect(endState['todolistId2'].length).toBe(4);
+    expect(endState['todolistId1'].length).toBe(2);
+    expect(endState['todolistId2'].length).toBe(3);
     expect(endState['todolistId2'][0].id).toBeDefined();
-    expect(endState['todolistId2'][0].title).toBe('juce');
+    expect(endState['todolistId2'][0].title).toBe('juice');
 })
 
 
@@ -116,8 +116,8 @@ test('status of specified task should be changed', () => {
 
     expect(endState['todolistId2'][1].id).toBe('2');
     expect(endState['todolistId2'][1].status).toBe(2);
-    expect(endState['todolistId1'].length).toBe(3);
-    expect(endState['todolistId2'].length).toBe(3);
+    expect(endState['todolistId1'].length).toBe(2);
+    expect(endState['todolistId2'].length).toBe(2);
 });
 
 
@@ -140,8 +140,8 @@ test('task  title should be changed', () => {
 
     expect(endState['todolistId2'][1].id).toBe('2');
     expect(endState['todolistId2'][1].title).toBe('juiceNEW');
-    expect(endState['todolistId1'].length).toBe(3);
-    expect(endState['todolistId2'].length).toBe(3);
+    expect(endState['todolistId1'].length).toBe(2);
+    expect(endState['todolistId2'].length).toBe(2);
 });
 
 

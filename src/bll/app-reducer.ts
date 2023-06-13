@@ -12,6 +12,9 @@ export const appReducer = (state = initialState,action:AppActionType) => {
         case 'TOGGLE-LOADING': {
            return {...state,isLoading:action.value}
         }
+        default:{
+            return state
+        }
     }
 }
 
