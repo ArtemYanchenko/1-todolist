@@ -2,7 +2,7 @@ import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'r
 import {tasksReducer} from './tasksReducer';
 import {todolistReducer} from './todolistReducer';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {appReducer} from './app-reducer';
+import {appReducer} from '../app/app-reducer';
 
 const rootReducer = combineReducers({
     app:appReducer,
