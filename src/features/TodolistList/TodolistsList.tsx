@@ -7,6 +7,7 @@ import {addTodolistTC, getTodolistsTC} from '../../bll/todolistReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import Container from '@mui/material/Container';
 import {TodolistType} from '../../dal/api';
+import {CustomizedSnackbars} from '../../components/SnackBar/SnackBar';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
@@ -44,7 +45,9 @@ export const TodolistsList = () => {
                         </Grid>
                     })
                 }
+
             </Grid>
+
         </Container>
     );
 };

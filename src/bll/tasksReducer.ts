@@ -3,6 +3,7 @@ import {TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType
 import {AppRootStateType} from './store';
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from './todolistReducer';
 import {TasksStateType} from '../features/TodolistList/Todolist/Task/Task';
+import {setStatusAC, SetStatusACType} from '../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -91,11 +92,17 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) =>
 //thunks
 export const getTasksTC = (todolistId: string) => (dispatch: Dispatch<TasksActionsType>) => {
     tasksAPI.getTasks(todolistId)
-        .then(res => dispatch(setTasksAC(todolistId, res.data.items)))
+        .then(res => {
+            dispatch(setTasksAC(todolistId, res.data.items))
+        })
 }
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<TasksActionsType>) => {
+    dispatch(setStatusAC('loading'));
     tasksAPI.addTask(todolistId, title)
-        .then((res) => dispatch(addTaskAC(res.data.data.item)))
+        .then((res) => {
+            dispatch(addTaskAC(res.data.data.item))
+            dispatch(setStatusAC('idle'));
+        })
 }
 export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch<TasksActionsType>, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].filter(el => el.id === taskId)[0]
@@ -107,13 +114,21 @@ export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTa
         status: task.status,
         title: task.title,
         ...model
-    }
+    };
+    dispatch(setStatusAC('loading'));
     tasksAPI.updateTask(todolistId, taskId, {...apiModel})
-        .then((res) => dispatch(updateTaskAC(todolistId, taskId, {...model})))
+        .then((res) => {
+            dispatch(updateTaskAC(todolistId, taskId, {...model}))
+            dispatch(setStatusAC('idle'));
+        })
 }
 export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TasksActionsType>) => {
+    dispatch(setStatusAC('loading'));
     tasksAPI.removeTask(todolistId, taskId)
-        .then(res => dispatch(removeTaskAC(todolistId, taskId)))
+        .then(res => {
+            dispatch(removeTaskAC(todolistId, taskId))
+            dispatch(setStatusAC('idle'));
+        })
 }
 
 
@@ -136,4 +151,5 @@ export type TasksActionsType =
     | RemoveTodolistACType
     | SetTodolistsACType
     | SetTasksACType
+|   SetStatusACType
 

@@ -82,16 +82,28 @@ export const getTodolistsTC = () => (dispatch: Dispatch<TodolistsActionsType>) =
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
+    dispatch(setStatusAC('loading'));
     todolistsAPI.addTodolist(title)
-        .then((res) => dispatch(addTodolistAC(res.data.data.item)))
+        .then((res) => {
+            dispatch(addTodolistAC(res.data.data.item))
+            dispatch(setStatusAC('idle'));
+        })
 }
 export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
+    dispatch(setStatusAC('loading'));
     todolistsAPI.changeTodolistTitle(todolistId, newTitle)
-        .then(() => dispatch(changeTodolistTitleAC(todolistId, newTitle)))
+        .then(() => {
+            dispatch(changeTodolistTitleAC(todolistId, newTitle))
+            dispatch(setStatusAC('idle'));
+        })
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
+    dispatch(setStatusAC('loading'));
     todolistsAPI.removeTodolist(todolistId)
-        .then((res) => dispatch(removeTodolistAC(todolistId)))
+        .then((res) => {
+            dispatch(removeTodolistAC(todolistId));
+            dispatch(setStatusAC('idle'));
+        })
 }
 
 
