@@ -1,6 +1,7 @@
 import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from './tasksReducer';
 import {addTodolistAC} from './todolistReducer';
 import {TasksStateType} from '../features/TodolistList/Todolist/Task/Task';
+import {TaskType} from '../dal/api';
 
 let startState: TasksStateType
 
@@ -17,7 +18,8 @@ beforeEach(() => {
                 priority: 1,
                 startDate: '',
                 deadline: '',
-                addedDate: '2023-06-09T07:44:43.06'
+                addedDate: '2023-06-09T07:44:43.06',
+                entityStatus:'idle'
             },
             {
                 id: '2',
@@ -29,7 +31,8 @@ beforeEach(() => {
                 priority: 1,
                 startDate: '',
                 deadline: '',
-                addedDate: '2023-06-07T16:00:25.61'
+                addedDate: '2023-06-07T16:00:25.61',
+                entityStatus:'idle'
             }
         ],
         'todolistId2': [
@@ -43,7 +46,8 @@ beforeEach(() => {
                 priority: 1,
                 startDate: '',
                 deadline: '',
-                addedDate: '2023-06-07T16:00:25.61'
+                addedDate: '2023-06-07T16:00:25.61',
+                entityStatus:'idle'
             },
             {
                 id: '2',
@@ -55,7 +59,8 @@ beforeEach(() => {
                 priority: 1,
                 startDate: '',
                 deadline: '',
-                addedDate: '2023-06-07T16:00:25.61'
+                addedDate: '2023-06-07T16:00:25.61',
+                entityStatus:'idle'
             },
         ]
     };
@@ -75,7 +80,7 @@ test('correct task should be deleted from correct array', () => {
 
 
 test('correct task should be added to correct array', () => {
-    const task = {
+    const task:TaskType = {
         id: '2',
         title: 'juice',
         description: '',
@@ -85,7 +90,8 @@ test('correct task should be added to correct array', () => {
         priority: 1,
         startDate: '',
         deadline: '',
-        addedDate: '2023-06-07T16:00:25.61'
+        addedDate: '2023-06-07T16:00:25.61',
+        entityStatus:'idle'
     };
     const action = addTaskAC(task);
     const endState = tasksReducer(startState, action)
