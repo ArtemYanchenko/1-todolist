@@ -3,7 +3,7 @@ import {TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType
 import {AppRootStateType} from './store';
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from './todolistReducer';
 import {TasksStateType} from '../features/TodolistList/Todolist/Task/Task';
-import {setStatusAC, SetStatusACType} from '../app/app-reducer';
+import {setErrorAC, SetErrorACType, setStatusAC, SetStatusACType} from '../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -100,8 +100,21 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
     dispatch(setStatusAC('loading'));
     tasksAPI.addTask(todolistId, title)
         .then((res) => {
-            dispatch(addTaskAC(res.data.data.item))
-            dispatch(setStatusAC('idle'));
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(setStatusAC('idle'))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC('Some error occurred'))
+                }
+                dispatch(setStatusAC('failed'))
+            }
+        })
+        .catch((e)=>{
+            dispatch(setStatusAC('failed'))
+           dispatch(setErrorAC(e.message))
         })
 }
 export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch<TasksActionsType>, getState: () => AppRootStateType) => {
@@ -121,6 +134,10 @@ export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTa
             dispatch(updateTaskAC(todolistId, taskId, {...model}))
             dispatch(setStatusAC('idle'));
         })
+        .catch((e)=>{
+            dispatch(setStatusAC('failed'))
+            dispatch(setErrorAC(e.message))
+        })
 }
 export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TasksActionsType>) => {
     dispatch(setStatusAC('loading'));
@@ -128,6 +145,10 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
         .then(res => {
             dispatch(removeTaskAC(todolistId, taskId))
             dispatch(setStatusAC('idle'));
+        })
+        .catch((e)=>{
+            dispatch(setStatusAC('failed'))
+            dispatch(setErrorAC(e.message))
         })
 }
 
@@ -151,5 +172,6 @@ export type TasksActionsType =
     | RemoveTodolistACType
     | SetTodolistsACType
     | SetTasksACType
-|   SetStatusACType
+    | SetStatusACType
+    | SetErrorACType
 

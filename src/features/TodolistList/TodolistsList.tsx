@@ -7,11 +7,13 @@ import {addTodolistTC, getTodolistsTC} from '../../bll/todolistReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import Container from '@mui/material/Container';
 import {TodolistType} from '../../dal/api';
-import {CustomizedSnackbars} from '../../components/SnackBar/SnackBar';
+import {Snackbars} from '../../components/SnackBar/SnackBar';
+import {StatusesType} from '../../app/app-reducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
+    entityStatus:StatusesType
 }
 export const TodolistsList = () => {
 
@@ -39,6 +41,7 @@ export const TodolistsList = () => {
                                 <Todolist
                                     key={tl.id}
                                     todolistId={tl.id}
+                                    entityStatus={tl.entityStatus}
                                     filter={tl.filter}
                                 />
                             </Paper>
@@ -47,7 +50,7 @@ export const TodolistsList = () => {
                 }
 
             </Grid>
-
+            <Snackbars/>
         </Container>
     );
 };

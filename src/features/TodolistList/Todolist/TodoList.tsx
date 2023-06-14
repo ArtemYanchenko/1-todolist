@@ -6,21 +6,21 @@ import {Delete} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import TaskWithRedux from './Task/Task';
 import {addTaskTC, getTasksTC} from '../../../bll/tasksReducer';
-import {useSelector} from 'react-redux';
-import {AppRootStateType} from '../../../bll/store';
-import {TaskStatuses, TaskType, TodolistType} from '../../../dal/api';
+import {TaskStatuses, TaskType} from '../../../dal/api';
 import {changeFilterAC, changeTodolistTitleTC, removeTodolistTC} from '../../../bll/todolistReducer';
-import {useAppDispatch} from '../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {FilterValuesType} from '../TodolistsList';
+import {StatusesType} from '../../../app/app-reducer';
 
 type PropsType = {
     todolistId: string
+    entityStatus:StatusesType
     filter: FilterValuesType
 }
 
-export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
-    const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todolistId])
-    const todolists = useSelector<AppRootStateType, TodolistType | undefined>(state => state.todolists.find(el => el.id === todolistId))
+export const Todolist: FC<PropsType> = memo(({todolistId,entityStatus, filter}) => {
+    const tasks = useAppSelector(state => state.tasks[todolistId])
+    const todolists = useAppSelector(state => state.todolists.find(el => el.id === todolistId))
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -57,11 +57,11 @@ export const Todolist: FC<PropsType> = memo(({todolistId, filter}) => {
     return <div>
         <h3>
             <EditableSpan value={todolists!.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist}>
+            <IconButton onClick={removeTodolist} disabled={entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={addTask} disabled={entityStatus === 'loading'}/>
         <div>
             {
                 allTodolistTasks.map(t => <TaskWithRedux
