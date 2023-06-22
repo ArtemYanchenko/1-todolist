@@ -16,16 +16,15 @@ export type TodolistDomainType = TodolistType & {
     entityStatus:StatusesType
 }
 export const TodolistsList = () => {
-
     const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists);
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(getTodolistsTC());
-    }, [])
-
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
+    }, [])
+
+    useEffect(() => {
+        dispatch(getTodolistsTC());
     }, [])
 
     return (
