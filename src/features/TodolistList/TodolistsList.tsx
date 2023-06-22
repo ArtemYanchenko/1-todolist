@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import Paper from '@mui/material/Paper';
@@ -13,9 +13,9 @@ import {StatusesType} from '../../app/app-reducer';
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
-    entityStatus:StatusesType
+    entityStatus: StatusesType
 }
-export const TodolistsList = () => {
+export const TodolistsList = memo(() => {
     const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists);
     const dispatch = useAppDispatch()
 
@@ -52,4 +52,4 @@ export const TodolistsList = () => {
             <Snackbars/>
         </Container>
     );
-};
+})
