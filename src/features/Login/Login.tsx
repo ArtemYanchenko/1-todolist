@@ -11,6 +11,18 @@ import {useFormik} from 'formik';
 
 export const Login = () => {
     const formik = useFormik({
+        validate: (values) => {
+            if (!values.email) {
+                return {
+                    email: 'Email is required'
+                }
+            }
+            if (!values.password) {
+                return {
+                    password: 'Password is required'
+                }
+            }
+        },
         initialValues: {
             email: '',
             password: '',
@@ -18,7 +30,6 @@ export const Login = () => {
         },
         onSubmit: values => {
             alert(JSON.stringify(values))
-            console.log(values)
         }
     })
 
@@ -44,6 +55,7 @@ export const Login = () => {
                                    name="email"
                                    onChange={formik.handleChange}
                                    value={formik.values.email}/>
+                        {formik.errors.email && formik.touched.email ? <div>{formik.errors.email}</div> : null}
                         <TextField type="password"
                                    label="Password"
                                    margin="normal"

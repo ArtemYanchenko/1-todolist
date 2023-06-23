@@ -2,7 +2,6 @@ import {todolistsAPI, TodolistType} from '../dal/api';
 import {Dispatch} from 'redux';
 import {FilterValuesType, TodolistDomainType} from '../features/TodolistList/TodolistsList';
 import {setErrorAC, SetErrorACType, setStatusAC, SetStatusACType, StatusesType} from '../app/app-reducer';
-import {addTaskAC} from './tasksReducer';
 import {handleServerAppError, handleServerNetworkError} from '../utils/error-utils';
 
 
