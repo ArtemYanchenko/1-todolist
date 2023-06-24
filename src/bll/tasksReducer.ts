@@ -74,9 +74,7 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
       return copyState;
     }
     case "REMOVE-TASKS-AFTER-LOGOUT": {
-      let stateCopy = { ...state };
-      stateCopy = {};
-      return stateCopy;
+      return {};
     }
     default:
       return state;

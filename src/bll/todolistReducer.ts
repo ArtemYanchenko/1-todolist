@@ -3,6 +3,8 @@ import { Dispatch } from "redux";
 import { FilterValuesType, TodolistDomainType } from "../features/TodolistList/TodolistsList";
 import { setErrorAC, SetErrorACType, setStatusAC, SetStatusACType, StatusesType } from "../app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { getTasksTC } from "./tasksReducer";
+import { AppThunkType } from "./store";
 
 const initialState: TodolistDomainType[] = [];
 
@@ -35,9 +37,7 @@ export const todolistReducer = (state = initialState, action: TodolistsActionsTy
       return state.map((el) => (el.id === action.id ? { ...el, entityStatus: action.status } : el));
     }
     case "REMOVE-TODO-AFTER-LOGOUT": {
-      let stateCopy = { ...state };
-      stateCopy = [];
-      return stateCopy;
+      return [];
     }
     default:
       return state;
@@ -93,19 +93,26 @@ export const changeTodolistEntityStatusAC = (id: string, status: StatusesType) =
 export const removeTodoAfterLogout = () => ({ type: "REMOVE-TODO-AFTER-LOGOUT" } as const);
 
 //thunks
-export const getTodolistsTC = () => (dispatch: Dispatch<TodolistsActionsType>) => {
+export const getTodolistsTC = (): AppThunkType => (dispatch) => {
   dispatch(setStatusAC("loading"));
   todolistsAPI
     .getTodolists()
     .then((res) => {
       dispatch(setTodolistsAC(res.data));
       dispatch(setStatusAC("idle"));
+      return res.data;
+    })
+    .then((todos) => {
+      todos.forEach((tl) => {
+        dispatch(getTasksTC(tl.id));
+      });
     })
     .catch((e) => {
       dispatch(setErrorAC(e.message));
       dispatch(setStatusAC("idle"));
     });
 };
+
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
   dispatch(setStatusAC("loading"));
   todolistsAPI
