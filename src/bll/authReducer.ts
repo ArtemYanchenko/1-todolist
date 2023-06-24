@@ -1,6 +1,8 @@
 import { AppThunkType } from "./store";
 import { authAPI, LoginParamsType } from "../dal/api";
 import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { removeTodoAfterLogout } from "./todolistReducer";
+import { removeTasksAfterLogout } from "./tasksReducer";
 
 const initialState = {
   isLoggedIn: false,
@@ -35,3 +37,13 @@ export const loginTC =
       })
       .catch((e) => handleServerNetworkError(e, dispatch));
   };
+
+export const logoutTC = (): AppThunkType => (dispatch) => {
+  authAPI.logout().then((res) => {
+    if (res.data.resultCode === 0) {
+      dispatch(toggleLogin(false));
+      dispatch(removeTodoAfterLogout());
+      dispatch(removeTasksAfterLogout());
+    }
+  });
+};

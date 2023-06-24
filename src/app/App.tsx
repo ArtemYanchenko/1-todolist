@@ -14,8 +14,13 @@ export function App() {
   useEffect(() => {
     dispatch(initializeAppTC());
   }, []);
-
-  if (!isInitialized) return <CircularProgress />;
+  debugger;
+  if (!isInitialized)
+    return (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "30%" }}>
+        <CircularProgress />
+      </div>
+    );
 
   return (
     <div className="App">
