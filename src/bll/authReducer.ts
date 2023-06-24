@@ -1,27 +1,28 @@
 import { AppThunkType } from "./store";
-import { authAPI, LoginParamsType } from "../dal/api";
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { authAPI, LoginParamsType } from "dal/api";
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { removeTodoAfterLogout } from "./todolistReducer";
 import { removeTasksAfterLogout } from "./tasksReducer";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+const authInitialState = {
   isLoggedIn: false,
 };
 
-type InitialStateType = typeof initialState;
+// type InitialStateType = typeof authInitialState;
 
-export const authReducer = (state = initialState, action: ToggleLoginType): InitialStateType => {
-  switch (action.type) {
-    case "TOGGLE-LOGIN": {
-      return { ...state, isLoggedIn: action.value };
-    }
-    default:
-      return state;
-  }
-};
+const slice = createSlice({
+  name: "auth",
+  initialState: authInitialState,
+  reducers: {
+    setIsLoggedIn(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
+      state.isLoggedIn = action.payload.isLoggedIn;
+    },
+  },
+});
 
-export type ToggleLoginType = ReturnType<typeof toggleLogin>;
-export const toggleLogin = (value: boolean) => ({ type: "TOGGLE-LOGIN", value } as const);
+export const authReducer = slice.reducer;
+export const authActions = slice.actions;
 
 export const loginTC =
   (data: LoginParamsType): AppThunkType =>
@@ -30,7 +31,7 @@ export const loginTC =
       .login(data)
       .then((res) => {
         if (res.data.resultCode === 0) {
-          dispatch(toggleLogin(true));
+          dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
         } else {
           handleServerAppError(res.data, dispatch);
         }
@@ -41,7 +42,7 @@ export const loginTC =
 export const logoutTC = (): AppThunkType => (dispatch) => {
   authAPI.logout().then((res) => {
     if (res.data.resultCode === 0) {
-      dispatch(toggleLogin(false));
+      dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(removeTodoAfterLogout());
       dispatch(removeTasksAfterLogout());
     }
