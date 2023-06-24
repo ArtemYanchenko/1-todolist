@@ -43,7 +43,10 @@ export const initializeAppTC = (): AppThunkType => (dispatch) => {
         handleServerAppError(res.data, dispatch);
       }
     })
-    .catch((e) => handleServerNetworkError(e, dispatch));
+    .catch((e) => handleServerNetworkError(e, dispatch))
+    .finally(() => {
+      dispatch(setIsInitializedAC(true));
+    });
 };
 
 //types

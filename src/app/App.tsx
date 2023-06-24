@@ -5,13 +5,13 @@ import { Login } from "../features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "../features/TodolistList/TodolistsList";
 import { useAppDispatch } from "../hooks/hooks";
-import { authTC } from "../bll/authReducer";
+import { initializeAppTC } from "./app-reducer";
 
 export function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(authTC());
+    dispatch(initializeAppTC());
   }, []);
   return (
     <div className="App">
