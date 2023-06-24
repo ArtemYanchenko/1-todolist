@@ -1,9 +1,9 @@
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { SyntheticEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setErrorAC } from "../../app/app-reducer";
+import { SyntheticEvent } from "react";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { appActions } from "app/app-reducer";
 
 export const Snackbars = () => {
   const error = useAppSelector((state) => state.app.error);
@@ -13,7 +13,7 @@ export const Snackbars = () => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(setErrorAC(null));
+    dispatch(appActions.setError({ error: null }));
   };
   debugger;
   return (

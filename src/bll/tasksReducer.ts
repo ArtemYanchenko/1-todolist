@@ -1,10 +1,10 @@
 import { Dispatch } from "redux";
-import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "../dal/api";
+import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "dal/api";
 import { AppRootStateType } from "./store";
 import { AddTodolistACType, RemoveTodolistACType, SetTodolistsACType } from "./todolistReducer";
-import { TasksStateType } from "../features/TodolistList/Todolist/Task/Task";
-import { SetErrorACType, setStatusAC, SetStatusACType, StatusesType } from "../app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
+import { appActions, StatusesType } from "app/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 
 const initialState: TasksStateType = {};
 
@@ -140,14 +140,14 @@ export const getTasksTC = (todolistId: string) => (dispatch: Dispatch<TasksActio
     });
 };
 
-export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<TasksActionsType>) => {
-  dispatch(setStatusAC("loading"));
+export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setStatus({ status: "loading" }));
   tasksAPI
     .addTask(todolistId, title)
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(addTaskAC(res.data.data.item));
-        dispatch(setStatusAC("idle"));
+        dispatch(appActions.setStatus({ status: "idle" }));
       } else {
         handleServerAppError(res.data, dispatch);
       }
@@ -159,7 +159,7 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
 
 export const updateTaskTC =
   (todolistId: string, taskId: string, model: UpdateTaskModelType) =>
-  (dispatch: Dispatch<TasksActionsType>, getState: () => AppRootStateType) => {
+  (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].filter((el) => el.id === taskId)[0];
     const apiModel: UpdateTaskModelApiType = {
       priority: task.priority,
@@ -170,14 +170,14 @@ export const updateTaskTC =
       title: task.title,
       ...model,
     };
-    dispatch(setStatusAC("loading"));
+    dispatch(appActions.setStatus({ status: "loading" }));
     dispatch(changeTaskEntityStatusAC(todolistId, taskId, "loading"));
     tasksAPI
       .updateTask(todolistId, taskId, { ...apiModel })
       .then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(updateTaskAC(todolistId, taskId, { ...model }));
-          dispatch(setStatusAC("idle"));
+          dispatch(appActions.setStatus({ status: "idle" }));
           dispatch(changeTaskEntityStatusAC(todolistId, taskId, "idle"));
         } else {
           handleServerAppError(res.data, dispatch);
@@ -188,15 +188,15 @@ export const updateTaskTC =
       });
   };
 
-export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TasksActionsType>) => {
-  dispatch(setStatusAC("loading"));
+export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(changeTaskEntityStatusAC(todolistId, taskId, "loading"));
   tasksAPI
     .removeTask(todolistId, taskId)
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(removeTaskAC(todolistId, taskId));
-        dispatch(setStatusAC("idle"));
+        dispatch(appActions.setStatus({ status: "idle" }));
         dispatch(changeTaskEntityStatusAC(todolistId, taskId, "idle"));
       }
     })
@@ -225,6 +225,4 @@ export type TasksActionsType =
   | RemoveTodolistACType
   | SetTodolistsACType
   | SetTasksACType
-  | SetStatusACType
-  | SetErrorACType
   | ReturnType<typeof removeTasksAfterLogout>;

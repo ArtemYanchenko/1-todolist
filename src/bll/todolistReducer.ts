@@ -1,8 +1,8 @@
-import { todolistsAPI, TodolistType } from "../dal/api";
+import { todolistsAPI, TodolistType } from "dal/api";
 import { Dispatch } from "redux";
-import { FilterValuesType, TodolistDomainType } from "../features/TodolistList/TodolistsList";
-import { setErrorAC, SetErrorACType, setStatusAC, SetStatusACType, StatusesType } from "../app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
+import { appActions, StatusesType } from "app/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { getTasksTC } from "./tasksReducer";
 import { AppThunkType } from "./store";
 
@@ -94,12 +94,12 @@ export const removeTodoAfterLogout = () => ({ type: "REMOVE-TODO-AFTER-LOGOUT" }
 
 //thunks
 export const getTodolistsTC = (): AppThunkType => (dispatch) => {
-  dispatch(setStatusAC("loading"));
+  dispatch(appActions.setStatus({ status: "loading" }));
   todolistsAPI
     .getTodolists()
     .then((res) => {
       dispatch(setTodolistsAC(res.data));
-      dispatch(setStatusAC("idle"));
+      dispatch(appActions.setStatus({ status: "idle" }));
       return res.data;
     })
     .then((todos) => {
@@ -108,19 +108,19 @@ export const getTodolistsTC = (): AppThunkType => (dispatch) => {
       });
     })
     .catch((e) => {
-      dispatch(setErrorAC(e.message));
-      dispatch(setStatusAC("idle"));
+      dispatch(appActions.setError({ error: e.message }));
+      dispatch(appActions.setStatus({ status: "idle" }));
     });
 };
 
-export const addTodolistTC = (title: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
-  dispatch(setStatusAC("loading"));
+export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setStatus({ status: "loading" }));
   todolistsAPI
     .addTodolist(title)
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(addTodolistAC(res.data.data.item));
-        dispatch(setStatusAC("idle"));
+        dispatch(appActions.setStatus({ status: "idle" }));
       } else {
         handleServerAppError(res.data, dispatch);
       }
@@ -129,32 +129,31 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<TodolistsAct
       handleServerNetworkError(e, dispatch);
     });
 };
-export const changeTodolistTitleTC =
-  (todolistId: string, newTitle: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
-    dispatch(setStatusAC("loading"));
-    todolistsAPI
-      .changeTodolistTitle(todolistId, newTitle)
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(changeTodolistTitleAC(todolistId, newTitle));
-          dispatch(setStatusAC("idle"));
-        } else {
-          handleServerAppError(res.data, dispatch);
-        }
-      })
-      .catch((e) => {
-        handleServerNetworkError(e, dispatch);
-      });
-  };
-export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<TodolistsActionsType>) => {
-  dispatch(setStatusAC("loading"));
+export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setStatus({ status: "loading" }));
+  todolistsAPI
+    .changeTodolistTitle(todolistId, newTitle)
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(changeTodolistTitleAC(todolistId, newTitle));
+        dispatch(appActions.setStatus({ status: "idle" }));
+      } else {
+        handleServerAppError(res.data, dispatch);
+      }
+    })
+    .catch((e) => {
+      handleServerNetworkError(e, dispatch);
+    });
+};
+export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(changeTodolistEntityStatusAC(todolistId, "loading"));
   todolistsAPI
     .removeTodolist(todolistId)
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(removeTodolistAC(todolistId));
-        dispatch(setStatusAC("idle"));
+        dispatch(appActions.setStatus({ status: "idle" }));
         dispatch(changeTodolistEntityStatusAC(todolistId, "idle"));
       }
     })
@@ -174,7 +173,5 @@ export type TodolistsActionsType =
   | ReturnType<typeof changeTodolistTitleAC>
   | RemoveTodolistACType
   | SetTodolistsACType
-  | SetStatusACType
-  | SetErrorACType
   | ChangeTodolistEntityStatusACType
   | ReturnType<typeof removeTodoAfterLogout>;
