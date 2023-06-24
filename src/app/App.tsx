@@ -4,15 +4,19 @@ import { Header } from "../features/Header/Header";
 import { Login } from "../features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "../features/TodolistList/TodolistsList";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { initializeAppTC } from "./app-reducer";
+import { CircularProgress } from "@mui/material";
 
 export function App() {
   const dispatch = useAppDispatch();
-
+  const isInitialized = useAppSelector((state) => state.app.isInitialized);
   useEffect(() => {
     dispatch(initializeAppTC());
   }, []);
+
+  if (!isInitialized) return <CircularProgress />;
+
   return (
     <div className="App">
       <Header />

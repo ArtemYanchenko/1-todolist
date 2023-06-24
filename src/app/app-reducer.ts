@@ -1,7 +1,6 @@
 import { AppThunkType } from "../bll/store";
 import { authAPI } from "../dal/api";
 import { toggleLogin } from "../bll/authReducer";
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
 
 const initialState: AppInitialStateType = {
   status: "idle",
@@ -39,11 +38,8 @@ export const initializeAppTC = (): AppThunkType => (dispatch) => {
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(toggleLogin(true));
-      } else {
-        handleServerAppError(res.data, dispatch);
       }
     })
-    .catch((e) => handleServerNetworkError(e, dispatch))
     .finally(() => {
       dispatch(setIsInitializedAC(true));
     });
