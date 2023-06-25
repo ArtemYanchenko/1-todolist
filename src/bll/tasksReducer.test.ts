@@ -1,7 +1,7 @@
-import { addTaskAC, removeTaskAC, taskReducer, updateTaskAC } from "./tasksReducer";
 import { addTodolistAC } from "./todolistReducer";
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TaskType } from "dal/api";
+import { taskReducer, tasksActions, tasksReducer } from "bll/tasksReducer";
 
 let startState: TasksStateType;
 
@@ -67,10 +67,9 @@ beforeEach(() => {
 });
 
 test("correct task should be deleted from correct array", () => {
-  const action = removeTaskAC("todolistId2", "2");
+  const action = tasksActions.removeTask({ todolistId: "todolistId2", taskId: "2" });
 
-  const endState = taskReducer(startState, action);
-
+  const endState = tasksReducer(startState, action);
   expect(endState["todolistId2"].length).toBe(1);
 });
 
@@ -88,8 +87,8 @@ test("correct task should be added to correct array", () => {
     addedDate: "2023-06-07T16:00:25.61",
     entityStatus: "idle",
   };
-  const action = addTaskAC(task);
-  const endState = taskReducer(startState, action);
+  const action = tasksActions.addTask({ task });
+  const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId1"].length).toBe(2);
   expect(endState["todolistId2"].length).toBe(3);
@@ -110,9 +109,9 @@ test("status of specified task should be changed", () => {
     deadline: "",
     addedDate: "2023-06-07T16:00:25.61",
   };
-  const action = updateTaskAC("todolistId2", "2", model);
+  const action = tasksActions.updateTask({ todolistId: "todolistId2", taskId: "2", model });
 
-  const endState = taskReducer(startState, action);
+  const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId2"][1].id).toBe("2");
   expect(endState["todolistId2"][1].status).toBe(2);
@@ -133,9 +132,9 @@ test("task  title should be changed", () => {
     deadline: "",
     addedDate: "2023-06-07T16:00:25.61",
   };
-  const action = updateTaskAC("todolistId2", "2", model);
+  const action = tasksActions.updateTask({ todolistId: "todolistId2", taskId: "2", model });
 
-  const endState = taskReducer(startState, action);
+  const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId2"][1].id).toBe("2");
   expect(endState["todolistId2"][1].title).toBe("juiceNEW");

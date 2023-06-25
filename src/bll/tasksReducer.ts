@@ -14,7 +14,8 @@ const slice = createSlice({
   initialState: tasksInitialState,
   reducers: {
     setTasks(state, action: PayloadAction<{ todolistId: string; tasks: TaskType[] }>) {
-      state[action.payload.todolistId] = action.payload.tasks;
+      const updateTask = { ...action.payload.tasks, entityStatus: "idle" };
+      state[action.payload.todolistId] = updateTask;
     },
     addTask(state, action: PayloadAction<{ task: TaskType }>) {
       state[action.payload.task.todoListId].unshift(action.payload.task);
@@ -23,6 +24,14 @@ const slice = createSlice({
       let tasks = state[action.payload.todolistId];
       const index = tasks.findIndex((todo) => todo.id === action.payload.taskId);
       if (index !== -1) tasks[index] = { ...tasks[index], ...action.payload.model };
+    },
+    changeTaskEntityStatus(
+      state,
+      action: PayloadAction<{ todolistId: string; taskId: string; entityStatus: StatusesType }>
+    ) {
+      let tasks = state[action.payload.todolistId];
+      const index = tasks.findIndex((todo) => todo.id === action.payload.taskId);
+      if (index !== -1) tasks[index] = { ...tasks[index], entityStatus: action.payload.entityStatus };
     },
     removeTask(state, action: PayloadAction<{ todolistId: string; taskId: string }>) {
       state[action.payload.todolistId] = state[action.payload.todolistId].filter(
@@ -111,14 +120,14 @@ export const updateTaskTC =
       ...model,
     };
     dispatch(appActions.setStatus({ status: "loading" }));
-    dispatch(tasksActions.updateTask({ todolistId, taskId, model: { status: "loading" } }));
+    dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
     tasksAPI
       .updateTask(todolistId, taskId, { ...apiModel })
       .then((res) => {
         if (res.data.resultCode === 0) {
-          dispatch(updateTaskAC(todolistId, taskId, { ...model }));
+          dispatch(tasksActions.updateTask({ todolistId, taskId, model: { ...model } }));
           dispatch(appActions.setStatus({ status: "idle" }));
-          dispatch(changeTaskEntityStatusAC(todolistId, taskId, "idle"));
+          dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "idle" }));
         } else {
           handleServerAppError(res.data, dispatch);
         }
@@ -130,14 +139,14 @@ export const updateTaskTC =
 
 export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
-  dispatch(changeTaskEntityStatusAC(todolistId, taskId, "loading"));
+  dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
   tasksAPI
     .removeTask(todolistId, taskId)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(removeTaskAC(todolistId, taskId));
+        dispatch(tasksActions.removeTask({ todolistId, taskId }));
         dispatch(appActions.setStatus({ status: "idle" }));
-        dispatch(changeTaskEntityStatusAC(todolistId, taskId, "idle"));
+        dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "idle" }));
       }
     })
     .catch((e) => {
