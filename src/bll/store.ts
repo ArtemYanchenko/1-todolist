@@ -1,5 +1,5 @@
 import { AnyAction, combineReducers } from "redux";
-import { tasksReducer } from "./tasksReducer";
+import { taskReducer } from "./tasksReducer";
 import { todolistReducer } from "./todolistReducer";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { appReducer } from "app/app-reducer";
@@ -9,7 +9,7 @@ import { authReducer } from "./authReducer";
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
-  tasks: tasksReducer,
+  tasks: taskReducer,
   todolists: todolistReducer,
 });
 

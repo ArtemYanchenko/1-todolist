@@ -2,8 +2,8 @@ import { AppThunkType } from "./store";
 import { authAPI, LoginParamsType } from "dal/api";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { removeTodoAfterLogout } from "./todolistReducer";
-import { removeTasksAfterLogout } from "./tasksReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { tasksActions } from "bll/tasksReducer";
 
 const authInitialState = {
   isLoggedIn: false,
@@ -44,7 +44,7 @@ export const logoutTC = (): AppThunkType => (dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(removeTodoAfterLogout());
-      dispatch(removeTasksAfterLogout());
+      dispatch(tasksActions.removeTasksAfterLogout());
     }
   });
 };

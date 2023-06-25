@@ -1,26 +1,25 @@
-import {addTodolistAC, todolistReducer} from './todolistReducer';
-import {tasksReducer} from './tasksReducer';
-import {v1} from 'uuid';
-import {TasksStateType} from '../features/TodolistList/Todolist/Task/Task';
-import {TodolistDomainType} from '../features/TodolistList/TodolistsList';
+import { addTodolistAC, todolistReducer } from "./todolistReducer";
+import { taskReducer } from "./tasksReducer";
+import { v1 } from "uuid";
+import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
+import { TodolistDomainType } from "features/TodolistList/TodolistsList";
 
-test('ids should be equals', () => {
-    const startTasksState: TasksStateType = {};
-    const startTodolistsState: Array<TodolistDomainType> = [];
-    const newId = v1();
-    const action = addTodolistAC({id: '1', title: 'newtodo', order: 0, addedDate: ''});
+test("ids should be equals", () => {
+  const startTasksState: TasksStateType = {};
+  const startTodolistsState: Array<TodolistDomainType> = [];
+  const newId = v1();
+  const action = addTodolistAC({ id: "1", title: "newtodo", order: 0, addedDate: "" });
 
-    const endTasksState = tasksReducer(startTasksState, action)
-    const endTodolistsState = todolistReducer(startTodolistsState, action)
+  const endTasksState = taskReducer(startTasksState, action);
+  const endTodolistsState = todolistReducer(startTodolistsState, action);
 
-    const keys = Object.keys(endTasksState);
-    const idFromTasks = keys[0];
-    const idFromTodolists = endTodolistsState[0].id;
+  const keys = Object.keys(endTasksState);
+  const idFromTasks = keys[0];
+  const idFromTodolists = endTodolistsState[0].id;
 
-    expect(idFromTasks).toBe(action.payload.todolist.id);
-    expect(idFromTodolists).toBe(action.payload.todolist.id);
+  expect(idFromTasks).toBe(action.payload.todolist.id);
+  expect(idFromTodolists).toBe(action.payload.todolist.id);
 });
-
 
 // test('property with todolistId should be deleted', () => {
 //     const startState: TasksStateType = {
