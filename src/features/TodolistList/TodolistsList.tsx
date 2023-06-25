@@ -1,14 +1,14 @@
 import React, { memo, useCallback, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
+import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import { Todolist } from "./Todolist/TodoList";
-import { addTodolistTC, getTodolistsTC } from "../../bll/todolistReducer";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addTodolistTC, getTodolistsTC } from "bll/todolistReducer";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import Container from "@mui/material/Container";
-import { TodolistType } from "../../dal/api";
-import { Snackbars } from "../../components/SnackBar/SnackBar";
-import { StatusesType } from "../../app/app-reducer";
+import { TodolistType } from "dal/api";
+import { Snackbars } from "components/SnackBar/SnackBar";
+import { StatusesType } from "app/app-reducer";
 import { Navigate } from "react-router-dom";
 
 export type FilterValuesType = "all" | "active" | "completed";

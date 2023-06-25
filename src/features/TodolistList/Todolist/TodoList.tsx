@@ -42,18 +42,18 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
     dispatch(removeTodolistTC(todolistId));
   }, [dispatch]);
 
-  const filteredTasks = (): TaskType[] => {
-    if (filter === "active") {
-      return tasks.filter((t) => t.status === TaskStatuses.New);
-    }
-    if (filter === "completed") {
-      return tasks.filter((t) => t.status === TaskStatuses.Completed);
-    }
-    return tasks;
-  };
+  // const filteredTasks = (): TaskType[] => {
+  //   if (filter === "active") {
+  //     return tasks.filter((t) => t.status === TaskStatuses.New);
+  //   }
+  //   if (filter === "completed") {
+  //     return tasks.filter((t) => t.status === TaskStatuses.Completed);
+  //   }
+  //   return tasks;
+  // };
 
-  let allTodolistTasks = filteredTasks();
-
+  // let allTodolistTasks = tasks;
+  debugger;
   return (
     <div>
       <h3>
@@ -64,7 +64,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
       </h3>
       <AddItemForm addItem={addTask} disabled={entityStatus === "loading"} />
       <div>
-        {allTodolistTasks.map((t) => (
+        {tasks.map((t) => (
           <TaskWithRedux todoID={todolistId} taskID={t.id} />
         ))}
       </div>

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Header } from "../features/Header/Header";
-import { Login } from "../features/Login/Login";
+import { Header } from "features/Header/Header";
+import { Login } from "features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { TodolistsList } from "../features/TodolistList/TodolistsList";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { TodolistsList } from "features/TodolistList/TodolistsList";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { initializeAppTC } from "./app-reducer";
 import { CircularProgress } from "@mui/material";
 
@@ -14,7 +14,6 @@ export function App() {
   useEffect(() => {
     dispatch(initializeAppTC());
   }, []);
-  debugger;
   if (!isInitialized)
     return (
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30%" }}>

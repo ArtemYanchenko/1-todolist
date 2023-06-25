@@ -15,7 +15,6 @@ export const Snackbars = () => {
     }
     dispatch(appActions.setError({ error: null }));
   };
-  debugger;
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
