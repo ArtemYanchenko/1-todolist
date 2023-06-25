@@ -36,7 +36,7 @@ const slice = createSlice({
       const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
       if (index !== -1) state.splice(index, 1);
     },
-    removeTodolistsAfterLogout(state, action) {
+    removeTodolistsAfterLogout(state) {
       state = [];
     },
   },
@@ -72,7 +72,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
     .addTodolist(title)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(addTodolistAC(res.data.data.item));
+        dispatch(todolistsActions.addTodolist({ todolist: res.data.data.item }));
         dispatch(appActions.setStatus({ status: "idle" }));
       } else {
         handleServerAppError(res.data, dispatch);
@@ -88,7 +88,7 @@ export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (
     .changeTodolistTitle(todolistId, newTitle)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(changeTodolistTitleAC(todolistId, newTitle));
+        dispatch(todolistsActions.changeTitleTodolist({ todolistId, title: newTitle }));
         dispatch(appActions.setStatus({ status: "idle" }));
       } else {
         handleServerAppError(res.data, dispatch);
@@ -100,31 +100,17 @@ export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (
 };
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
-  dispatch(changeTodolistEntityStatusAC(todolistId, "loading"));
+  dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId, entityStatus: "loading" }));
   todolistsAPI
     .removeTodolist(todolistId)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(removeTodolistAC(todolistId));
+        dispatch(todolistsActions.removeTodolist({ todolistId }));
         dispatch(appActions.setStatus({ status: "idle" }));
-        dispatch(changeTodolistEntityStatusAC(todolistId, "idle"));
+        dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId, entityStatus: "idle" }));
       }
     })
     .catch((e) => {
       handleServerNetworkError(e, dispatch);
     });
 };
-
-//types
-export type AddTodolistACType = ReturnType<typeof addTodolistAC>;
-export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>;
-export type SetTodolistsACType = ReturnType<typeof setTodolistsAC>;
-export type ChangeTodolistEntityStatusACType = ReturnType<typeof changeTodolistEntityStatusAC>;
-export type TodolistsActionsType =
-  | AddTodolistACType
-  | ReturnType<typeof changeFilterAC>
-  | ReturnType<typeof changeTodolistTitleAC>
-  | RemoveTodolistACType
-  | SetTodolistsACType
-  | ChangeTodolistEntityStatusACType
-  | ReturnType<typeof removeTodoAfterLogout>;

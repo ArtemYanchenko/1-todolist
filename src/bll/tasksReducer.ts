@@ -1,11 +1,11 @@
 import { Dispatch } from "redux";
 import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "dal/api";
 import { AppRootStateType } from "./store";
-import { AddTodolistACType, RemoveTodolistACType, SetTodolistsACType } from "./todolistReducer";
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { appActions, StatusesType } from "app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { todolistsActions } from "bll/todolistReducer";
 
 const tasksInitialState: TasksStateType = {};
 
@@ -41,39 +41,25 @@ const slice = createSlice({
       // let tasksForCurrentTodolist = state[action.payload.todolistId];
       // if (index !== -1) tasksForCurrentTodolist.splice(index, 1);
     },
-    removeTasksAfterLogout(state, action: PayloadAction) {
+    removeTasksAfterLogout(state) {
       state = {};
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase();
-  // },
-});
-
-export const taskReducer = (state = tasksInitialState, action: TasksActionsType): TasksStateType => {
-  switch (action.type) {
-    case "SET-TODOLISTS": {
-      const copyState = { ...state };
-      action.payload.todolists.forEach((el) => {
-        copyState[el.id] = [];
+  extraReducers: (builder) => {
+    builder
+      .addCase(todolistsActions.addTodolist, (state, action) => {
+        state[action.payload.todolist.id] = [];
+      })
+      .addCase(todolistsActions.removeTodolist, (state, action) => {
+        delete state[action.payload.todolistId];
+      })
+      .addCase(todolistsActions.setTodolists, (state, action) => {
+        action.payload.todolists.forEach((el) => {
+          state[el.id] = [];
+        });
       });
-      return copyState;
-    }
-    case "ADD-TODOLIST": {
-      return {
-        ...state,
-        [action.payload.todolist.id]: [],
-      };
-    }
-    case "REMOVE-TODOLIST": {
-      const copyState = { ...state };
-      delete copyState[action.payload.todolistId];
-      return copyState;
-    }
-    default:
-      return state;
-  }
-};
+  },
+});
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;
@@ -164,5 +150,3 @@ export type UpdateTaskModelType = {
   startDate?: string;
   deadline?: string;
 };
-
-export type TasksActionsType = AddTodolistACType | RemoveTodolistACType | SetTodolistsACType;

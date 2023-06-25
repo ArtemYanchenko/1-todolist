@@ -1,17 +1,15 @@
-import { addTodolistAC, todolistReducer } from "./todolistReducer";
-import { taskReducer } from "./tasksReducer";
-import { v1 } from "uuid";
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TodolistDomainType } from "features/TodolistList/TodolistsList";
+import { todolistsActions, todolistsReducer } from "bll/todolistReducer";
+import { tasksReducer } from "bll/tasksReducer";
 
 test("ids should be equals", () => {
   const startTasksState: TasksStateType = {};
   const startTodolistsState: Array<TodolistDomainType> = [];
-  const newId = v1();
-  const action = addTodolistAC({ id: "1", title: "newtodo", order: 0, addedDate: "" });
+  const action = todolistsActions.addTodolist({ todolist: { id: "1", title: "newtodo", order: 0, addedDate: "" } });
 
-  const endTasksState = taskReducer(startTasksState, action);
-  const endTodolistsState = todolistReducer(startTodolistsState, action);
+  const endTasksState = tasksReducer(startTasksState, action);
+  const endTodolistsState = todolistsReducer(startTodolistsState, action);
 
   const keys = Object.keys(endTasksState);
   const idFromTasks = keys[0];
