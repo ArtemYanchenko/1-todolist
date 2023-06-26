@@ -110,7 +110,6 @@ test("status of specified task should be changed", () => {
     addedDate: "2023-06-07T16:00:25.61",
   };
   const action = tasksActions.updateTask({ todolistId: "todolistId2", taskId: "2", model });
-
   const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId2"][1].id).toBe("2");

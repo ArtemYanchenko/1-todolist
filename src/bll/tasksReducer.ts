@@ -14,8 +14,6 @@ const slice = createSlice({
   initialState: tasksInitialState,
   reducers: {
     setTasks(state, action: PayloadAction<{ todolistId: string; tasks: TaskType[] }>) {
-      // const updateTask = { ...action.payload.tasks[action.payload], entityStatus: "idle" };
-
       state[action.payload.todolistId] = action.payload.tasks.map((el) => ({ ...el, entityStatus: "idle" }));
     },
     addTask(state, action: PayloadAction<{ task: TaskType }>) {

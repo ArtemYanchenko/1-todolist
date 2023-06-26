@@ -9,8 +9,6 @@ const authInitialState = {
   isLoggedIn: false,
 };
 
-// type InitialStateType = typeof authInitialState;
-
 const slice = createSlice({
   name: "auth",
   initialState: authInitialState,
