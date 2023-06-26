@@ -19,28 +19,33 @@ test("ids should be equals", () => {
   expect(idFromTodolists).toBe(action.payload.todolist.id);
 });
 
-// test('property with todolistId should be deleted', () => {
-//     const startState: TasksStateType = {
-//         "todolistId1": [
-//             { id: "1", title: "CSS", isDone: false },
-//             { id: "2", title: "JS", isDone: true },
-//             { id: "3", title: "React", isDone: false }
-//         ],
-//         "todolistId2": [
-//             { id: "1", title: "bread", isDone: false },
-//             { id: "2", title: "milk", isDone: true },
-//             { id: "3", title: "tea", isDone: false }
-//         ]
-//     };
-//
-//     const action = removeTodolistAC("todolistId2");
-//
-//     const endState = tasksReducer(startState, action)
-//
-//
-//     const keys = Object.keys(endState);
-//
-//     expect(keys.length).toBe(1);
-//     expect(endState["todolistId2"]).not.toBeDefined();
-//     expect(startState["todolistId2"]).toBeDefined();
-// });
+test("property with todolistId should be deleted", () => {
+  const startState = [
+    {
+      addedDate: "2023-06-09T07:44:37.557",
+      id: "1",
+      order: -8,
+      title: "VUE",
+      filter: "all",
+      entityStatus: "idle",
+    },
+    {
+      addedDate: "2023-06-09T07:44:37.557",
+      id: "2",
+      order: -8,
+      title: "js",
+      filter: "all",
+      entityStatus: "idle",
+    },
+  ];
+
+  const action = todolistsActions.removeTodolist({ todolistId: "todolistId2" });
+
+  const endState = tasksReducer(startState, action);
+
+  const keys = Object.keys(endState);
+
+  expect(keys.length).toBe(1);
+  expect(endState["todolistId2"]).not.toBeDefined();
+  expect(startState["todolistId2"]).toBeDefined();
+});
