@@ -20,24 +20,64 @@ test("ids should be equals", () => {
 });
 
 test("property with todolistId should be deleted", () => {
-  const startState = [
-    {
-      addedDate: "2023-06-09T07:44:37.557",
-      id: "1",
-      order: -8,
-      title: "VUE",
-      filter: "all",
-      entityStatus: "idle",
-    },
-    {
-      addedDate: "2023-06-09T07:44:37.557",
-      id: "2",
-      order: -8,
-      title: "js",
-      filter: "all",
-      entityStatus: "idle",
-    },
-  ];
+  const startState: TasksStateType = {
+    todolistId1: [
+      {
+        id: "1",
+        title: "RxJS",
+        description: "",
+        todoListId: "todolistId1",
+        order: 0,
+        status: 0,
+        priority: 1,
+        startDate: "",
+        deadline: "",
+        addedDate: "2023-06-09T07:44:43.06",
+        entityStatus: "idle",
+      },
+      {
+        id: "2",
+        title: "hello",
+        description: "",
+        todoListId: "todolistId1",
+        order: 0,
+        status: 2,
+        priority: 1,
+        startDate: "",
+        deadline: "",
+        addedDate: "2023-06-07T16:00:25.61",
+        entityStatus: "idle",
+      },
+    ],
+    todolistId2: [
+      {
+        id: "1",
+        title: "mutability123",
+        description: "",
+        todoListId: "todolistId2",
+        order: 0,
+        status: 2,
+        priority: 1,
+        startDate: "",
+        deadline: "",
+        addedDate: "2023-06-07T16:00:25.61",
+        entityStatus: "idle",
+      },
+      {
+        id: "2",
+        title: "5",
+        description: "",
+        todoListId: "todolistId2",
+        order: 0,
+        status: 0,
+        priority: 1,
+        startDate: "",
+        deadline: "",
+        addedDate: "2023-06-07T16:00:25.61",
+        entityStatus: "idle",
+      },
+    ],
+  };
 
   const action = todolistsActions.removeTodolist({ todolistId: "todolistId2" });
 
