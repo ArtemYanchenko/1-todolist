@@ -36,8 +36,6 @@ const slice = createSlice({
       state[action.payload.todolistId] = state[action.payload.todolistId].filter(
         (el) => el.id !== action.payload.taskId
       );
-      // let tasksForCurrentTodolist = state[action.payload.todolistId];
-      // if (index !== -1) tasksForCurrentTodolist.splice(index, 1);
     },
     removeTasksAfterLogout(state) {
       state = {};
