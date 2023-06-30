@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
 import { appActions, StatusesType } from "app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
-import { getTasksTC } from "./tasksReducer";
+import { fetchTasks, tasksThunks } from "./tasksReducer";
 import { AppThunkType } from "./store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -57,7 +57,7 @@ export const getTodolistsTC = (): AppThunkType => (dispatch) => {
     })
     .then((todos) => {
       todos.forEach((tl) => {
-        dispatch(getTasksTC(tl.id));
+        dispatch(tasksThunks.fetchTasks(tl.id));
       });
     })
     .catch((e) => {
