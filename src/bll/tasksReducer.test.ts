@@ -1,6 +1,6 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TaskType } from "dal/api";
-import { tasksActions, tasksReducer } from "bll/tasksReducer";
+import { tasksActions, tasksReducer, tasksThunks } from "bll/tasksReducer";
 import { todolistsActions } from "bll/todolistReducer";
 
 let startState: TasksStateType;
@@ -87,7 +87,13 @@ test("correct task should be added to correct array", () => {
     addedDate: "2023-06-07T16:00:25.61",
     entityStatus: "idle",
   };
-  const action = tasksActions.addTask({ task });
+  const action = tasksThunks.addTask.fulfilled(
+    {
+      task,
+    },
+    "requestId",
+    { title: task.title, todolistId: task.todoListId }
+  );
   const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId1"].length).toBe(2);

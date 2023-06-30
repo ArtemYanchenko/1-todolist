@@ -1,6 +1,6 @@
 import axios from "axios";
-import { UpdateTaskModelType } from "../bll/tasksReducer";
-import { StatusesType } from "../app/app-reducer";
+import { AddTaskArgType, UpdateTaskModelType } from "bll/tasksReducer";
+import { StatusesType } from "app/app-reducer";
 
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.1",
@@ -108,8 +108,8 @@ export const tasksAPI = {
   getTasks(id: string) {
     return instance.get<GetTaskResponseType>(`/todo-lists/${id}/tasks`);
   },
-  addTask(id: string, title: string) {
-    return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${id}/tasks`, { title });
+  addTask(arg: AddTaskArgType) {
+    return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${arg.todolistId}/tasks`, { title: arg.title });
   },
   updateTask(todoListId: string, taskId: string, model: UpdateTaskModelType) {
     return instance.put<ResponseType<TaskType>>(`/todo-lists/${todoListId}/tasks/${taskId}`, model);

@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import TaskWithRedux from "./Task/Task";
-import { addTaskTC } from "bll/tasksReducer";
+import { tasksThunks } from "bll/tasksReducer";
 import { changeTodolistTitleTC, removeTodolistTC, todolistsActions } from "bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
@@ -24,7 +24,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   const dispatch = useAppDispatch();
 
   const addTask = useCallback((title: string) => {
-    dispatch(addTaskTC(todolistId, title));
+    dispatch(tasksThunks.addTask({ todolistId, title }));
   }, []);
 
   const changeTodolistTitle = useCallback(
