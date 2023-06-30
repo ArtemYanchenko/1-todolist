@@ -27,16 +27,13 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
     dispatch(tasksThunks.addTask({ todolistId, title }));
   }, []);
 
-  const changeTodolistTitle = useCallback(
-    (title: string) => {
-      dispatch(changeTodolistTitleTC(todolistId, title));
-    },
-    [dispatch]
-  );
+  const changeTodolistTitle = useCallback((title: string) => {
+    dispatch(changeTodolistTitleTC(todolistId, title));
+  }, []);
 
   const removeTodolist = useCallback(() => {
     dispatch(removeTodolistTC(todolistId));
-  }, [dispatch]);
+  }, []);
 
   const filteredTasks = (): TaskType[] => {
     if (filter === "active") {

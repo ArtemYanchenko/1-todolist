@@ -1,9 +1,10 @@
 import { AppThunkType } from "./store";
 import { authAPI, LoginParamsType } from "dal/api";
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
+import { handleServerNetworkError } from "utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tasksActions } from "bll/tasksReducer";
 import { todolistsActions } from "bll/todolistReducer";
+import { handleServerAppError } from "utils/handle-server-app-error";
 
 const authInitialState = {
   isLoggedIn: false,
