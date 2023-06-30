@@ -1,7 +1,8 @@
-import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
+import task, { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TaskType } from "dal/api";
 import { tasksActions, tasksReducer, tasksThunks } from "bll/tasksReducer";
 import { todolistsActions } from "bll/todolistReducer";
+import { UpdateTask } from "dal/api.stories";
 
 let startState: TasksStateType;
 
@@ -115,7 +116,8 @@ test("status of specified task should be changed", () => {
     deadline: "",
     addedDate: "2023-06-07T16:00:25.61",
   };
-  const action = tasksActions.updateTask({ todolistId: "todolistId2", taskId: "2", model });
+  const args = { todolistId: "todolistId2", taskId: "2", model };
+  const action = tasksThunks.updateTask.fulfilled(args, "requestId", args);
   const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId2"][1].id).toBe("2");
@@ -137,7 +139,8 @@ test("task  title should be changed", () => {
     deadline: "",
     addedDate: "2023-06-07T16:00:25.61",
   };
-  const action = tasksActions.updateTask({ todolistId: "todolistId2", taskId: "2", model });
+  const args = { todolistId: "todolistId2", taskId: "2", model };
+  const action = tasksThunks.updateTask.fulfilled(args, "requestId", args);
 
   const endState = tasksReducer(startState, action);
 
