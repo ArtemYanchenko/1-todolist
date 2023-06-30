@@ -1,12 +1,11 @@
-import { todolistsAPI, TodolistType } from "dal/api";
+import { todolistsAPI, TodolistType } from "common/dal/api";
 import { Dispatch } from "redux";
 import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
 import { appActions, StatusesType } from "app/app-reducer";
-import { handleServerNetworkError } from "utils/handle-server-network-error";
-import { fetchTasks, tasksThunks } from "./tasksReducer";
-import { AppThunkType } from "./store";
+import { tasksThunks } from "common/bll/tasksReducer";
+import { AppThunkType } from "common/bll/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { handleServerAppError } from "utils/handle-server-app-error";
+import { handleServerAppError, handleServerNetworkError } from "common/utils";
 
 const todolistsInitialState: TodolistDomainType[] = [];
 

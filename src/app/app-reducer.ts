@@ -1,7 +1,7 @@
-import { authAPI } from "dal/api";
+import { authAPI } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from "redux";
-import { authActions } from "bll/authReducer";
+import { authActions } from "common/bll/authReducer";
 
 const appInitialState = {
   status: "idle" as StatusesType,

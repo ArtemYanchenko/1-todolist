@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ResponseType } from "dal/api";
+import { ResponseType } from "common/dal/api";
 import { appActions } from "app/app-reducer";
 import axios, { AxiosError } from "axios";
 

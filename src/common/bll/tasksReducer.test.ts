@@ -1,7 +1,7 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
-import { TaskType } from "dal/api";
-import { tasksActions, tasksReducer, tasksThunks } from "bll/tasksReducer";
-import { todolistsActions } from "bll/todolistReducer";
+import { TaskType } from "common/dal/api";
+import { tasksActions, tasksReducer, tasksThunks } from "common/bll/tasksReducer";
+import { todolistsActions } from "common/bll/todolistReducer";
 
 let startState: TasksStateType;
 

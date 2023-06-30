@@ -1,10 +1,9 @@
-import { AppThunkType } from "./store";
-import { authAPI, LoginParamsType } from "dal/api";
-import { handleServerNetworkError } from "utils/handle-server-network-error";
+import { AppThunkType } from "common/bll/store";
+import { authAPI, LoginParamsType } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { tasksActions } from "bll/tasksReducer";
-import { todolistsActions } from "bll/todolistReducer";
-import { handleServerAppError } from "utils/handle-server-app-error";
+import { tasksActions } from "common/bll/tasksReducer";
+import { todolistsActions } from "common/bll/todolistReducer";
+import { handleServerAppError, handleServerNetworkError } from "common/utils";
 
 const authInitialState = {
   isLoggedIn: false,

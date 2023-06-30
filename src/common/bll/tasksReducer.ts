@@ -1,12 +1,11 @@
 import { Dispatch } from "redux";
-import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "dal/api";
+import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "common/dal/api";
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { appActions, StatusesType } from "app/app-reducer";
-import { handleServerNetworkError } from "utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todolistsActions } from "bll/todolistReducer";
-import { createAppAsyncThunk } from "utils/create-app-async-thunk";
-import { handleServerAppError } from "utils/handle-server-app-error";
+import { todolistsActions } from "common/bll/todolistReducer";
+import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
+import { handleServerAppError, handleServerNetworkError } from "common/utils";
 
 const tasksInitialState: TasksStateType = {};
 

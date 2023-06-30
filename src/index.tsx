@@ -3,7 +3,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./bll/store";
+import { store } from "./common/bll/store";
 import { App } from "./app/App";
 import { BrowserRouter } from "react-router-dom";
 

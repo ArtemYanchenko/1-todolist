@@ -8,8 +8,8 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { loginTC } from "../../bll/authReducer";
+import { useAppDispatch, useAppSelector } from "../../common/hooks/hooks";
+import { loginTC } from "../../common/bll/authReducer";
 import { Navigate } from "react-router-dom";
 
 export const Login = () => {
@@ -58,13 +58,7 @@ export const Login = () => {
               <p>Password: free</p>
             </FormLabel>
             <FormGroup>
-              <TextField
-                label="Email"
-                margin="normal"
-                name="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
+              <TextField label="Email" margin="normal" name="email" onChange={formik.handleChange} value={formik.values.email} />
               {formik.errors.email && formik.touched.email ? <div>{formik.errors.email}</div> : null}
               <TextField
                 type="password"

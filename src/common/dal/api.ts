@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AddTaskArgType, UpdateTaskModelType } from "bll/tasksReducer";
+import { AddTaskArgType, UpdateTaskModelType } from "common/bll/tasksReducer";
 import { StatusesType } from "app/app-reducer";
 
 const instance = axios.create({

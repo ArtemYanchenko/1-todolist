@@ -5,12 +5,12 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import TaskWithRedux from "./Task/Task";
-import { tasksThunks } from "bll/tasksReducer";
-import { changeTodolistTitleTC, removeTodolistTC, todolistsActions } from "bll/todolistReducer";
-import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { tasksThunks } from "common/bll/tasksReducer";
+import { changeTodolistTitleTC, removeTodolistTC, todolistsActions } from "common/bll/todolistReducer";
+import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
 import { StatusesType } from "app/app-reducer";
-import { TaskStatuses, TaskType } from "dal/api";
+import { TaskStatuses, TaskType } from "common/dal/api";
 
 type PropsType = {
   todolistId: string;

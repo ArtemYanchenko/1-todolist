@@ -1,6 +1,6 @@
 import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
 import { StatusesType } from "app/app-reducer";
-import { todolistsActions, todolistsReducer } from "bll/todolistReducer";
+import { todolistsActions, todolistsReducer } from "common/bll/todolistReducer";
 
 let startState: TodolistDomainType[] = [];
 

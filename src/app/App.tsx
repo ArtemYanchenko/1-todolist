@@ -4,7 +4,7 @@ import { Header } from "features/Header/Header";
 import { Login } from "features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "features/TodolistList/TodolistsList";
-import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { initializeAppTC } from "./app-reducer";
 import { CircularProgress } from "@mui/material";
 
