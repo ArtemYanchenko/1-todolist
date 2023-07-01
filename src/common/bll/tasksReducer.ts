@@ -129,7 +129,16 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
   }
 });
 
-export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+// type RemoveTask
+//
+// export const removeTask = createAppAsyncThunk<>("tasks/removeTask",(arg, thunkAPI)=>{
+//   const {dispatch,rejectWithValue} = thunkAPI
+//
+//   dispatch(appActions.setStatus({ status: "loading" }));
+//   dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
+// });
+
+export const _removeTask = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
   tasksAPI
