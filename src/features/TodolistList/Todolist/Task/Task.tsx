@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, memo, useCallback } from "react";
 import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
-import { _removeTask, tasksThunks } from "common/bll/tasksReducer";
+import { tasksThunks } from "common/bll/tasksReducer";
 import { TaskStatuses, TaskType } from "common/dal/api";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
@@ -41,7 +41,7 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
   );
 
   const removeTaskCalllBack = useCallback(() => {
-    dispatch(_removeTask(todoID, taskID));
+    // dispatch(_removeTask(todoID, taskID));
   }, [todoID, taskID]);
 
   return (
