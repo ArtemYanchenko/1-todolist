@@ -1,12 +1,10 @@
 import React, { ChangeEvent, FC, memo, useCallback } from "react";
-import { EditableSpan } from "../../../../components/EditableSpan/EditableSpan";
+import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
-import { removeTaskTC, tasksThunks, updateTask } from "../../../../common/bll/tasksReducer";
-import { TaskStatuses, TaskType } from "../../../../common/dal/api";
-import { useAppDispatch, useAppSelector } from "../../../../common/hooks/hooks";
-import classes from "./Task.module.css";
-import Switch from "@mui/material/Switch/Switch";
+import { _removeTask, tasksThunks } from "common/bll/tasksReducer";
+import { TaskStatuses, TaskType } from "common/dal/api";
+import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 
 export type PropsType = {
@@ -42,8 +40,8 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
     [todoID, taskID]
   );
 
-  const removeTask = useCallback(() => {
-    dispatch(removeTaskTC(todoID, taskID));
+  const removeTaskCalllBack = useCallback(() => {
+    dispatch(_removeTask(todoID, taskID));
   }, [todoID, taskID]);
 
   return (
@@ -56,7 +54,7 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
       <Checkbox checked={task.status === TaskStatuses.Completed} disabled={task.entityStatus === "loading"} color="success" onChange={changeStatus} />
 
       <EditableSpan value={task.title} onChange={changeTaskTitle} disabled={task.entityStatus === "loading"} />
-      <IconButton onClick={removeTask} disabled={task.entityStatus === "loading"}>
+      <IconButton onClick={removeTaskCalllBack} disabled={task.entityStatus === "loading"}>
         <Delete />
       </IconButton>
     </div>
