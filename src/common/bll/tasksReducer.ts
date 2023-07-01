@@ -138,22 +138,22 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
 //   dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
 // });
 
-export const _removeTask = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
-  dispatch(appActions.setStatus({ status: "loading" }));
-  dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
-  tasksAPI
-    .removeTask(todolistId, taskId)
-    .then((res) => {
-      if (res.data.resultCode === 0) {
-        dispatch(tasksActions.removeTask({ todolistId, taskId }));
-        dispatch(appActions.setStatus({ status: "idle" }));
-        dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "idle" }));
-      }
-    })
-    .catch((e) => {
-      handleServerNetworkError(e, dispatch);
-    });
-};
+// export const _removeTask = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+//   dispatch(appActions.setStatus({ status: "loading" }));
+//   dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "loading" }));
+//   tasksAPI
+//     .removeTask(todolistId, taskId)
+//     .then((res) => {
+//       if (res.data.resultCode === 0) {
+//         dispatch(tasksActions.removeTask({ todolistId, taskId }));
+//         dispatch(appActions.setStatus({ status: "idle" }));
+//         dispatch(tasksActions.changeTaskEntityStatus({ todolistId, taskId, entityStatus: "idle" }));
+//       }
+//     })
+//     .catch((e) => {
+//       handleServerNetworkError(e, dispatch);
+//     });
+// };
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;
