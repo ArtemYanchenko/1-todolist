@@ -46,11 +46,6 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
 
   return (
     <div key={task.id} className={task.status === TaskStatuses.Completed ? "is-done" : ""}>
-      {/*<Switch checked={task.status === TaskStatuses.Completed}*/}
-      {/*        color="warning"*/}
-      {/*        disabled={task.entityStatus === 'loading'}*/}
-      {/*        onChange={changeStatus}*/}
-      {/*/>*/}
       <Checkbox checked={task.status === TaskStatuses.Completed} disabled={task.entityStatus === "loading"} color="success" onChange={changeStatus} />
 
       <EditableSpan value={task.title} onChange={changeTaskTitle} disabled={task.entityStatus === "loading"} />
