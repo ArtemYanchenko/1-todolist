@@ -1,6 +1,6 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TaskType } from "common/dal/api";
-import { tasksActions, tasksReducer, tasksThunks } from "common/bll/tasksReducer";
+import { tasksReducer, tasksThunks } from "common/bll/tasksReducer";
 import { todolistsActions } from "common/bll/todolistReducer";
 
 let startState: TasksStateType;
@@ -67,7 +67,8 @@ beforeEach(() => {
 });
 
 test("correct task should be deleted from correct array", () => {
-  const action = tasksActions.removeTask({ todolistId: "todolistId2", taskId: "2" });
+  const args = { todolistId: "todolistId2", taskId: "2" };
+  const action = tasksThunks.removeTask.fulfilled(args, "requestId", args);
 
   const endState = tasksReducer(startState, action);
   expect(endState["todolistId2"].length).toBe(1);

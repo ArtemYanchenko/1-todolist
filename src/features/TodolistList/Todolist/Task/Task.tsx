@@ -41,7 +41,7 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
   );
 
   const removeTaskCalllBack = useCallback(() => {
-    // dispatch(_removeTask(todoID, taskID));
+    dispatch(tasksThunks.removeTask({ todolistId: todoID, taskId: taskID }));
   }, [todoID, taskID]);
 
   return (
