@@ -1,4 +1,3 @@
-import { AppThunkType } from "common/bll/store";
 import { authAPI, LoginParamsType } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tasksActions } from "common/bll/tasksReducer";
@@ -45,15 +44,35 @@ export const login = createAppAsyncThunk<
   }
 });
 
-export const logout = (): AppThunkType => (dispatch) => {
-  authAPI.logout().then((res) => {
+// export const logout = (): AppThunkType => (dispatch) => {
+//   authAPI.logout().then((res) => {
+//     if (res.data.resultCode === 0) {
+//       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
+//       dispatch(todolistsActions.removeTodolistsAfterLogout());
+//       dispatch(tasksActions.removeTasksAfterLogout());
+//     }
+//   });
+// };
+
+export const logout = createAppAsyncThunk<{
+  isLoggedIn: boolean;
+}>("auth/login", async (state, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    const res = await authAPI.logout();
     if (res.data.resultCode === 0) {
-      dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(todolistsActions.removeTodolistsAfterLogout());
       dispatch(tasksActions.removeTasksAfterLogout());
+      return { isLoggedIn: false };
+    } else {
+      handleServerAppError(res.data, dispatch);
+      return rejectWithValue(null);
     }
-  });
-};
+  } catch (e: unknown) {
+    handleServerNetworkError(e, dispatch);
+    return rejectWithValue(null);
+  }
+});
 
 export const authReducer = slice.reducer;
 export const authActions = slice.actions;
