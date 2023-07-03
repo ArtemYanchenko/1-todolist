@@ -147,7 +147,6 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
 
 export const removeTask = createAppAsyncThunk<any, RemoveTaskArgType>("tasks/removeTask", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-
   dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(
     tasksActions.changeTaskEntityStatus({
@@ -156,7 +155,6 @@ export const removeTask = createAppAsyncThunk<any, RemoveTaskArgType>("tasks/rem
       entityStatus: "loading",
     })
   );
-
   try {
     const res = await tasksAPI.removeTask(arg.todolistId, arg.taskId);
     if (res.data.resultCode === 0) {
