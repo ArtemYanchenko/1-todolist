@@ -3,7 +3,7 @@ import { authAPI, LoginParamsType } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tasksActions } from "common/bll/tasksReducer";
 import { todolistsActions } from "common/bll/todolistReducer";
-import { handleServerAppError, handleServerNetworkError } from "common/utils";
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 
 const authInitialState = {
   isLoggedIn: false,
@@ -19,23 +19,36 @@ const slice = createSlice({
   },
 });
 
-export const authReducer = slice.reducer;
-export const authActions = slice.actions;
+// export const login =
+//   (data: LoginParamsType): AppThunkType =>
+//   (dispatch) => {
+//     authAPI
+//       .login(data)
+//       .then((res) => {
+//         if (res.data.resultCode === 0) {
+//           dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
+//         } else {
+//           handleServerAppError(res.data, dispatch);
+//         }
+//       })
+//       .catch((e) => handleServerNetworkError(e, dispatch));
+//   };
 
-export const loginTC =
-  (data: LoginParamsType): AppThunkType =>
-  (dispatch) => {
-    authAPI
-      .login(data)
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
-        } else {
-          handleServerAppError(res.data, dispatch);
-        }
-      })
-      .catch((e) => handleServerNetworkError(e, dispatch));
-  };
+export const login = createAppAsyncThunk<boolean, LoginParamsType>("auth/login", async (data, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    const res = await authAPI.login(data);
+    if (res.data.resultCode === 0) {
+      return true;
+    } else {
+      handleServerAppError(res.data, dispatch);
+      return rejectWithValue(null);
+    }
+  } catch (e: unknown) {
+    handleServerNetworkError(e, dispatch);
+    return rejectWithValue(null);
+  }
+});
 
 export const logoutTC = (): AppThunkType => (dispatch) => {
   authAPI.logout().then((res) => {
@@ -46,3 +59,7 @@ export const logoutTC = (): AppThunkType => (dispatch) => {
     }
   });
 };
+
+export const authReducer = slice.reducer;
+export const authActions = slice.actions;
+export const authThunks = { login, logoutTC };
