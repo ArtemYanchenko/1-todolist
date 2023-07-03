@@ -6,15 +6,15 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { LinearColor } from "./PreLoader";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../common/hooks/hooks";
-import { logoutTC } from "../../common/bll/authReducer";
+import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
+import { logout } from "common/bll/authReducer";
 
 export const Header = () => {
   const status = useAppSelector((state) => state.app.status);
   const dispatch = useAppDispatch();
 
   const logoutHandler = () => {
-    dispatch(logoutTC());
+    dispatch(logout());
   };
 
   return (
