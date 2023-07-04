@@ -3,12 +3,12 @@ import Grid from "@mui/material/Grid";
 import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import { Todolist } from "./Todolist/TodoList";
-import { addTodolist, getTodolists } from "common/bll/todolistReducer";
+import { todolistsThunks } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Container from "@mui/material/Container";
 import { TodolistType } from "common/dal/api";
 import { Snackbars } from "components/SnackBar/SnackBar";
-import { StatusesType } from "app/app-reducer";
+import { StatusesType } from "app/appReducer";
 import { Navigate } from "react-router-dom";
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -22,12 +22,12 @@ export const TodolistsList = memo(() => {
   const dispatch = useAppDispatch();
 
   const addTodolist = useCallback((title: string) => {
-    dispatch(addTodolist(title));
+    dispatch(todolistsThunks.addTodolist(title));
   }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getTodolists());
+      dispatch(todolistsThunks.getTodolists());
     }
   }, []);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AddTaskArgType, UpdateTaskModelType } from "common/bll/tasksReducer";
-import { StatusesType } from "app/app-reducer";
+import { StatusesType } from "app/appReducer";
 
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.1",

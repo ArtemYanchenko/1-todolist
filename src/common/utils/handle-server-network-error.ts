@@ -1,6 +1,5 @@
 import { Dispatch } from "redux";
-import { ResponseType } from "common/dal/api";
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/appReducer";
 import axios, { AxiosError } from "axios";
 
 export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {

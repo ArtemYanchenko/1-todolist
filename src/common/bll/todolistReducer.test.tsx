@@ -1,6 +1,6 @@
 import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
-import { StatusesType } from "app/app-reducer";
-import { todolistsActions, todolistsReducer } from "common/bll/todolistReducer";
+import { StatusesType } from "app/appReducer";
+import { todolistsActions, todolistsReducer, todolistsThunks } from "common/bll/todolistReducer";
 
 let startState: TodolistDomainType[] = [];
 
@@ -80,7 +80,7 @@ test("correct entityStatus of todolist should be changed", () => {
 });
 
 test("correct todolist should be set to state", () => {
-  const action = todolistsActions.setTodolists({ todolists: startState });
+  const action = todolistsThunks.getTodolists.fulfilled({ todolists: startState }, "requestId");
   const endState = todolistsReducer([], action);
 
   expect(endState.length).toBe(2);

@@ -3,7 +3,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { SyntheticEvent } from "react";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/appReducer";
 
 export const Snackbars = () => {
   const error = useAppSelector((state) => state.app.error);

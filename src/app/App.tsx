@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "features/TodolistList/TodolistsList";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { CircularProgress } from "@mui/material";
-import { appThunks } from "app/app-reducer";
+import { appThunks } from "app/appReducer";
 
 export function App() {
   const dispatch = useAppDispatch();

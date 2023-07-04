@@ -6,10 +6,10 @@ import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import TaskWithRedux from "./Task/Task";
 import { tasksThunks } from "common/bll/tasksReducer";
-import { changeTodolistTitle, removeTodolistTC, todolistsActions } from "common/bll/todolistReducer";
+import { todolistsActions, todolistsThunks } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
-import { StatusesType } from "app/app-reducer";
+import { StatusesType } from "app/appReducer";
 import { TaskStatuses, TaskType } from "common/dal/api";
 
 type PropsType = {
@@ -28,11 +28,11 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   }, []);
 
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(changeTodolistTitle(todolistId, title));
+    dispatch(todolistsThunks.changeTodolistTitle(todolistId, title));
   }, []);
 
   const removeTodolist = useCallback(() => {
-    dispatch(removeTodolistTC(todolistId));
+    dispatch(todolistsThunks.removeTodolist(todolistId));
   }, []);
 
   const filteredTasks = (): TaskType[] => {
@@ -47,7 +47,6 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
 
   let allTodolistTasks = filteredTasks();
 
-  debugger;
   return (
     <div>
       <h3>
