@@ -6,7 +6,7 @@ import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import TaskWithRedux from "./Task/Task";
 import { tasksThunks } from "common/bll/tasksReducer";
-import { changeTodolistTitleTC, removeTodolistTC, todolistsActions } from "common/bll/todolistReducer";
+import { changeTodolistTitle, removeTodolistTC, todolistsActions } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
 import { StatusesType } from "app/app-reducer";
@@ -28,7 +28,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   }, []);
 
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(changeTodolistTitleTC(todolistId, title));
+    dispatch(changeTodolistTitle(todolistId, title));
   }, []);
 
   const removeTodolist = useCallback(() => {

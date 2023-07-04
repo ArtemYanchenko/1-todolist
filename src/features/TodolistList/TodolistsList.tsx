@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import { Todolist } from "./Todolist/TodoList";
-import { addTodolistTC, getTodolistsTC } from "common/bll/todolistReducer";
+import { addTodolist, getTodolists } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Container from "@mui/material/Container";
 import { TodolistType } from "common/dal/api";
@@ -22,12 +22,12 @@ export const TodolistsList = memo(() => {
   const dispatch = useAppDispatch();
 
   const addTodolist = useCallback((title: string) => {
-    dispatch(addTodolistTC(title));
+    dispatch(addTodolist(title));
   }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getTodolistsTC());
+      dispatch(getTodolists());
     }
   }, []);
 

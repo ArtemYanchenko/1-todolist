@@ -42,11 +42,8 @@ const slice = createSlice({
   },
 });
 
-export const todolistsReducer = slice.reducer;
-export const todolistsActions = slice.actions;
-
 //thunks
-export const getTodolistsTC = (): AppThunkType => (dispatch) => {
+const getTodolists = (): AppThunkType => (dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   todolistsAPI
     .getTodolists()
@@ -66,7 +63,7 @@ export const getTodolistsTC = (): AppThunkType => (dispatch) => {
     });
 };
 
-export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+const addTodolist = (title: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   todolistsAPI
     .addTodolist(title)
@@ -82,7 +79,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
       handleServerNetworkError(e, dispatch);
     });
 };
-export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
+const changeTodolistTitle = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   todolistsAPI
     .changeTodolistTitle(todolistId, newTitle)
@@ -98,7 +95,7 @@ export const changeTodolistTitleTC = (todolistId: string, newTitle: string) => (
       handleServerNetworkError(e, dispatch);
     });
 };
-export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+const removeTodolist = (todolistId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId, entityStatus: "loading" }));
   todolistsAPI
@@ -114,3 +111,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
       handleServerNetworkError(e, dispatch);
     });
 };
+
+export const todolistsReducer = slice.reducer;
+export const todolistsActions = slice.actions;
+export const todolistsThunks = { getTodolists, addTodolist, changeTodolistTitle, removeTodolist };
