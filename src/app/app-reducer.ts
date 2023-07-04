@@ -27,9 +27,9 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer;
 export const appActions = slice.actions;
-
+export const appThunks = {};
 //thunks
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeApp = () => (dispatch: Dispatch) => {
   authAPI
     .authMe()
     .then((res) => {

@@ -44,16 +44,6 @@ export const login = createAppAsyncThunk<
   }
 });
 
-// export const logout = (): AppThunkType => (dispatch) => {
-//   authAPI.logout().then((res) => {
-//     if (res.data.resultCode === 0) {
-//       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
-//       dispatch(todolistsActions.removeTodolistsAfterLogout());
-//       dispatch(tasksActions.removeTasksAfterLogout());
-//     }
-//   });
-// };
-
 export const logout = createAppAsyncThunk<{
   isLoggedIn: boolean;
 }>("auth/login", async (state, thunkAPI) => {
