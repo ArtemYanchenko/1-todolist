@@ -1,6 +1,6 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TodolistDomainType } from "features/TodolistList/TodolistsList";
-import { todolistsActions, todolistsReducer, todolistsThunks } from "common/bll/todolistReducer";
+import { todolistsReducer, todolistsThunks } from "common/bll/todolistReducer";
 import { tasksReducer } from "common/bll/tasksReducer";
 
 test("ids should be equals", () => {
@@ -80,7 +80,7 @@ test("property with todolistId should be deleted", () => {
     ],
   };
 
-  const action = todolistsActions.removeTodolist({ todolistId: "todolistId2" });
+  const action = todolistsThunks.removeTodolist.fulfilled({ todolistId: "todolistId2" }, "requestId", { todolistId: "todolistId2" });
   const endState = tasksReducer(startState, action);
   const keys = Object.keys(endState);
 

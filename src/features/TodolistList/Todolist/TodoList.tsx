@@ -32,7 +32,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   }, []);
 
   const removeTodolist = useCallback(() => {
-    dispatch(todolistsThunks.removeTodolist(todolistId));
+    dispatch(todolistsThunks.removeTodolist({ todolistId }));
   }, []);
 
   const filteredTasks = (): TaskType[] => {

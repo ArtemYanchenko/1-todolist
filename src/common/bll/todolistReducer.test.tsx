@@ -26,8 +26,7 @@ beforeEach(() => {
 });
 
 test("correct todolist should be removed", () => {
-  const endState = todolistsReducer(startState, todolistsActions.removeTodolist({ todolistId: "1" }));
-
+  const endState = todolistsReducer(startState, todolistsThunks.removeTodolist.fulfilled({ todolistId: "1" }, "requestId", { todolistId: "1" }));
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe("2");
 });
