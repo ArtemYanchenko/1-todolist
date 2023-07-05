@@ -1,6 +1,6 @@
 import { authAPI } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authThunks } from "common/bll/authReducer";
+import { authActions } from "common/bll/authReducer";
 import { createAppAsyncThunk } from "common/utils";
 
 const appInitialState = {
@@ -25,13 +25,13 @@ const slice = createSlice({
   },
 });
 
-const initializeApp = createAppAsyncThunk("app/initializeApp", async (state, thunkAPI) => {
+const initializeApp = createAppAsyncThunk("app/initializeApp", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   dispatch(appActions.setIsInitialized({ isInitialized: true }));
   try {
     const res = await authAPI.authMe();
     if (res.data.resultCode === 0) {
-      return authThunks.login.fulfilled;
+      dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
     }
   } catch (e: unknown) {
     return rejectWithValue(null);

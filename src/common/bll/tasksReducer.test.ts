@@ -1,7 +1,7 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { TaskType } from "common/dal/api";
 import { tasksReducer, tasksThunks } from "common/bll/tasksReducer";
-import { todolistsActions } from "common/bll/todolistReducer";
+import { todolistsThunks } from "common/bll/todolistReducer";
 
 let startState: TasksStateType;
 
@@ -157,7 +157,7 @@ test("new array should be added when new todolist is added", () => {
     addedDate: "",
     order: 0,
   };
-  const action = todolistsActions.addTodolist({ todolist });
+  const action = todolistsThunks.addTodolist.fulfilled({ todolist }, "requestId", { title: "new todolist" });
   const endState = tasksReducer(startState, action);
   const keys = Object.keys(endState);
   const newKey = keys.find((k) => k != "todolistId1" && k != "todolistId2");

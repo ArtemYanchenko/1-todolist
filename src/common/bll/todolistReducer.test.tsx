@@ -33,21 +33,18 @@ test("correct todolist should be removed", () => {
 });
 
 test("correct todolist should be added", () => {
-  let newTodolistTitle = "New Todolist";
-  const endState = todolistsReducer(
-    startState,
-    todolistsActions.addTodolist({
-      todolist: {
-        id: "3",
-        title: newTodolistTitle,
-        addedDate: "",
-        order: 0,
-      },
-    })
-  );
+  const arg = {
+    todolist: {
+      id: "3",
+      title: "New Todolist",
+      addedDate: "",
+      order: 0,
+    },
+  };
+  const endState = todolistsReducer(startState, todolistsThunks.addTodolist.fulfilled(arg, "requestId", { title: "New Todolist" }));
 
   expect(endState.length).toBe(3);
-  expect(endState[0].title).toBe(newTodolistTitle);
+  expect(endState[0].title).toBe("New Todolist");
   expect(endState[0].filter).toBe("all");
   expect(endState[0].id).toBeDefined();
 });
