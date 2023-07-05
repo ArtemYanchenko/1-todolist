@@ -7,7 +7,7 @@ test("ids should be equals", () => {
   const startTasksState: TasksStateType = {};
   const startTodolistsState: Array<TodolistDomainType> = [];
   const arg = { todolist: { id: "1", title: "newtodo", order: 0, addedDate: "" } };
-  const action = todolistsThunks.addTodolist.fulfilled(arg, "requestId", { title: "newtodo" });
+  const action = todolistsThunks.addTodolist.fulfilled(arg, "requestId", { title: arg.todolist.title });
 
   const endTasksState = tasksReducer(startTasksState, action);
   const endTodolistsState = todolistsReducer(startTodolistsState, action);
@@ -80,7 +80,8 @@ test("property with todolistId should be deleted", () => {
     ],
   };
 
-  const action = todolistsThunks.removeTodolist.fulfilled({ todolistId: "todolistId2" }, "requestId", { todolistId: "todolistId2" });
+  const arg = { todolistId: "todolistId2" };
+  const action = todolistsThunks.removeTodolist.fulfilled(arg, "requestId", arg);
   const endState = tasksReducer(startState, action);
   const keys = Object.keys(endState);
 

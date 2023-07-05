@@ -157,7 +157,7 @@ test("new array should be added when new todolist is added", () => {
     addedDate: "",
     order: 0,
   };
-  const action = todolistsThunks.addTodolist.fulfilled({ todolist }, "requestId", { title: "new todolist" });
+  const action = todolistsThunks.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title });
   const endState = tasksReducer(startState, action);
   const keys = Object.keys(endState);
   const newKey = keys.find((k) => k != "todolistId1" && k != "todolistId2");
