@@ -28,7 +28,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   }, []);
 
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(todolistsThunks.changeTodolistTitle(todolistId, title));
+    dispatch(todolistsThunks.changeTodolistTitle({ todolistId, title }));
   }, []);
 
   const removeTodolist = useCallback(() => {

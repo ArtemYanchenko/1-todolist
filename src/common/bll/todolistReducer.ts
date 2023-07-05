@@ -20,10 +20,6 @@ const slice = createSlice({
       const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
       if (index !== -1) state[index].entityStatus = action.payload.entityStatus;
     },
-    changeTitleTodolist(state, action: PayloadAction<{ todolistId: string; title: string }>) {
-      const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
-      if (index !== -1) state[index].title = action.payload.title;
-    },
     removeTodolist(state, action: PayloadAction<{ todolistId: string }>) {
       const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
       if (index !== -1) state.splice(index, 1);
@@ -40,6 +36,10 @@ const slice = createSlice({
       .addCase(addTodolist.fulfilled, (state, action) => {
         const newTodo: TodolistDomainType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" };
         state.unshift(newTodo);
+      })
+      .addCase(changeTodolistTitle.fulfilled, (state, action) => {
+        const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
+        if (index !== -1) state[index].title = action.payload.title;
       });
   },
 });
@@ -81,8 +81,34 @@ const addTodolist = createAppAsyncThunk("todolists/addTodolist", async (arg: { t
   }
 });
 
-// const changeTodolistTitle = createAppAsyncThunk('todolists/changeTodolistTitle', async (arg:{todolistId: string, newTitle: string}, thunkAPI)=>{
-//   const {} = thunkAPI
+const changeTodolistTitle = createAppAsyncThunk(
+  "todolists/changeTodolistTitle",
+  async (
+    arg: {
+      todolistId: string;
+      title: string;
+    },
+    thunkAPI
+  ) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    dispatch(appActions.setStatus({ status: "loading" }));
+    const res = await todolistsAPI.changeTodolistTitle(arg.todolistId, arg.title);
+    try {
+      if (res.data.resultCode === 0) {
+        dispatch(appActions.setStatus({ status: "idle" }));
+        return { todolistId: arg.todolistId, title: arg.title };
+      } else {
+        handleServerAppError(res.data, dispatch);
+        return rejectWithValue(null);
+      }
+    } catch (e) {
+      handleServerNetworkError(e, dispatch);
+      return rejectWithValue(null);
+    }
+  }
+);
+
+// const changeTodolistTitle_ = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
 //   dispatch(appActions.setStatus({ status: "loading" }));
 //   todolistsAPI
 //     .changeTodolistTitle(todolistId, newTitle)
@@ -96,38 +122,9 @@ const addTodolist = createAppAsyncThunk("todolists/addTodolist", async (arg: { t
 //     })
 //     .catch((e) => {
 //       handleServerNetworkError(e, dispatch);
-//     });  dispatch(appActions.setStatus({ status: "loading" }));
-//   todolistsAPI
-//     .changeTodolistTitle(todolistId, newTitle)
-//     .then((res) => {
-//       if (res.data.resultCode === 0) {
-//         dispatch(todolistsActions.changeTitleTodolist({ todolistId, title: newTitle }));
-//         dispatch(appActions.setStatus({ status: "idle" }));
-//       } else {
-//         handleServerAppError(res.data, dispatch);
-//       }
-//     })
-//     .catch((e) => {
-//       handleServerNetworkError(e, dispatch);
 //     });
-// })
+// };
 
-const changeTodolistTitle = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
-  dispatch(appActions.setStatus({ status: "loading" }));
-  todolistsAPI
-    .changeTodolistTitle(todolistId, newTitle)
-    .then((res) => {
-      if (res.data.resultCode === 0) {
-        dispatch(todolistsActions.changeTitleTodolist({ todolistId, title: newTitle }));
-        dispatch(appActions.setStatus({ status: "idle" }));
-      } else {
-        handleServerAppError(res.data, dispatch);
-      }
-    })
-    .catch((e) => {
-      handleServerNetworkError(e, dispatch);
-    });
-};
 const removeTodolist = (todolistId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setStatus({ status: "loading" }));
   dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId, entityStatus: "loading" }));
