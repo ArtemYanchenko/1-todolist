@@ -7,10 +7,12 @@ import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { authThunks } from "common/bll/authReducer";
 import { Navigate } from "react-router-dom";
+import { LoginParamsType } from "common/dal/api";
+import { ResponseType } from "common/types";
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -33,8 +35,13 @@ export const Login = () => {
       password: "",
       rememberMe: false,
     },
-    onSubmit: (values) => {
-      dispatch(authThunks.login(values));
+    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+      dispatch(authThunks.login(values))
+        .unwrap()
+        .then((res) => {})
+        .catch((reason: ResponseType) => {
+          formikHelpers.setFieldError(reason.fieldsErrors[0].field, reason.fieldsErrors[0].error);
+        });
     },
   });
 

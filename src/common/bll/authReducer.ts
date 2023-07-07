@@ -40,7 +40,7 @@ export const login = createAppAsyncThunk<
       return { isLoggedIn: true };
     } else {
       handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
+      return rejectWithValue(res.data);
     }
   } catch (e: unknown) {
     handleServerNetworkError(e, dispatch);
