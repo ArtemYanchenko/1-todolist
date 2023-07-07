@@ -6,14 +6,16 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "features/TodolistList/TodolistsList";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { CircularProgress } from "@mui/material";
-import { appThunks } from "app/appReducer";
+import { authThunks } from "common/bll/authReducer";
 
 export function App() {
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector((state) => state.app.isInitialized);
+
   useEffect(() => {
-    dispatch(appThunks.initializeApp());
+    dispatch(authThunks.initializeApp());
   }, []);
+
   if (!isInitialized)
     return (
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30%" }}>
