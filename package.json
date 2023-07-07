@@ -74,7 +74,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-image-snapshot": "^6.1.0",
     "jest-puppeteer": "^8.0.6",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "prop-types": "^15.8.1",
     "puppeteer": "^20.2.1",
     "start-server-and-test": "^2.0.0",

@@ -18,7 +18,7 @@ const slice = createSlice({
         todolistId: string;
         taskId: string;
         entityStatus: StatusesType;
-      }>
+      }>,
     ) {
       let tasks = state[action.payload.todolistId];
       const index = tasks.findIndex((todo) => todo.id === action.payload.taskId);
@@ -121,7 +121,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
       todolistId: arg.todolistId,
       taskId: arg.taskId,
       entityStatus: "loading",
-    })
+    }),
   );
   try {
     const res = await tasksAPI.updateTask(arg.todolistId, arg.taskId, { ...apiModel });
@@ -132,7 +132,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
           todolistId: arg.todolistId,
           taskId: arg.taskId,
           entityStatus: "idle",
-        })
+        }),
       );
       return arg;
     } else {
@@ -153,7 +153,7 @@ export const removeTask = createAppAsyncThunk<any, RemoveTaskArgType>("tasks/rem
       todolistId: arg.todolistId,
       taskId: arg.taskId,
       entityStatus: "loading",
-    })
+    }),
   );
   try {
     const res = await tasksAPI.removeTask(arg.todolistId, arg.taskId);
@@ -164,7 +164,7 @@ export const removeTask = createAppAsyncThunk<any, RemoveTaskArgType>("tasks/rem
           todolistId: arg.todolistId,
           taskId: arg.taskId,
           entityStatus: "idle",
-        })
+        }),
       );
       return arg;
     } else {

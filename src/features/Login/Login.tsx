@@ -60,21 +60,8 @@ export const Login = () => {
             <FormGroup>
               <TextField label="Email" margin="normal" name="email" onChange={formik.handleChange} value={formik.values.email} />
               {formik.errors.email && formik.touched.email ? <div>{formik.errors.email}</div> : null}
-              <TextField
-                type="password"
-                label="Password"
-                margin="normal"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                name="password"
-              />
-              <FormControlLabel
-                label={"Remember me"}
-                control={<Checkbox />}
-                onChange={formik.handleChange}
-                value={formik.values.rememberMe}
-                name="rememberMe"
-              />
+              <TextField type="password" label="Password" margin="normal" onChange={formik.handleChange} value={formik.values.password} name="password" />
+              <FormControlLabel label={"Remember me"} control={<Checkbox />} onChange={formik.handleChange} value={formik.values.rememberMe} name="rememberMe" />
               <Button type={"submit"} variant={"contained"} color={"primary"}>
                 Login
               </Button>

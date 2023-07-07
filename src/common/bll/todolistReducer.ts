@@ -87,7 +87,7 @@ const changeTodolistTitle = createAppAsyncThunk(
       todolistId: string;
       title: string;
     },
-    thunkAPI
+    thunkAPI,
   ) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     dispatch(appActions.setStatus({ status: "loading" }));
@@ -104,7 +104,7 @@ const changeTodolistTitle = createAppAsyncThunk(
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null);
     }
-  }
+  },
 );
 
 const removeTodolist = createAppAsyncThunk(
@@ -113,7 +113,7 @@ const removeTodolist = createAppAsyncThunk(
     arg: {
       todolistId: string;
     },
-    thunkAPI
+    thunkAPI,
   ) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     dispatch(appActions.setStatus({ status: "loading" }));
@@ -132,7 +132,7 @@ const removeTodolist = createAppAsyncThunk(
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null);
     }
-  }
+  },
 );
 
 export const todolistsReducer = slice.reducer;

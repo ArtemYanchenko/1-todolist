@@ -27,17 +27,17 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
           todolistId: todoID,
           taskId: taskID,
           model: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New },
-        })
+        }),
       );
     },
-    [todoID, taskID]
+    [todoID, taskID],
   );
 
   const changeTaskTitle = useCallback(
     (newTitle: string) => {
       dispatch(tasksThunks.updateTask({ todolistId: todoID, taskId: taskID, model: { title: newTitle } }));
     },
-    [todoID, taskID]
+    [todoID, taskID],
   );
 
   const removeTaskCalllBack = useCallback(() => {

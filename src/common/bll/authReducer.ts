@@ -1,4 +1,4 @@
-import { authAPI, LoginParamsType } from "common/dal/api";
+import { authAPI, LoginParamsType, TaskStatuses } from "common/dal/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tasksActions } from "common/bll/tasksReducer";
 import { todolistsActions } from "common/bll/todolistReducer";
@@ -32,7 +32,7 @@ export const login = createAppAsyncThunk<
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     const res = await authAPI.login(data);
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === TaskStatuses.Completed) {
       return { isLoggedIn: true };
     } else {
       handleServerAppError(res.data, dispatch);
@@ -44,13 +44,11 @@ export const login = createAppAsyncThunk<
   }
 });
 
-export const logout = createAppAsyncThunk<{
-  isLoggedIn: boolean;
-}>("auth/login", async (state, thunkAPI) => {
+export const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>("auth/login", async (state, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     const res = await authAPI.logout();
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === TaskStatuses.Completed) {
       dispatch(todolistsActions.removeTodolistsAfterLogout());
       dispatch(tasksActions.removeTasksAfterLogout());
       return { isLoggedIn: false };

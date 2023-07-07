@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 // import React from 'react';
 // import {App} from '../App';
 // import reduxStoreProviderDecorator from '../bll/decorator/reduxStoreProviderDecorator';
