@@ -2,11 +2,10 @@ import { ResponseType } from "common/dal/api";
 import { Dispatch } from "redux";
 import { appActions } from "app/appReducer";
 
-export const handleServerAppError = (data: ResponseType, dispatch: Dispatch) => {
-  if (data.messages.length) {
-    dispatch(appActions.setError({ error: data.messages[0] }));
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch, showError: boolean = true) => {
+  if (showError) {
+    dispatch(appActions.setError({ error: data.messages.length ? data.messages[0] : "Some error occurred" }));
   } else {
-    dispatch(appActions.setError({ error: "Some error occurred" }));
+    dispatch(appActions.setStatus({ status: "failed" }));
   }
-  dispatch(appActions.setStatus({ status: "failed" }));
 };
