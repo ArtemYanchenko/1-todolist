@@ -2,7 +2,7 @@ import axios from "axios";
 import { AddTaskArgType, UpdateTaskModelType } from "common/bll/tasksReducer";
 import { StatusesType } from "app/appReducer";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.1",
   withCredentials: true,
 });
@@ -69,39 +69,6 @@ export type LoginParamsType = {
   password: string;
   rememberMe: boolean;
   captcha?: string;
-};
-
-export const authAPI = {
-  authMe() {
-    return instance.get<
-      ResponseType<{
-        id: number;
-        email: string;
-        login: string;
-      }>
-    >("/auth/me");
-  },
-  login(data: LoginParamsType) {
-    return instance.post<ResponseType<{ userId: number }>>(`auth/login`, data);
-  },
-  logout() {
-    return instance.delete<ResponseType>("auth/login");
-  },
-};
-
-export const todolistsAPI = {
-  getTodolists() {
-    return instance.get<TodolistType[]>("/todo-lists");
-  },
-  addTodolist(title: string) {
-    return instance.post<ResponseType<{ item: TodolistType }>>("/todo-lists", { title });
-  },
-  changeTodolistTitle(id: string, title: string) {
-    return instance.put<ResponseType>(`/todo-lists/${id}`, { title });
-  },
-  removeTodolist(id: string) {
-    return instance.delete<ResponseType>(`/todo-lists/${id}`);
-  },
 };
 
 export const tasksAPI = {

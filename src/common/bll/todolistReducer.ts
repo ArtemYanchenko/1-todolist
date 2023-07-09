@@ -1,9 +1,10 @@
-import { todolistsAPI, TodolistType } from "common/dal/api";
+import { TodolistType } from "common/dal/tasksAPI";
 import { FilterValuesType, TodolistDomainType } from "features/TodolistList/TodolistsList";
 import { appActions, StatusesType } from "app/appReducer";
 import { tasksThunks } from "common/bll/tasksReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
+import { todolistsAPI } from "common/dal";
 
 const todolistsInitialState: TodolistDomainType[] = [];
 

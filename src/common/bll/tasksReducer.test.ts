@@ -1,5 +1,5 @@
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
-import { TaskType } from "common/dal/api";
+import { TaskType } from "common/dal/tasksAPI";
 import { tasksReducer, tasksThunks } from "common/bll/tasksReducer";
 import { todolistsThunks } from "common/bll/todolistReducer";
 

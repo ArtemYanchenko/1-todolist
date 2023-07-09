@@ -3,7 +3,7 @@ import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
 import { tasksThunks } from "common/bll/tasksReducer";
-import { TaskStatuses, TaskType } from "common/dal/api";
+import { TaskStatuses, TaskType } from "common/dal/tasksAPI";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 

@@ -10,7 +10,7 @@ import { todolistsActions, todolistsThunks } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
 import { StatusesType } from "app/appReducer";
-import { TaskStatuses, TaskType } from "common/dal/api";
+import { TaskStatuses, TaskType } from "common/dal/tasksAPI";
 
 type PropsType = {
   todolistId: string;

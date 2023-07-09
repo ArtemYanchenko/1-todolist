@@ -1,4 +1,4 @@
-import { ResponseType } from "common/dal/api";
+import { ResponseType } from "common/dal/tasksAPI";
 import { Dispatch } from "redux";
 import { appActions } from "app/appReducer";
 

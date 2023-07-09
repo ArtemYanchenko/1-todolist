@@ -1,4 +1,4 @@
-import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "common/dal/api";
+import { TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelApiType } from "common/dal/tasksAPI";
 import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
 import { appActions, StatusesType } from "app/appReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

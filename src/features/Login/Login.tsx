@@ -11,7 +11,7 @@ import { FormikHelpers, useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { authThunks } from "common/bll/authReducer";
 import { Navigate } from "react-router-dom";
-import { LoginParamsType } from "common/dal/api";
+import { LoginParamsType } from "common/dal/tasksAPI";
 import { ResponseType } from "common/types";
 
 export const Login = () => {

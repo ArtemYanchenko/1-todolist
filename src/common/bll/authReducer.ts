@@ -1,9 +1,10 @@
-import { authAPI, LoginParamsType } from "common/dal/api";
+import { LoginParamsType } from "common/dal/tasksAPI";
 import { createSlice } from "@reduxjs/toolkit";
 import { tasksActions } from "common/bll/tasksReducer";
 import { todolistsActions } from "common/bll/todolistReducer";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 import { appActions } from "app/appReducer";
+import { authAPI } from "common/dal";
 
 const authInitialState = {
   isLoggedIn: false,
