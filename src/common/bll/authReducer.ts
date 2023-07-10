@@ -28,7 +28,7 @@ const slice = createSlice({
   },
 });
 
-export const login = createAppAsyncThunk<
+const login = createAppAsyncThunk<
   {
     isLoggedIn: boolean;
   },
@@ -49,7 +49,7 @@ export const login = createAppAsyncThunk<
   }
 });
 
-export const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>("auth/logout", async (state, thunkAPI) => {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>("auth/logout", async (state, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     const res = await authAPI.logout();
