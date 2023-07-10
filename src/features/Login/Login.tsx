@@ -18,18 +18,18 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const formik = useFormik({
-    validate: (values) => {
-      if (!values.email) {
-        return {
-          email: "Email is required",
-        };
-      }
-      if (!values.password) {
-        return {
-          password: "Password is required",
-        };
-      }
-    },
+    // validate: (values) => {
+    //   if (!values.email) {
+    //     return {
+    //       email: "Email is required",
+    //     };
+    //   }
+    //   if (!values.password) {
+    //     return {
+    //       password: "Password is required",
+    //     };
+    //   }
+    // },
     initialValues: {
       email: "",
       password: "",
@@ -38,9 +38,12 @@ export const Login = () => {
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       dispatch(authThunks.login(values))
         .unwrap()
-        .then(() => {})
         .catch((reason: ResponseType) => {
-          formikHelpers.setFieldError(reason.fieldsErrors[0].field, reason.fieldsErrors[0].error);
+          reason.fieldsErrors.forEach((el) => {
+            formikHelpers.setFieldError(el.field, el.error);
+            debugger;
+          });
+          // formikHelpers.setFieldError(reason.fieldsErrors[0].field, reason.fieldsErrors[0].error);
         });
     },
   });
