@@ -28,15 +28,10 @@ const slice = createSlice({
   },
 });
 
-const login = createAppAsyncThunk<
-  {
-    isLoggedIn: boolean;
-  },
-  LoginParamsType
->("auth/login", async (data, thunkAPI) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
-    const res = await authAPI.login(data);
+    const res = await authAPI.login(arg);
     if (res.data.resultCode === 0) {
       return { isLoggedIn: true };
     } else {
@@ -49,7 +44,7 @@ const login = createAppAsyncThunk<
   }
 });
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>("auth/logout", async (state, thunkAPI) => {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     const res = await authAPI.logout();
@@ -67,12 +62,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>("auth/logout", async
   }
 });
 
-const initializeApp = createAppAsyncThunk<
-  {
-    isLoggedIn: boolean;
-  },
-  void
->("auth/initializeApp", async (arg, thunkAPI) => {
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/initializeApp", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     const res = await authAPI.authMe();

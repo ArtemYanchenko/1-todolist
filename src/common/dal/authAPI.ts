@@ -1,4 +1,5 @@
-import { instance, LoginParamsType, ResponseType } from "common/dal/tasksAPI";
+import { instance, LoginParamsType } from "common/dal/tasksAPI";
+import { ResponseType } from "common/types";
 
 export const authAPI = {
   authMe() {

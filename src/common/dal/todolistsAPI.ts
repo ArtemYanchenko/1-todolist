@@ -1,4 +1,5 @@
-import { instance, ResponseType, TodolistType } from "common/dal/tasksAPI";
+import { instance, TodolistType } from "common/dal/tasksAPI";
+import { ResponseType } from "common/types";
 
 export const todolistsAPI = {
   getTodolists() {

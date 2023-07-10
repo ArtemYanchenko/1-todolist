@@ -1,6 +1,6 @@
-import { ResponseType } from "common/dal/tasksAPI";
 import { Dispatch } from "redux";
 import { appActions } from "app/appReducer";
+import { ResponseType } from "common/types";
 
 /**
  *
