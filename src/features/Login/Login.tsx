@@ -38,7 +38,7 @@ export const Login = () => {
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       dispatch(authThunks.login(values))
         .unwrap()
-        .then((res) => {})
+        .then(() => {})
         .catch((reason: ResponseType) => {
           formikHelpers.setFieldError(reason.fieldsErrors[0].field, reason.fieldsErrors[0].error);
         });
@@ -66,8 +66,9 @@ export const Login = () => {
             </FormLabel>
             <FormGroup>
               <TextField label="Email" margin="normal" name="email" onChange={formik.handleChange} value={formik.values.email} />
-              {formik.errors.email && formik.touched.email ? <div>{formik.errors.email}</div> : null}
+              {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }}>{formik.errors.email}</div> : null}
               <TextField type="password" label="Password" margin="normal" onChange={formik.handleChange} value={formik.values.password} name="password" />
+              {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }}>{formik.errors.password}</div> : null}
               <FormControlLabel label={"Remember me"} control={<Checkbox />} onChange={formik.handleChange} value={formik.values.rememberMe} name="rememberMe" />
               <Button type={"submit"} variant={"contained"} color={"primary"}>
                 Login
