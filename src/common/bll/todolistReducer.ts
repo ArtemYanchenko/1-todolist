@@ -3,8 +3,9 @@ import { FilterValuesType, TodolistDomainType } from "features/TodolistList/Todo
 import { appActions, StatusesType } from "app/appReducer";
 import { tasksThunks } from "common/bll/tasksReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
+import { createAppAsyncThunk, handleServerAppError } from "common/utils";
 import { todolistsAPI } from "common/dal";
+import { thunkTryCatch } from "common/utils/thunk-try-catch";
 
 const todolistsInitialState: TodolistDomainType[] = [];
 
@@ -48,37 +49,27 @@ const slice = createSlice({
 const getTodolists = createAppAsyncThunk<{
   todolists: TodolistType[];
 }>("todolists/getTodolists", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  dispatch(appActions.setStatus({ status: "loading" }));
-  try {
+  const { dispatch } = thunkAPI;
+  return thunkTryCatch(thunkAPI, async () => {
     const res = await todolistsAPI.getTodolists();
     await res.data.forEach((tl) => {
       dispatch(tasksThunks.fetchTasks(tl.id));
     });
-    dispatch(appActions.setStatus({ status: "idle" }));
     return { todolists: res.data };
-  } catch (e: unknown) {
-    handleServerNetworkError(e, dispatch);
-    return rejectWithValue(null);
-  }
+  });
 });
 
 const addTodolist = createAppAsyncThunk("todolists/addTodolist", async (arg: { title: string }, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  dispatch(appActions.setStatus({ status: "loading" }));
-  const res = await todolistsAPI.addTodolist(arg.title);
-  try {
+  return thunkTryCatch(thunkAPI, async () => {
+    const res = await todolistsAPI.addTodolist(arg.title);
     if (res.data.resultCode === 0) {
-      dispatch(appActions.setStatus({ status: "idle" }));
       return { todolist: res.data.data.item };
     } else {
       handleServerAppError(res.data, dispatch);
       return rejectWithValue(null);
     }
-  } catch (e: unknown) {
-    handleServerNetworkError(e, dispatch);
-    return rejectWithValue(null);
-  }
+  });
 });
 
 const changeTodolistTitle = createAppAsyncThunk(
@@ -91,20 +82,15 @@ const changeTodolistTitle = createAppAsyncThunk(
     thunkAPI,
   ) => {
     const { dispatch, rejectWithValue } = thunkAPI;
-    dispatch(appActions.setStatus({ status: "loading" }));
-    const res = await todolistsAPI.changeTodolistTitle(arg.todolistId, arg.title);
-    try {
+    return thunkTryCatch(thunkAPI, async () => {
+      const res = await todolistsAPI.changeTodolistTitle(arg.todolistId, arg.title);
       if (res.data.resultCode === 0) {
-        dispatch(appActions.setStatus({ status: "idle" }));
         return { todolistId: arg.todolistId, title: arg.title };
       } else {
         handleServerAppError(res.data, dispatch);
         return rejectWithValue(null);
       }
-    } catch (e) {
-      handleServerNetworkError(e, dispatch);
-      return rejectWithValue(null);
-    }
+    });
   },
 );
 
@@ -117,22 +103,18 @@ const removeTodolist = createAppAsyncThunk(
     thunkAPI,
   ) => {
     const { dispatch, rejectWithValue } = thunkAPI;
-    dispatch(appActions.setStatus({ status: "loading" }));
     dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, entityStatus: "loading" }));
-    try {
+    return thunkTryCatch(thunkAPI, async () => {
       const res = await todolistsAPI.removeTodolist(arg.todolistId);
+      dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, entityStatus: "idle" }));
       if (res.data.resultCode === 0) {
         dispatch(appActions.setStatus({ status: "idle" }));
-        dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, entityStatus: "idle" }));
         return { todolistId: arg.todolistId };
       } else {
         handleServerAppError(res.data, dispatch);
         return rejectWithValue(null);
       }
-    } catch (e) {
-      handleServerNetworkError(e, dispatch);
-      return rejectWithValue(null);
-    }
+    });
   },
 );
 
