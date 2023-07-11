@@ -7,10 +7,11 @@ import { Button } from "@mui/material";
 import TaskWithRedux from "./Task/Task";
 import { tasksThunks } from "common/bll/tasksReducer";
 import { todolistsActions, todolistsThunks } from "common/bll/todolistReducer";
-import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
+import { useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "../TodolistsList";
 import { StatusesType } from "app/appReducer";
 import { TaskStatuses, TaskType } from "common/dal/tasksAPI";
+import { useActions } from "common/hooks/useActions";
 
 type PropsType = {
   todolistId: string;
@@ -21,18 +22,23 @@ type PropsType = {
 export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter }) => {
   const tasks = useAppSelector((state) => state.tasks[todolistId]);
   const todolists = useAppSelector((state) => state.todolists.find((el) => el.id === todolistId));
-  const dispatch = useAppDispatch();
+  const {
+    addTask: addTaskTC,
+    changeTodolistTitle: changeTodolistTitleTC,
+    removeTodolist: removeTodolistTC,
+    changeFilterTodolist,
+  } = useActions({ ...tasksThunks, ...todolistsThunks, ...todolistsActions });
 
   const addTask = useCallback((title: string) => {
-    dispatch(tasksThunks.addTask({ todolistId, title }));
+    addTaskTC({ todolistId, title });
   }, []);
 
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(todolistsThunks.changeTodolistTitle({ todolistId, title }));
+    changeTodolistTitleTC({ todolistId, title });
   }, []);
 
   const removeTodolist = useCallback(() => {
-    dispatch(todolistsThunks.removeTodolist({ todolistId }));
+    removeTodolistTC({ todolistId });
   }, []);
 
   const filteredTasks = (): TaskType[] => {
@@ -62,24 +68,9 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
         ))}
       </div>
       <div style={{ paddingTop: "10px" }}>
-        <ButtonWithMemo
-          title={"All"}
-          variant={filter === "all" ? "outlined" : "text"}
-          onClick={() => dispatch(todolistsActions.changeFilterTodolist({ todolistId, filterValue: "all" }))}
-          color={"inherit"}
-        />
-        <ButtonWithMemo
-          title={"Active"}
-          variant={filter === "active" ? "outlined" : "text"}
-          onClick={() => dispatch(todolistsActions.changeFilterTodolist({ todolistId, filterValue: "active" }))}
-          color={"primary"}
-        />
-        <ButtonWithMemo
-          title={"Completed"}
-          variant={filter === "completed" ? "outlined" : "text"}
-          onClick={() => dispatch(todolistsActions.changeFilterTodolist({ todolistId, filterValue: "completed" }))}
-          color={"secondary"}
-        />
+        <ButtonWithMemo title={"All"} variant={filter === "all" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "all" })} color={"inherit"} />
+        <ButtonWithMemo title={"Active"} variant={filter === "active" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "active" })} color={"primary"} />
+        <ButtonWithMemo title={"Completed"} variant={filter === "completed" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "completed" })} color={"secondary"} />
       </div>
     </div>
   );

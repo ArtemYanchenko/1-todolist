@@ -2,18 +2,19 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { SyntheticEvent } from "react";
-import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
+import { useAppSelector } from "common/hooks/hooks";
 import { appActions } from "app/appReducer";
+import { useActions } from "common/hooks/useActions";
 
 export const Snackbars = () => {
   const error = useAppSelector((state) => state.app.error);
-  const dispatch = useAppDispatch();
+  const { setError } = useActions(appActions);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(appActions.setError({ error: null }));
+    setError({ error: null });
   };
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
