@@ -15,6 +15,7 @@ const slice = createSlice({
     },
     setError(state, action: PayloadAction<{ error: string | null }>) {
       state.error = action.payload.error;
+      debugger;
     },
     setIsInitialized(state, action: PayloadAction<{ isInitialized: boolean }>) {
       state.isInitialized = action.payload.isInitialized;

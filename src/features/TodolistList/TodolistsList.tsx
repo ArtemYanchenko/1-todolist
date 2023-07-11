@@ -7,7 +7,6 @@ import { todolistsThunks } from "common/bll/todolistReducer";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import Container from "@mui/material/Container";
 import { TodolistType } from "common/dal/tasksAPI";
-import { Snackbars } from "components/SnackBar/SnackBar";
 import { StatusesType } from "app/appReducer";
 import { Navigate } from "react-router-dom";
 
@@ -49,7 +48,6 @@ export const TodolistsList = memo(() => {
           );
         })}
       </Grid>
-      <Snackbars />
     </Container>
   );
 });

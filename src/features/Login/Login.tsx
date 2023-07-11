@@ -39,11 +39,12 @@ export const Login = () => {
       dispatch(authThunks.login(values))
         .unwrap()
         .catch((reason: ResponseType) => {
-          reason.fieldsErrors.forEach((el) => {
-            formikHelpers.setFieldError(el.field, el.error);
-            debugger;
-          });
-          // formikHelpers.setFieldError(reason.fieldsErrors[0].field, reason.fieldsErrors[0].error);
+          const { fieldsErrors } = reason;
+          if (fieldsErrors) {
+            fieldsErrors.forEach((el) => {
+              formikHelpers.setFieldError(el.field, el.error);
+            });
+          }
         });
     },
   });

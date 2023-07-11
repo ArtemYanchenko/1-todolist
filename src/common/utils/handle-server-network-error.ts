@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
 import { appActions } from "app/appReducer";
 import axios, { AxiosError } from "axios";
+import { AppDispatch } from "common/bll/store";
 
 /**
  *
@@ -8,7 +8,7 @@ import axios, { AxiosError } from "axios";
  * @param dispatch
  */
 
-export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {
+export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
   const err = e as Error | AxiosError<{ error: string }>;
   if (axios.isAxiosError(err)) {
     const error = err.message ? err.message : "Some error occurred";

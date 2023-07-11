@@ -7,6 +7,7 @@ import { TodolistsList } from "features/TodolistList/TodolistsList";
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
 import { CircularProgress } from "@mui/material";
 import { authThunks } from "common/bll/authReducer";
+import { Snackbars } from "components/SnackBar/SnackBar";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -45,6 +46,7 @@ export function App() {
         />
         <Route path={"*"} element={<Navigate to={"404"} />} />
       </Routes>
+      <Snackbars />
     </div>
   );
 }
