@@ -3,10 +3,11 @@ import { appActions } from "app/appReducer";
 import { ResponseType } from "common/types";
 
 /**
- *
- * @param data
- * @param dispatch
- * @param showError
+ Handles server-side errors by dispatching actions to update the app error and status states.
+ @template T - The type of the server response data.
+ @param {ResponseType<T>} data - The response data from the server.
+ @param {Dispatch} dispatch - The dispatch function from the Redux store.
+ @param {boolean} showError - Determines whether to show the error message to the user. Default is true.
  */
 
 export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch, showError: boolean = true) => {

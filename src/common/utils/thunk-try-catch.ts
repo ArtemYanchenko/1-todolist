@@ -4,6 +4,13 @@ import { ResponseType } from "common/types";
 import { AppDispatch, AppRootStateType } from "common/bll/store";
 import { appActions } from "app/appReducer";
 
+/**
+ Wraps an async thunk with try-catch logic and dispatches actions to update the app status state.
+ @param {BaseThunkAPI<AppRootType, any, AppDispatchType, null | ResponseType>} thunkAPI - The thunkAPI object provided by the createAsyncThunk function.
+ @param {Function} logic - The async function that the thunk will wrap with try-catch logic.
+ @returns The resolved value of the wrapped function, or a rejection value if an error occurs.
+ */
+
 export const thunkTryCatch = async (thunkAPI: BaseThunkAPI<AppRootStateType, any, AppDispatch, null | ResponseType>, logic: Function) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   dispatch(appActions.setStatus({ status: "loading" }));

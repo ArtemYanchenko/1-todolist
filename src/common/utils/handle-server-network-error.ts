@@ -3,9 +3,9 @@ import axios, { AxiosError } from "axios";
 import { AppDispatch } from "common/bll/store";
 
 /**
- *
- * @param e
- * @param dispatch
+ Handles network errors by dispatching actions to update the app error state.
+ @param {unknown} error - The error object.
+ @param {Dispatch} dispatch - The dispatch function from the Redux store.
  */
 
 export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
