@@ -4,8 +4,7 @@ import { StatusesType } from "app/appReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsThunks } from "common/bll/todolistReducer";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
-import { handleServerAppError } from "common/utils";
-import { thunkTryCatch } from "common/utils/thunk-try-catch";
+import { handleServerAppError, thunkTryCatch } from "common/utils";
 
 const tasksInitialState: TasksStateType = {};
 

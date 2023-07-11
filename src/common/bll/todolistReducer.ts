@@ -3,9 +3,8 @@ import { FilterValuesType, TodolistDomainType } from "features/TodolistList/Todo
 import { appActions, StatusesType } from "app/appReducer";
 import { tasksThunks } from "common/bll/tasksReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createAppAsyncThunk, handleServerAppError } from "common/utils";
+import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
 import { todolistsAPI } from "common/dal";
-import { thunkTryCatch } from "common/utils/thunk-try-catch";
 
 const todolistsInitialState: TodolistDomainType[] = [];
 
