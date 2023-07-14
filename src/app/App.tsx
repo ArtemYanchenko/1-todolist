@@ -15,7 +15,7 @@ export function App() {
   const { initializeApp } = useActions(authThunks);
 
   useEffect(() => {
-    initializeApp();
+    initializeApp({});
   }, []);
 
   if (!isInitialized)

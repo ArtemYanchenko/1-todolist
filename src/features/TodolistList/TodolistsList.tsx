@@ -27,7 +27,7 @@ export const TodolistsList = memo(() => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      getTodolists();
+      getTodolists({});
     }
   }, []);
 

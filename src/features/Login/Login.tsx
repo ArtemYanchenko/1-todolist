@@ -8,15 +8,16 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormikHelpers, useFormik } from "formik";
-import { useAppDispatch, useAppSelector } from "common/hooks/hooks";
+import { useAppSelector } from "common/hooks/hooks";
 import { authThunks } from "common/bll/authReducer";
 import { Navigate } from "react-router-dom";
 import { LoginParamsType } from "common/dal/tasksAPI";
 import { ResponseType } from "common/types";
+import { useActions } from "common/hooks/useActions";
 
 export const Login = () => {
-  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const { login } = useActions(authThunks);
   const formik = useFormik({
     // validate: (values) => {
     //   if (!values.email) {
@@ -36,7 +37,7 @@ export const Login = () => {
       rememberMe: false,
     },
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-      dispatch(authThunks.login(values))
+      login(values)
         .unwrap()
         .catch((reason: ResponseType) => {
           const { fieldsErrors } = reason;

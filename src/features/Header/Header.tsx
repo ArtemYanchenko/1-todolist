@@ -14,7 +14,7 @@ export const Header = () => {
   const status = useAppSelector((state) => state.app.status);
   const { logout } = useActions(authThunks);
   const logoutHandler = () => {
-    logout();
+    logout({});
   };
 
   return (
