@@ -23,18 +23,19 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
 
   const changeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
+      const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
       updateTask({
         todolistId: todoID,
         taskId: taskID,
-        model: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New },
+        model: { status },
       });
     },
     [todoID, taskID],
   );
 
   const changeTaskTitleHandler = useCallback(
-    (newTitle: string) => {
-      updateTask({ todolistId: todoID, taskId: taskID, model: { title: newTitle } });
+    (title: string) => {
+      updateTask({ todolistId: todoID, taskId: taskID, model: { title } });
     },
     [todoID, taskID],
   );

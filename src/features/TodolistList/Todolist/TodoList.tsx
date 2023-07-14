@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback } from "react";
+import React, { FC, memo } from "react";
 import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
@@ -22,24 +22,19 @@ type PropsType = {
 export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter }) => {
   const tasks = useAppSelector((state) => state.tasks[todolistId]);
   const todolists = useAppSelector((state) => state.todolists.find((el) => el.id === todolistId));
-  const {
-    addTask: addTaskTC,
-    changeTodolistTitle: changeTodolistTitleTC,
-    removeTodolist: removeTodolistTC,
-    changeFilterTodolist,
-  } = useActions({ ...tasksThunks, ...todolistsThunks, ...todolistsActions });
+  const { addTask, changeTodolistTitle, removeTodolist, changeFilterTodolist } = useActions({ ...tasksThunks, ...todolistsThunks, ...todolistsActions });
 
-  const addTask = useCallback((title: string) => {
-    addTaskTC({ todolistId, title });
-  }, []);
+  const addTaskCallBack = (title: string) => {
+    addTask({ todolistId, title });
+  };
 
-  const changeTodolistTitle = useCallback((title: string) => {
-    changeTodolistTitleTC({ todolistId, title });
-  }, []);
+  const changeTodolistTitleCallBack = (title: string) => {
+    changeTodolistTitle({ todolistId, title });
+  };
 
-  const removeTodolist = useCallback(() => {
-    removeTodolistTC({ todolistId });
-  }, []);
+  const removeTodolistCallBack = () => {
+    removeTodolist({ todolistId });
+  };
 
   const filteredTasks = (): TaskType[] => {
     if (filter === "active") {
@@ -56,12 +51,12 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
   return (
     <div>
       <h3>
-        <EditableSpan value={todolists!.title} onChange={changeTodolistTitle} />
-        <IconButton onClick={removeTodolist} disabled={entityStatus === "loading"}>
+        <EditableSpan value={todolists!.title} onChange={changeTodolistTitleCallBack} />
+        <IconButton onClick={removeTodolistCallBack} disabled={entityStatus === "loading"}>
           <Delete />
         </IconButton>
       </h3>
-      <AddItemForm addItem={addTask} disabled={entityStatus === "loading"} />
+      <AddItemForm addItem={addTaskCallBack} disabled={entityStatus === "loading"} />
       <div>
         {allTodolistTasks.map((t) => (
           <TaskWithRedux todoID={todolistId} taskID={t.id} />
