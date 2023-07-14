@@ -21,7 +21,7 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
   const task = useAppSelector<TaskType>((state) => state.tasks[todoID].filter((el) => el.id === taskID)[0]);
   const { updateTask, removeTask } = useActions(tasksThunks);
 
-  const changeStatus = useCallback(
+  const changeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       updateTask({
         todolistId: todoID,
@@ -32,22 +32,22 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
     [todoID, taskID],
   );
 
-  const changeTaskTitle = useCallback(
+  const changeTaskTitleHandler = useCallback(
     (newTitle: string) => {
       updateTask({ todolistId: todoID, taskId: taskID, model: { title: newTitle } });
     },
     [todoID, taskID],
   );
 
-  const removeTaskCallBack = useCallback(() => {
+  const removeTaskHandler = useCallback(() => {
     removeTask({ todolistId: todoID, taskId: taskID });
   }, [todoID, taskID]);
 
   return (
     <div key={task.id} className={task.status === TaskStatuses.Completed ? "is-done" : ""}>
-      <Checkbox checked={task.status === TaskStatuses.Completed} disabled={task.entityStatus === "loading"} color="success" onChange={changeStatus} />
-      <EditableSpan value={task.title} onChange={changeTaskTitle} disabled={task.entityStatus === "loading"} />
-      <IconButton onClick={removeTaskCallBack} disabled={task.entityStatus === "loading"}>
+      <Checkbox checked={task.status === TaskStatuses.Completed} disabled={task.entityStatus === "loading"} color="success" onChange={changeStatusHandler} />
+      <EditableSpan value={task.title} onChange={changeTaskTitleHandler} disabled={task.entityStatus === "loading"} />
+      <IconButton onClick={removeTaskHandler} disabled={task.entityStatus === "loading"}>
         <Delete />
       </IconButton>
     </div>
