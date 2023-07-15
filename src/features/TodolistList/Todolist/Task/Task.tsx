@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, useCallback } from "react";
+import React, { ChangeEvent, FC, memo } from "react";
 import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
@@ -21,28 +21,21 @@ export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
   const task = useAppSelector<TaskType>((state) => state.tasks[todoID].filter((el) => el.id === taskID)[0]);
   const { updateTask, removeTask } = useActions(tasksThunks);
 
-  const changeStatusHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
-      updateTask({
-        todolistId: todoID,
-        taskId: taskID,
-        model: { status },
-      });
-    },
-    [todoID, taskID],
-  );
+  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
+    updateTask({
+      todolistId: todoID,
+      taskId: taskID,
+      model: { status },
+    });
+  };
 
-  const changeTaskTitleHandler = useCallback(
-    (title: string) => {
-      updateTask({ todolistId: todoID, taskId: taskID, model: { title } });
-    },
-    [todoID, taskID],
-  );
-
-  const removeTaskHandler = useCallback(() => {
+  const changeTaskTitleHandler = (title: string) => {
+    updateTask({ todolistId: todoID, taskId: taskID, model: { title } });
+  };
+  const removeTaskHandler = () => {
     removeTask({ todolistId: todoID, taskId: taskID });
-  }, [todoID, taskID]);
+  };
 
   return (
     <div key={task.id} className={task.status === TaskStatuses.Completed ? "is-done" : ""}>
