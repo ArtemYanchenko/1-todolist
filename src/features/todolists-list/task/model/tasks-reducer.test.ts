@@ -1,6 +1,6 @@
 import { TasksStateType } from "features/todolists-list/task/ui/task";
 import { tasksReducer, tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
-import { todolistsThunks } from "features/todolists-list/todolists/todolist-reducer";
+import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { TaskType } from "features/todolists-list/task/api/tasks.api.types";
 
 let startState: TasksStateType;

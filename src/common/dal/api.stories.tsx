@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { tasksApi } from "features/todolists-list/task/api/tasks.api";
-import { todolistsAPI } from "features/todolists-list/todolists/todolistsAPI";
+import { todolistsApi } from "features/todolists-list/todolists/api/todolists.api";
 
 export default {
   title: "API",
@@ -12,7 +12,7 @@ const settings = {
 export const GetTodolists = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    todolistsAPI.getTodolists().then((res) => setState(res.data));
+    todolistsApi.getTodolists().then((res) => setState(res.data));
   }, []);
 
   return <div>{JSON.stringify(state)}</div>;
@@ -20,7 +20,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    todolistsAPI.addTodolist("hello").then((res) => {
+    todolistsApi.addTodolist("hello").then((res) => {
       setState(res.data);
     });
   }, []);
@@ -30,14 +30,14 @@ export const CreateTodolist = () => {
 export const UpdateTodolistTitle = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    todolistsAPI.changeTodolistTitle("481129f4-78c3-49e8-8128-ec09b3ab674c", "newNewOldTodo");
+    todolistsApi.changeTodolistTitle("481129f4-78c3-49e8-8128-ec09b3ab674c", "newNewOldTodo");
   }, []);
   return <div>{JSON.stringify(state)}</div>;
 };
 export const DeleteTodolist = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    todolistsAPI.removeTodolist("206ce943-5918-44ce-915f-e28694d587ff");
+    todolistsApi.removeTodolist("206ce943-5918-44ce-915f-e28694d587ff");
   }, []);
 
   return <div>{JSON.stringify(state)}</div>;

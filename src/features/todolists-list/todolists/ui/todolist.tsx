@@ -6,7 +6,7 @@ import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import TaskWithRedux from "features/todolists-list/task/ui/task";
 import { tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
-import { todolistsActions, todolistsThunks } from "features/todolists-list/todolists/todolist-reducer";
+import { todolistsActions, todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { useAppSelector } from "common/hooks/hooks";
 import { FilterValuesType } from "features/todolists-list/todolists-list";
 import { StatusesType } from "app/appReducer";

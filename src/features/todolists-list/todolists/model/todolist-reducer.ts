@@ -3,7 +3,7 @@ import { appActions, StatusesType } from "app/appReducer";
 import { tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
-import { todolistsAPI, TodolistType } from "features/todolists-list/todolists/todolistsAPI";
+import { todolistsApi, TodolistType } from "features/todolists-list/todolists/api/todolists.api";
 
 const todolistsInitialState: TodolistDomainType[] = [];
 
@@ -49,7 +49,7 @@ const getTodolists = createAppAsyncThunk<{
 }>("todolists/getTodolists", async (arg, thunkAPI) => {
   const { dispatch } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
-    const res = await todolistsAPI.getTodolists();
+    const res = await todolistsApi.getTodolists();
     await res.data.forEach((tl) => {
       dispatch(tasksThunks.fetchTasks(tl.id));
     });
@@ -60,7 +60,7 @@ const getTodolists = createAppAsyncThunk<{
 const addTodolist = createAppAsyncThunk("todolists/addTodolist", async (arg: { title: string }, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
-    const res = await todolistsAPI.addTodolist(arg.title);
+    const res = await todolistsApi.addTodolist(arg.title);
     if (res.data.resultCode === 0) {
       return { todolist: res.data.data.item };
     } else {
@@ -81,7 +81,7 @@ const changeTodolistTitle = createAppAsyncThunk(
   ) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
-      const res = await todolistsAPI.changeTodolistTitle(arg.todolistId, arg.title);
+      const res = await todolistsApi.changeTodolistTitle(arg.todolistId, arg.title);
       if (res.data.resultCode === 0) {
         return { todolistId: arg.todolistId, title: arg.title };
       } else {
@@ -103,7 +103,7 @@ const removeTodolist = createAppAsyncThunk(
     const { dispatch, rejectWithValue } = thunkAPI;
     dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, entityStatus: "loading" }));
     return thunkTryCatch(thunkAPI, async () => {
-      const res = await todolistsAPI.removeTodolist(arg.todolistId);
+      const res = await todolistsApi.removeTodolist(arg.todolistId);
       dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, entityStatus: "idle" }));
       if (res.data.resultCode === 0) {
         dispatch(appActions.setStatus({ status: "idle" }));
