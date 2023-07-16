@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { LinearColor } from "./PreLoader";
 import React from "react";
 import { useAppSelector } from "common/hooks/hooks";
-import { authThunks } from "common/bll/authReducer";
+import { authThunks } from "features/login/authReducer";
 import { useActions } from "common/hooks/useActions";
 
 export const Header = () => {

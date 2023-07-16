@@ -4,14 +4,14 @@ import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import TaskWithRedux from "./Task/Task";
-import { tasksThunks } from "common/bll/tasksReducer";
-import { todolistsActions, todolistsThunks } from "common/bll/todolistReducer";
+import TaskWithRedux from "../task/Task";
+import { tasksThunks } from "features/todolists-list/task/tasks-reducer";
+import { todolistsActions, todolistsThunks } from "features/todolists-list/todolists/todolist-reducer";
 import { useAppSelector } from "common/hooks/hooks";
-import { FilterValuesType } from "../TodolistsList";
+import { FilterValuesType } from "features/todolists-list/todolists-list";
 import { StatusesType } from "app/appReducer";
-import { TaskStatuses, TaskType } from "common/dal/tasksAPI";
 import { useActions } from "common/hooks/useActions";
+import { TaskStatuses, TaskType } from "features/todolists-list/task/tasks.api.types";
 
 type PropsType = {
   todolistId: string;

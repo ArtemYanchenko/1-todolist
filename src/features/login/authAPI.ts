@@ -1,5 +1,12 @@
-import { instance, LoginParamsType } from "common/dal/tasksAPI";
+import { instance } from "features/todolists-list/task/tasks.api";
 import { ResponseType } from "common/types";
+
+export type LoginParamsType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha?: string;
+};
 
 export const authAPI = {
   authMe() {

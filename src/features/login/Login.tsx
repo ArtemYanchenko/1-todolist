@@ -9,11 +9,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormikHelpers, useFormik } from "formik";
 import { useAppSelector } from "common/hooks/hooks";
-import { authThunks } from "common/bll/authReducer";
+import { authThunks } from "features/login/authReducer";
 import { Navigate } from "react-router-dom";
-import { LoginParamsType } from "common/dal/tasksAPI";
 import { ResponseType } from "common/types";
 import { useActions } from "common/hooks/useActions";
+import { LoginParamsType } from "features/login/authAPI";
 
 type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>;
 

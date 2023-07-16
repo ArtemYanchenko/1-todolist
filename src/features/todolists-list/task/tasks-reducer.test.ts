@@ -1,7 +1,7 @@
-import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
-import { TaskType } from "common/dal/tasksAPI";
-import { tasksReducer, tasksThunks } from "common/bll/tasksReducer";
-import { todolistsThunks } from "common/bll/todolistReducer";
+import { TasksStateType } from "features/todolists-list/task/Task";
+import { tasksReducer, tasksThunks } from "features/todolists-list/task/tasks-reducer";
+import { todolistsThunks } from "features/todolists-list/todolists/todolist-reducer";
+import { TaskType } from "features/todolists-list/task/tasks.api.types";
 
 let startState: TasksStateType;
 
@@ -150,10 +150,10 @@ test("task  title should be changed", () => {
   expect(endState["todolistId2"].length).toBe(2);
 });
 
-test("new array should be added when new todolist is added", () => {
+test("new array should be added when new todolists is added", () => {
   const todolist = {
     id: "todo3",
-    title: "new todolist",
+    title: "new todolists",
     addedDate: "",
     order: 0,
   };

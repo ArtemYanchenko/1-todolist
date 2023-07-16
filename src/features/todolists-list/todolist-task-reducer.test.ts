@@ -1,7 +1,7 @@
-import { TasksStateType } from "features/TodolistList/Todolist/Task/Task";
-import { TodolistDomainType } from "features/TodolistList/TodolistsList";
-import { todolistsReducer, todolistsThunks } from "common/bll/todolistReducer";
-import { tasksReducer } from "common/bll/tasksReducer";
+import { TasksStateType } from "features/todolists-list/task/Task";
+import { TodolistDomainType } from "features/todolists-list/todolists-list";
+import { todolistsReducer, todolistsThunks } from "features/todolists-list/todolists/todolist-reducer";
+import { tasksReducer } from "features/todolists-list/task/tasks-reducer";
 
 test("ids should be equals", () => {
   const startTasksState: TasksStateType = {};

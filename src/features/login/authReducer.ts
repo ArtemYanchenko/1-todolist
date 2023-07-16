@@ -1,10 +1,9 @@
-import { LoginParamsType } from "common/dal/tasksAPI";
 import { createSlice } from "@reduxjs/toolkit";
-import { tasksActions } from "common/bll/tasksReducer";
-import { todolistsActions } from "common/bll/todolistReducer";
+import { tasksActions } from "features/todolists-list/task/tasks-reducer";
+import { todolistsActions } from "features/todolists-list/todolists/todolist-reducer";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
 import { appActions } from "app/appReducer";
-import { authAPI } from "common/dal";
+import { authAPI, LoginParamsType } from "features/login/authAPI";
 
 const slice = createSlice({
   name: "auth",

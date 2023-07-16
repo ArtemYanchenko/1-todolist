@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { tasksAPI } from "common/dal/tasksAPI";
-import { todolistsAPI } from "common/dal/todolistsAPI";
+import { tasksApi } from "features/todolists-list/task/tasks.api";
+import { todolistsAPI } from "features/todolists-list/todolists/todolistsAPI";
 
 export default {
   title: "API",
@@ -46,7 +46,7 @@ export const DeleteTodolist = () => {
 export const GetTasks = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    tasksAPI.getTasks("d735fa6e-4157-4c05-8e40-369d64b486cb").then((res) => setState(res.data));
+    tasksApi.getTasks("d735fa6e-4157-4c05-8e40-369d64b486cb").then((res) => setState(res.data));
   }, []);
   return <div>{JSON.stringify(state)}</div>;
 };
@@ -54,7 +54,7 @@ export const GetTasks = () => {
 export const CreateTask = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    tasksAPI.addTask({ todolistId: "481129f4-78c3-49e8-8128-ec09b3ab674c", title: "newTitle" });
+    tasksApi.addTask({ todolistId: "481129f4-78c3-49e8-8128-ec09b3ab674c", title: "newTitle" });
   }, []);
   return <div>{JSON.stringify(state)}</div>;
 };
@@ -62,7 +62,7 @@ export const CreateTask = () => {
 export const UpdateTask = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    tasksAPI.updateTask("d735fa6e-4157-4c05-8e40-369d64b486cb", "97dde830-2252-4ebb-a7e1-a3af15a26ebc", { title: "hello" });
+    tasksApi.updateTask("d735fa6e-4157-4c05-8e40-369d64b486cb", "97dde830-2252-4ebb-a7e1-a3af15a26ebc", { title: "hello" });
   }, []);
   return <div>{JSON.stringify(state)}</div>;
 };
@@ -70,7 +70,7 @@ export const UpdateTask = () => {
 export const DeleteTask = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    tasksAPI.removeTask("d735fa6e-4157-4c05-8e40-369d64b486cb", "97dde830-2252-4ebb-a7e1-a3af15a26ebc");
+    tasksApi.removeTask("d735fa6e-4157-4c05-8e40-369d64b486cb", "97dde830-2252-4ebb-a7e1-a3af15a26ebc");
   }, []);
   return <div>{JSON.stringify(state)}</div>;
 };
