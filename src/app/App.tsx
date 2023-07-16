@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Header } from "features/Header/Header";
-import { Login } from "features/login/Login";
+import { Header } from "components/Header/Header";
+import { Login } from "features/auth/login/login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { TodolistsList } from "features/todolists-list/todolists-list";
 import { useAppSelector } from "common/hooks/hooks";
 import { CircularProgress } from "@mui/material";
-import { authThunks } from "features/login/authReducer";
+import { authThunks } from "features/auth/auth-reducer";
 import { Snackbars } from "components/SnackBar/SnackBar";
 import { useActions } from "common/hooks/useActions";
 

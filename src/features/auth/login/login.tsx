@@ -9,16 +9,17 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormikHelpers, useFormik } from "formik";
 import { useAppSelector } from "common/hooks/hooks";
-import { authThunks } from "features/login/authReducer";
+import { authThunks } from "features/auth/auth-reducer";
 import { Navigate } from "react-router-dom";
 import { ResponseType } from "common/types";
 import { useActions } from "common/hooks/useActions";
-import { LoginParamsType } from "features/login/authAPI";
+import { LoginParamsType } from "features/auth/auth.api";
+import { selectIsLoggedIn } from "features/auth/auth.selector";
 
 type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>;
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const { login } = useActions(authThunks);
   const formik = useFormik({
     validate: (values) => {

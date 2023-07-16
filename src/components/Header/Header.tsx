@@ -4,10 +4,10 @@ import IconButton from "@mui/material/IconButton";
 import { Logout, Menu } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { LinearColor } from "./PreLoader";
+import { LinearColor } from "components/Header/PreLoader";
 import React from "react";
 import { useAppSelector } from "common/hooks/hooks";
-import { authThunks } from "features/login/authReducer";
+import { authThunks } from "features/auth/auth-reducer";
 import { useActions } from "common/hooks/useActions";
 
 export const Header = () => {

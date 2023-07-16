@@ -3,7 +3,7 @@ import { tasksActions } from "features/todolists-list/task/model/tasks-reducer";
 import { todolistsActions } from "features/todolists-list/todolists/todolist-reducer";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
 import { appActions } from "app/appReducer";
-import { authAPI, LoginParamsType } from "features/login/authAPI";
+import { authApi, LoginParamsType } from "features/auth/auth.api";
 
 const slice = createSlice({
   name: "auth",
@@ -28,7 +28,7 @@ const slice = createSlice({
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.login(arg);
+    const res = await authApi.login(arg);
     if (res.data.resultCode === 0) {
       return { isLoggedIn: true };
     } else {
@@ -42,7 +42,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("aut
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.logout();
+    const res = await authApi.logout();
     if (res.data.resultCode === 0) {
       dispatch(todolistsActions.removeTodolistsAfterLogout());
       dispatch(tasksActions.removeTasksAfterLogout());
@@ -57,7 +57,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout",
 const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/initializeApp", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.authMe();
+    const res = await authApi.authMe();
     dispatch(appActions.setIsInitialized({ isInitialized: true }));
     if (res.data.resultCode === 0) {
       return { isLoggedIn: true };

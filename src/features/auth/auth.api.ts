@@ -8,7 +8,7 @@ export type LoginParamsType = {
   captcha?: string;
 };
 
-export const authAPI = {
+export const authApi = {
   authMe() {
     return instance.get<
       ResponseType<{
