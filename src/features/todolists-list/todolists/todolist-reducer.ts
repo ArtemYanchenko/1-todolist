@@ -1,6 +1,6 @@
 import { FilterValuesType, TodolistDomainType } from "features/todolists-list/todolists-list";
 import { appActions, StatusesType } from "app/appReducer";
-import { tasksThunks } from "features/todolists-list/task/tasks-reducer";
+import { tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
 import { todolistsAPI, TodolistType } from "features/todolists-list/todolists/todolistsAPI";

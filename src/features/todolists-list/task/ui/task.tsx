@@ -2,11 +2,11 @@ import React, { ChangeEvent, FC, memo } from "react";
 import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
-import { tasksThunks } from "features/todolists-list/task/tasks-reducer";
+import { tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
 import { useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import { useActions } from "common/hooks/useActions";
-import { TaskStatuses, TaskType } from "features/todolists-list/task/tasks.api.types";
+import { TaskStatuses, TaskType } from "features/todolists-list/task/api/tasks.api.types";
 
 export type PropsType = {
   todoID: string;

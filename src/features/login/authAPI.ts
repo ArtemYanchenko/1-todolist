@@ -1,4 +1,4 @@
-import { instance } from "features/todolists-list/task/tasks.api";
+import { instance } from "features/todolists-list/task/api/tasks.api";
 import { ResponseType } from "common/types";
 
 export type LoginParamsType = {
