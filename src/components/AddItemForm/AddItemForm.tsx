@@ -11,7 +11,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
   let [title, setTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
-  const addItem = () => {
+  const addItemHander = () => {
     if (title.trim() !== "") {
       props.addItem(title);
       setTitle("");
@@ -20,23 +20,23 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     }
   };
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
 
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const addItemOnPressEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (error !== null) {
       setError(null);
     }
     if (e.charCode === 13) {
-      addItem();
+      addItemHander();
     }
   };
 
   return (
     <div>
-      <TextField variant="outlined" error={!!error} value={title} onChange={onChangeHandler} onKeyPress={onKeyPressHandler} label="Title" helperText={error} disabled={props.disabled} />
-      <IconButton color="primary" onClick={addItem} disabled={props.disabled}>
+      <TextField variant="outlined" error={!!error} value={title} onChange={changeTitleHandler} onKeyPress={addItemOnPressEnterHandler} label="Title" helperText={error} disabled={props.disabled} />
+      <IconButton color="primary" onClick={addItemHander} disabled={props.disabled}>
         <AddBox />
       </IconButton>
     </div>

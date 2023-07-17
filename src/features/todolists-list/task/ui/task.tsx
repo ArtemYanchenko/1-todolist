@@ -7,38 +7,39 @@ import { useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import { useActions } from "common/hooks/useActions";
 import { TaskStatuses, TaskType } from "features/todolists-list/task/api/tasks.api.types";
+import s from "./task.module.css";
 
 export type PropsType = {
-  todoID: string;
-  taskID: string;
+  todolistId: string;
+  taskId: string;
 };
 
 export type TasksStateType = {
   [key: string]: TaskType[];
 };
 
-export const Task: FC<PropsType> = memo(({ todoID, taskID }) => {
-  const task = useAppSelector<TaskType>((state) => state.tasks[todoID].filter((el) => el.id === taskID)[0]);
+export const Task: FC<PropsType> = memo(({ todolistId, taskId }) => {
+  const task = useAppSelector<TaskType>((state) => state.tasks[todolistId].filter((el) => el.id === taskId)[0]);
   const { updateTask, removeTask } = useActions(tasksThunks);
 
   const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
     updateTask({
-      todolistId: todoID,
-      taskId: taskID,
+      todolistId,
+      taskId,
       model: { status },
     });
   };
 
   const changeTaskTitleHandler = (title: string) => {
-    updateTask({ todolistId: todoID, taskId: taskID, model: { title } });
+    updateTask({ todolistId, taskId, model: { title } });
   };
   const removeTaskHandler = () => {
-    removeTask({ todolistId: todoID, taskId: taskID });
+    removeTask({ todolistId, taskId });
   };
 
   return (
-    <div key={task.id} className={task.status === TaskStatuses.Completed ? "is-done" : ""}>
+    <div key={task.id} className={task.status === TaskStatuses.Completed ? s.isDone : ""}>
       <Checkbox checked={task.status === TaskStatuses.Completed} disabled={task.entityStatus === "loading"} color="success" onChange={changeStatusHandler} />
       <EditableSpan value={task.title} onChange={changeTaskTitleHandler} disabled={task.entityStatus === "loading"} />
       <IconButton onClick={removeTaskHandler} disabled={task.entityStatus === "loading"}>

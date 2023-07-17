@@ -12,14 +12,15 @@ import { FilterValuesType } from "features/todolists-list/todolists-list";
 import { StatusesType } from "app/appReducer";
 import { useActions } from "common/hooks/useActions";
 import { TaskStatuses, TaskType } from "features/todolists-list/task/api/tasks.api.types";
+import s from "./todolist.module.css";
 
-type PropsType = {
+type Props = {
   todolistId: string;
   entityStatus: StatusesType;
   filter: FilterValuesType;
 };
 
-export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter }) => {
+export const Todolist: FC<Props> = memo(({ todolistId, entityStatus, filter }) => {
   const tasks = useAppSelector((state) => state.tasks[todolistId]);
   const todolists = useAppSelector((state) => state.todolists.find((el) => el.id === todolistId));
   const { addTask, changeTodolistTitle, removeTodolist, changeFilterTodolist } = useActions({ ...tasksThunks, ...todolistsThunks, ...todolistsActions });
@@ -59,10 +60,10 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, entityStatus, filter 
       <AddItemForm addItem={addTaskCallBack} disabled={entityStatus === "loading"} />
       <div>
         {allTodolistTasks.map((t) => (
-          <TaskWithRedux todoID={todolistId} taskID={t.id} />
+          <TaskWithRedux todolistId={todolistId} taskId={t.id} />
         ))}
       </div>
-      <div style={{ paddingTop: "10px" }}>
+      <div className={s.buttonWrapper}>
         <ButtonWithMemo title={"All"} variant={filter === "all" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "all" })} color={"inherit"} />
         <ButtonWithMemo title={"Active"} variant={filter === "active" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "active" })} color={"primary"} />
         <ButtonWithMemo title={"Completed"} variant={filter === "completed" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "completed" })} color={"secondary"} />

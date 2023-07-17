@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
@@ -10,6 +10,7 @@ import { StatusesType } from "app/appReducer";
 import { Navigate } from "react-router-dom";
 import { useActions } from "common/hooks/useActions";
 import { TodolistType } from "features/todolists-list/todolists/api/todolists.api";
+import { isLoggedInSelector, todolistsSelector } from "features/todolists-list/todolists-list.selectors";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistDomainType = TodolistType & {
@@ -17,13 +18,13 @@ export type TodolistDomainType = TodolistType & {
   entityStatus: StatusesType;
 };
 export const TodolistsList = memo(() => {
-  const todolists = useAppSelector<TodolistDomainType[]>((state) => state.todolists);
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const { addTodolist: addTodolistTC, getTodolists } = useActions(todolistsThunks);
+  const todolists = useAppSelector<TodolistDomainType[]>(todolistsSelector);
+  const isLoggedIn = useAppSelector<boolean>(isLoggedInSelector);
+  const { addTodolist, getTodolists } = useActions(todolistsThunks);
 
-  const addTodolist = useCallback((title: string) => {
-    addTodolistTC({ title });
-  }, []);
+  const addTodolistCallBack = (title: string) => {
+    addTodolist({ title });
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,7 +37,7 @@ export const TodolistsList = memo(() => {
   return (
     <Container fixed>
       <Grid container style={{ padding: "20px" }}>
-        <AddItemForm addItem={addTodolist} />
+        <AddItemForm addItem={addTodolistCallBack} />
       </Grid>
       <Grid container spacing={3}>
         {todolists.map((tl) => {
