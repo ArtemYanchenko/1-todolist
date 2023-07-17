@@ -34,7 +34,6 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("aut
     } else {
       const isShowAppError = !res.data.fieldsErrors.length;
       handleServerAppError(res.data, dispatch, isShowAppError);
-      return rejectWithValue(res.data);
     }
   });
 });
@@ -49,7 +48,6 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout",
       return { isLoggedIn: false };
     } else {
       handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
     }
   });
 });

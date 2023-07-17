@@ -22,7 +22,7 @@ export const Todolist: FC<Props> = memo(({ todolistId, entityStatus, filter }) =
   const { addTask } = useActions({ ...tasksThunks, ...todolistsThunks, ...todolistsActions });
 
   const addTaskCallBack = (title: string) => {
-    addTask({ todolistId, title });
+    return addTask({ todolistId, title }).unwrap();
   };
 
   return (

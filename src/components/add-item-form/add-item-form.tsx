@@ -1,20 +1,30 @@
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
+import React, { ChangeEvent, FC, KeyboardEvent, memo, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
+import { RejectValueType } from "common/utils/create-app-async-thunk";
 
-type AddItemFormPropsType = {
-  addItem: (title: string) => void;
+type Props = {
+  addItem: (title: string) => Promise<any>;
   disabled?: boolean;
 };
 
-export const AddItemForm = memo((props: AddItemFormPropsType) => {
+export const AddItemForm: FC<Props> = memo(({ addItem, disabled }) => {
   let [title, setTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
   const addItemHander = () => {
     if (title.trim() !== "") {
-      props.addItem(title);
-      setTitle("");
+      addItem(title)
+        .then((res) => {
+          setTitle("");
+        })
+        .catch((err: RejectValueType) => {
+          debugger;
+          if (err.data) {
+            const messages = err.data.messages;
+            setError(messages.length ? messages[0] : "Some error occurred");
+          }
+        });
     } else {
       setError("Title is required");
     }
@@ -35,8 +45,8 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
 
   return (
     <div>
-      <TextField variant="outlined" error={!!error} value={title} onChange={changeTitleHandler} onKeyPress={addItemOnPressEnterHandler} label="Title" helperText={error} disabled={props.disabled} />
-      <IconButton color="primary" onClick={addItemHander} disabled={props.disabled}>
+      <TextField variant="outlined" error={!!error} value={title} onChange={changeTitleHandler} onKeyPress={addItemOnPressEnterHandler} label="Title" helperText={error} disabled={disabled} />
+      <IconButton color="primary" onClick={addItemHander} disabled={disabled}>
         <AddBox />
       </IconButton>
     </div>

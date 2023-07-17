@@ -24,7 +24,7 @@ export const TodolistsList = memo(() => {
   const { addTodolist, getTodolists } = useActions(todolistsThunks);
 
   const addTodolistCallBack = (title: string) => {
-    addTodolist({ title });
+    return addTodolist({ title }).unwrap();
   };
 
   useEffect(() => {
