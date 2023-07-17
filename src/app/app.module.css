@@ -1,0 +1,11 @@
+.circularProgressWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30%;
+}
+
+.errorHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

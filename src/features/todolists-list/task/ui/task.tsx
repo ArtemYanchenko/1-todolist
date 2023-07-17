@@ -9,7 +9,7 @@ import { useActions } from "common/hooks/useActions";
 import { TaskStatuses, TaskType } from "features/todolists-list/task/api/tasks.api.types";
 import s from "./task.module.css";
 
-export type PropsType = {
+export type Props = {
   todolistId: string;
   taskId: string;
 };
@@ -18,7 +18,7 @@ export type TasksStateType = {
   [key: string]: TaskType[];
 };
 
-export const Task: FC<PropsType> = memo(({ todolistId, taskId }) => {
+export const Task: FC<Props> = memo(({ todolistId, taskId }) => {
   const task = useAppSelector<TaskType>((state) => state.tasks[todolistId].filter((el) => el.id === taskId)[0]);
   const { updateTask, removeTask } = useActions(tasksThunks);
 
