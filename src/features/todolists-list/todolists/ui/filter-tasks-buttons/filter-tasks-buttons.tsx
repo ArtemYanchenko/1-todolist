@@ -13,7 +13,7 @@ type Props = {
 export const FilterTasksButtons: FC<Props> = ({ filter, todolistId }) => {
   const { changeFilterTodolist } = useActions(todolistsActions);
   return (
-    <>
+    <div className={s.buttonWrapper}>
       <Button variant={filter === "all" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "all" })} color={"inherit"} className={s.button}>
         All
       </Button>
@@ -25,6 +25,6 @@ export const FilterTasksButtons: FC<Props> = ({ filter, todolistId }) => {
       <Button variant={filter === "completed" ? "outlined" : "text"} onClick={() => changeFilterTodolist({ todolistId, filterValue: "completed" })} color={"secondary"} className={s.button}>
         Completed
       </Button>
-    </>
+    </div>
   );
 };
