@@ -1,7 +1,7 @@
 import axios from "axios";
-import { AddTaskArgType, UpdateTaskModelType } from "features/todolists-list/task/model/tasks-reducer";
+import { AddTaskArgType, UpdateTaskModelType } from "features/todolists-list/tasks/model/tasks-reducer";
 import { ResponseType } from "common/types";
-import { GetTaskResponseType, TaskType } from "features/todolists-list/task/api/tasks.api.types";
+import { GetTaskResponseType, TaskType } from "features/todolists-list/tasks/api/tasks.api.types";
 
 export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.1",

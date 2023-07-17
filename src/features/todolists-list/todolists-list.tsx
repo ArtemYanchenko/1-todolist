@@ -1,8 +1,6 @@
 import React, { memo, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import { AddItemForm } from "components/AddItemForm/AddItemForm";
-import Paper from "@mui/material/Paper";
-import { Todolist } from "features/todolists-list/todolists/ui/todolist";
+import { AddItemForm } from "components/add-item-form/add-item-form";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { useAppSelector } from "common/hooks/hooks";
 import Container from "@mui/material/Container";
@@ -12,6 +10,8 @@ import { useActions } from "common/hooks/useActions";
 import { TodolistType } from "features/todolists-list/todolists/api/todolists.api";
 import { isLoggedInSelector, todolistsSelector } from "features/todolists-list/todolists-list.selectors";
 import s from "./todolists-list.module.css";
+import { Todolist } from "features/todolists-list/todolists/ui/todolist";
+import { Paper } from "@mui/material";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistDomainType = TodolistType & {
@@ -44,9 +44,7 @@ export const TodolistsList = memo(() => {
         {todolists.map((tl) => {
           return (
             <Grid key={tl.id} item>
-              <Paper className={s.paperWrapper}>
-                <Todolist key={tl.id} todolistId={tl.id} entityStatus={tl.entityStatus} filter={tl.filter} />
-              </Paper>
+              <Paper className={s.paperWrapper}>{<Todolist key={tl.id} todolistId={tl.id} entityStatus={tl.entityStatus} filter={tl.filter} />}</Paper>
             </Grid>
           );
         })}

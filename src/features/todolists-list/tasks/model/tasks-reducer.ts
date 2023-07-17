@@ -1,11 +1,11 @@
-import { TasksStateType } from "features/todolists-list/task/ui/task";
+import { TasksStateType } from "features/todolists-list/tasks/ui/task";
 import { StatusesType } from "app/appReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { handleServerAppError, thunkTryCatch } from "common/utils";
-import { tasksApi } from "features/todolists-list/task/api/tasks.api";
-import { TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelApiType } from "features/todolists-list/task/api/tasks.api.types";
+import { tasksApi } from "features/todolists-list/tasks/api/tasks.api";
+import { TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelApiType } from "features/todolists-list/tasks/api/tasks.api.types";
 
 const tasksInitialState: TasksStateType = {};
 

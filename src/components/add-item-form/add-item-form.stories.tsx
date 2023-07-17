@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { AddItemForm } from "./AddItemForm";
+import { AddItemForm } from "components/add-item-form/add-item-form";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import React from "react";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof AddItemForm> = {
-  title: "TODOLISTS/AddItemForm",
+  title: "TODOLISTS/add-item-form",
   component: AddItemForm,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],

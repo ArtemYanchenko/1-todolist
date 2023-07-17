@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import "app/app.module.css";
-import { Header } from "components/Header/Header";
+import { Header } from "components/header/header";
 import { Login } from "features/auth/login/login";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { TodolistsList } from "features/todolists-list/todolists-list";
 import { useAppSelector } from "common/hooks/hooks";
 import { CircularProgress } from "@mui/material";
 import { authThunks } from "features/auth/auth-reducer";
-import { Snackbars } from "components/SnackBar/SnackBar";
+import { Snackbars } from "components/snack-bar/snack-bar";
 import { useActions } from "common/hooks/useActions";
 import s from "./app.module.css";
+import { TodolistsList } from "features/todolists-list/todolists-list";
 
 export function App() {
   const isInitialized = useAppSelector((state) => state.app.isInitialized);

@@ -1,7 +1,7 @@
-import { TasksStateType } from "features/todolists-list/task/ui/task";
-import { tasksReducer, tasksThunks } from "features/todolists-list/task/model/tasks-reducer";
+import { TasksStateType } from "features/todolists-list/tasks/ui/task";
+import { tasksReducer, tasksThunks } from "features/todolists-list/tasks/model/tasks-reducer";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
-import { TaskType } from "features/todolists-list/task/api/tasks.api.types";
+import { TaskType } from "features/todolists-list/tasks/api/tasks.api.types";
 
 let startState: TasksStateType;
 
@@ -66,7 +66,7 @@ beforeEach(() => {
   };
 });
 
-test("correct task should be deleted from correct array", () => {
+test("correct tasks should be deleted from correct array", () => {
   const args = { todolistId: "todolistId2", taskId: "2" };
   const action = tasksThunks.removeTask.fulfilled(args, "requestId", args);
 
@@ -74,7 +74,7 @@ test("correct task should be deleted from correct array", () => {
   expect(endState["todolistId2"].length).toBe(1);
 });
 
-test("correct task should be added to correct array", () => {
+test("correct tasks should be added to correct array", () => {
   const task: TaskType = {
     id: "2",
     title: "juice",
@@ -103,7 +103,7 @@ test("correct task should be added to correct array", () => {
   expect(endState["todolistId2"][0].title).toBe("juice");
 });
 
-test("status of specified task should be changed", () => {
+test("status of specified tasks should be changed", () => {
   const model = {
     id: "2",
     title: "juice",
@@ -126,7 +126,7 @@ test("status of specified task should be changed", () => {
   expect(endState["todolistId2"].length).toBe(2);
 });
 
-test("task  title should be changed", () => {
+test("tasks  title should be changed", () => {
   const model = {
     id: "2",
     title: "juiceNEW",

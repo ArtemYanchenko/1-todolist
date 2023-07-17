@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { EditableSpan } from "components/EditableSpan/EditableSpan";
+import { EditableSpan } from "components/editable-span/editable-span";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { Delete } from "@mui/icons-material";
 import { useAppSelector } from "common/hooks/hooks";
