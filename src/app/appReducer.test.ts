@@ -10,12 +10,6 @@ beforeEach(() => {
   };
 });
 
-test("status should be changed", () => {
-  const endState = appReducer(startState, appActions.setStatus({ status: "loading" }));
-  expect(endState.status).toBe("loading");
-  expect(endState.error).toBeNull();
-});
-
 test("error should be changed", () => {
   const endState = appReducer(startState, appActions.setError({ error: "newError" }));
   expect(endState.error).toBe("newError");

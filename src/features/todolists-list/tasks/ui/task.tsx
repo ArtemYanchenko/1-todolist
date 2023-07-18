@@ -6,8 +6,9 @@ import { tasksThunks } from "features/todolists-list/tasks/model/tasks-reducer";
 import { useAppSelector } from "common/hooks/hooks";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import { useActions } from "common/hooks/useActions";
-import { TaskStatuses, TaskType } from "features/todolists-list/tasks/api/tasks.api.types";
+import { TaskType } from "features/todolists-list/tasks/api/tasks.api.types";
 import s from "./task.module.css";
+import { TaskStatuses } from "common/enums";
 
 export type Props = {
   todolistId: string;

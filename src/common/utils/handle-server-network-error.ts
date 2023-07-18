@@ -16,5 +16,5 @@ export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
   } else {
     dispatch(appActions.setError({ error: `Native error ${err.message}` }));
   }
-  dispatch(appActions.setStatus({ status: "failed" }));
+  // dispatch(appActions.setStatus({ status: "failed" }));
 };

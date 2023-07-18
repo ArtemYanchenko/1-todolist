@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Task from "features/todolists-list/tasks/ui/task";
 import { FilterValuesType } from "features/todolists-list/todolists-list";
 import { useAppSelector } from "common/hooks/hooks";
-import { TaskStatuses } from "features/todolists-list/tasks/api/tasks.api.types";
+import { TaskStatuses } from "common/enums";
 
 type Props = {
   todolistId: string;

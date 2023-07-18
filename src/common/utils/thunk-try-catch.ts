@@ -2,7 +2,6 @@ import { handleServerNetworkError } from "common/utils/handle-server-network-err
 import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import { ResponseType } from "common/types";
 import { AppDispatch, AppRootStateType } from "common/bll/store";
-import { appActions } from "app/appReducer";
 import { RejectValueType } from "common/utils/create-app-async-thunk";
 
 /**
@@ -14,7 +13,7 @@ import { RejectValueType } from "common/utils/create-app-async-thunk";
 
 export const thunkTryCatch = async (thunkAPI: BaseThunkAPI<AppRootStateType, any, AppDispatch, null | RejectValueType>, logic: Function) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  dispatch(appActions.setStatus({ status: "loading" }));
+  // dispatch(appActions.setStatus({ status: "loading" }));
   try {
     return await logic();
   } catch (e) {
@@ -22,6 +21,6 @@ export const thunkTryCatch = async (thunkAPI: BaseThunkAPI<AppRootStateType, any
     return rejectWithValue(null);
   } finally {
     // в handleServerNetworkError можно удалить убирание крутилки
-    dispatch(appActions.setStatus({ status: "idle" }));
+    // dispatch(appActions.setStatus({ status: "idle" }));
   }
 };
