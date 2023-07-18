@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { tasksActions } from "features/todolists-list/tasks/model/tasks-reducer";
 import { todolistsActions } from "features/todolists-list/todolists/model/todolist-reducer";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
-import { appActions } from "app/appReducer";
+import { appActions } from "app/model/app-reducer";
 import { authApi, LoginParamsType } from "features/auth/auth.api";
 
 const slice = createSlice({
@@ -26,7 +26,7 @@ const slice = createSlice({
 });
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+  const { dispatch } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.login(arg);
     if (res.data.resultCode === 0) {
@@ -39,7 +39,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("aut
 });
 
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout", async (_, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+  const { dispatch } = thunkAPI;
   return thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.logout();
     if (res.data.resultCode === 0) {

@@ -1,5 +1,5 @@
 import { TasksStateType } from "features/todolists-list/tasks/ui/task";
-import { StatusesType } from "app/appReducer";
+import { StatusesType } from "app/model/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";

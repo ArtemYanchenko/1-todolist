@@ -1,4 +1,4 @@
-import { StatusesType } from "app/appReducer";
+import { StatusesType } from "app/model/app-reducer";
 import { TaskPriorities, TaskStatuses } from "common/enums";
 
 export type TaskType = {

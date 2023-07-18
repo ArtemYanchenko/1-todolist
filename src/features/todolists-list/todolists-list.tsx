@@ -4,7 +4,7 @@ import { AddItemForm } from "components/add-item-form/add-item-form";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
 import { useAppSelector } from "common/hooks/hooks";
 import Container from "@mui/material/Container";
-import { StatusesType } from "app/appReducer";
+import { StatusesType } from "app/model/app-reducer";
 import { Navigate } from "react-router-dom";
 import { useActions } from "common/hooks/useActions";
 import { TodolistType } from "features/todolists-list/todolists/api/todolists.api";

@@ -5,7 +5,7 @@ import { Delete } from "@mui/icons-material";
 import { useAppSelector } from "common/hooks/hooks";
 import { useActions } from "common/hooks/useActions";
 import { todolistsThunks } from "features/todolists-list/todolists/model/todolist-reducer";
-import { StatusesType } from "app/appReducer";
+import { StatusesType } from "app/model/app-reducer";
 
 type Props = {
   todolistId: string;

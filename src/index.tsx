@@ -3,8 +3,8 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./common/bll/store";
-import { App } from "./app/App";
+import { store } from "common/bll/store";
+import { App } from "app/ui/app";
 import { BrowserRouter } from "react-router-dom";
 
 const container = document.getElementById("root") as HTMLElement;

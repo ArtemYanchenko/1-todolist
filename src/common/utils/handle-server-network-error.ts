@@ -1,4 +1,4 @@
-import { appActions } from "app/appReducer";
+import { appActions } from "app/model/app-reducer";
 import axios, { AxiosError } from "axios";
 import { AppDispatch } from "common/bll/store";
 
