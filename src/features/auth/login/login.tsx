@@ -76,9 +76,9 @@ export const Login = () => {
               <p>Password: free</p>
             </FormLabel>
             <FormGroup>
-              <TextField label="Email" margin="normal" name="email" onChange={formik.handleChange} value={formik.values.email} />
+              <TextField label="Email" margin="normal" name="email" onChange={formik.handleChange} value={formik.values.email} defaultValue={"free@samuraijs.com"} />
               {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }}>{formik.errors.email}</div> : null}
-              <TextField type="password" label="Password" margin="normal" onChange={formik.handleChange} value={formik.values.password} name="password" />
+              <TextField type="password" label="Password" margin="normal" onChange={formik.handleChange} value={formik.values.password} name="password" defaultValue={"free"} />
               {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }}>{formik.errors.password}</div> : null}
               <FormControlLabel label={"Remember me"} control={<Checkbox />} onChange={formik.handleChange} value={formik.values.rememberMe} name="rememberMe" />
               <Button type={"submit"} variant={"contained"} color={"primary"}>
