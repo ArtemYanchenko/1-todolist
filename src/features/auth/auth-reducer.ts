@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { tasksActions } from "features/todolists-list/tasks/model/tasks-reducer";
 import { todolistsActions } from "features/todolists-list/todolists/model/todolist-reducer";
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils";
-import { appActions } from "app/model/app-reducer";
 import { authApi, LoginParamsType } from "features/auth/auth.api";
+import { ResultCode } from "common/enums";
+import { appActions } from "app/model/app-reducer";
 
 const slice = createSlice({
   name: "auth",
@@ -52,17 +53,25 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logout",
   });
 });
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/initializeApp", async (_, thunkAPI) => {
+const initializeApp = createAppAsyncThunk<
+  {
+    isLoggedIn: boolean;
+  },
+  any
+>("auth/initializeApp", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  return thunkTryCatch(thunkAPI, async () => {
+  try {
     const res = await authApi.authMe();
-    dispatch(appActions.setIsInitialized({ isInitialized: true }));
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       return { isLoggedIn: true };
     } else {
-      return rejectWithValue(null);
+      return rejectWithValue({ data: res.data, showGlobalError: false });
     }
-  });
+  } catch (err) {
+    return rejectWithValue(null);
+  } finally {
+    dispatch(appActions.setIsInitialized({ isInitialized: true }));
+  }
 });
 
 export const authReducer = slice.reducer;

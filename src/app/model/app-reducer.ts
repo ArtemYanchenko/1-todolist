@@ -50,7 +50,7 @@ const slice = createSlice({
           return action.type.endsWith("/fulfilled");
         },
         (state) => {
-          state.status = "succeeded";
+          state.status = "idle";
         },
       );
   },

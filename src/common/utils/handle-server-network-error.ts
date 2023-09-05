@@ -11,6 +11,7 @@ import { AppDispatch } from "common/bll/store";
 export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
   const err = e as Error | AxiosError<{ error: string }>;
   if (axios.isAxiosError(err)) {
+    debugger;
     const error = err.message ? err.message : "Some error occurred";
     dispatch(appActions.setError({ error }));
   } else {
