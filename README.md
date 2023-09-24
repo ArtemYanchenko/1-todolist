@@ -15,4 +15,3 @@ https://artemyanchenko.github.io/1-todolist
 - Redux-Thunk
 - Axios
 - Formik
-- Material-UI
