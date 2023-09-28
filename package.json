@@ -94,7 +94,7 @@
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.0.12",
     "stylelint": "^15.10.3",
-    "webpack": "^5.82.1"
+    "webpack": "^5.76.0"
   },
   "jest": {
     "moduleNameMapper": {
