@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux'
 // import { AppRootStateType } from "../store";
 // import { combineReducers } from "redux";
 // import { tasksReducer } from "../tasksReducer";

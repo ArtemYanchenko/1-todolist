@@ -1,6 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppDispatch, AppRootStateType } from "common/bll/store";
-import { ResponseType } from "common/types";
+import { createAsyncThunk } from '@reduxjs/toolkit'
+
+import { AppDispatch, AppRootStateType } from 'common/bll/store'
+import { ResponseType } from 'common/types'
 
 /**
  Creates an async thunk with specified types for the state, dispatch, and reject value.
@@ -11,12 +12,12 @@ import { ResponseType } from "common/types";
  */
 
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: AppRootStateType;
-  dispatch: AppDispatch;
-  rejectValue: null | RejectValueType;
-}>();
+  state: AppRootStateType
+  dispatch: AppDispatch
+  rejectValue: null | RejectValueType
+}>()
 
 export type RejectValueType = {
-  data: ResponseType;
-  showGlobalError: boolean;
-};
+  data: ResponseType
+  showGlobalError: boolean
+}

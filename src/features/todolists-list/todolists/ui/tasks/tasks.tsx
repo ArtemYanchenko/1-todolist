@@ -1,33 +1,33 @@
-import React, { FC } from "react";
-import Task from "features/todolists-list/tasks/ui/task";
-import { FilterValuesType } from "features/todolists-list/todolists-list";
-import { useAppSelector } from "common/hooks/hooks";
-import { TaskStatuses } from "common/enums";
+import React, { FC } from 'react'
 
-type Props = {
-  todolistId: string;
-  filter: FilterValuesType;
-};
+import { TaskStatuses } from 'common/enums'
+import { useAppSelector } from 'common/hooks/hooks'
+import { Task } from 'features/todolists-list/tasks/ui/task'
+import { FilterValuesType } from 'features/todolists-list/todolists-list'
 
-const Tasks: FC<Props> = ({ todolistId, filter }) => {
-  const tasks = useAppSelector((state) => state.tasks[todolistId]);
+export const Tasks: FC<Props> = ({ todolistId, filter }) => {
+  const tasks = useAppSelector(state => state.tasks[todolistId])
 
-  let filteredTask = tasks;
+  let filteredTask = tasks
 
-  if (filter === "active") {
-    filteredTask = tasks.filter((t) => t.status === TaskStatuses.New);
+  if (filter === 'active') {
+    filteredTask = tasks.filter(t => t.status === TaskStatuses.New)
   }
-  if (filter === "completed") {
-    filteredTask = tasks.filter((t) => t.status === TaskStatuses.Completed);
+  if (filter === 'completed') {
+    filteredTask = tasks.filter(t => t.status === TaskStatuses.Completed)
   }
 
   return (
     <div>
-      {filteredTask.map((t) => (
+      {filteredTask.map(t => (
         <Task todolistId={todolistId} taskId={t.id} key={t.id} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Tasks;
+//types
+type Props = {
+  todolistId: string
+  filter: FilterValuesType
+}

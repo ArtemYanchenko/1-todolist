@@ -1,6 +1,7 @@
-import { appActions } from "app/model/app-reducer";
-import axios, { AxiosError } from "axios";
-import { AppDispatch } from "common/bll/store";
+import axios, { AxiosError } from 'axios'
+
+import { appActions } from 'app/model/app-reducer'
+import { AppDispatch } from 'common/bll/store'
 
 /**
  Handles network errors by dispatching actions to update the app error state.
@@ -9,13 +10,15 @@ import { AppDispatch } from "common/bll/store";
  */
 
 export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
-  const err = e as Error | AxiosError<{ error: string }>;
+  const err = e as Error | AxiosError<{ error: string }>
+
   if (axios.isAxiosError(err)) {
-    debugger;
-    const error = err.message ? err.message : "Some error occurred";
-    dispatch(appActions.setError({ error }));
+    debugger
+    const error = err.message ? err.message : 'Some error occurred'
+
+    dispatch(appActions.setError({ error }))
   } else {
-    dispatch(appActions.setError({ error: `Native error ${err.message}` }));
+    dispatch(appActions.setError({ error: `Native error ${err.message}` }))
   }
   // dispatch(appActions.setStatus({ status: "failed" }));
-};
+}

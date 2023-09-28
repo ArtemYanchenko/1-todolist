@@ -1,26 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { AddItemForm } from "components/add-item-form/add-item-form";
-import { IconButton, TextField } from "@mui/material";
-import { AddBox } from "@mui/icons-material";
-import React from "react";
+import React from 'react'
+
+import { AddBox } from '@mui/icons-material'
+import { IconButton, TextField } from '@mui/material'
+import type { Meta, StoryObj } from '@storybook/react'
+
+import { AddItemForm } from 'components/add-item-form/add-item-form'
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof AddItemForm> = {
-  title: "TODOLISTS/add-item-form",
+  title: 'TODOLISTS/add-item-form',
   component: AddItemForm,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     addItem: {
-      description: "Button clicked inside form",
-      action: "clicked",
+      description: 'Button clicked inside form',
+      action: 'clicked',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof AddItemForm>;
+export default meta
+type Story = StoryObj<typeof AddItemForm>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 export const AddItemFormStory: Story = {
@@ -28,17 +30,25 @@ export const AddItemFormStory: Story = {
   args: {
     // addItem: action("Button clicked inside form"),
   },
-};
+}
 
 export const AddItemFormStoryErrorStory: Story = {
-  render: (args) => {
+  render: args => {
     return (
       <div>
-        <TextField variant="outlined" error={true} value={""} onChange={() => {}} onKeyPress={() => {}} label="error" helperText={true} />
-        <IconButton color="primary" onClick={() => args.addItem("Button clicked inside form")}>
+        <TextField
+          variant="outlined"
+          error={true}
+          value={''}
+          onChange={() => {}}
+          onKeyPress={() => {}}
+          label="error"
+          helperText={true}
+        />
+        <IconButton color="primary" onClick={() => args.addItem('Button clicked inside form')}>
           <AddBox />
         </IconButton>
       </div>
-    );
+    )
   },
-};
+}

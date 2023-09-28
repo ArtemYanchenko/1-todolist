@@ -1,27 +1,27 @@
-import { instance } from "features/todolists-list/tasks/api/tasks.api";
-import { ResponseType } from "common/types";
+import { ResponseType } from 'common/types'
+import { instance } from 'features/todolists-list/tasks/api/tasks.api'
 
 export type LoginParamsType = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha?: string;
-};
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: string
+}
 
 export const authApi = {
   authMe() {
     return instance.get<
       ResponseType<{
-        id: number;
-        email: string;
-        login: string;
+        id: number
+        email: string
+        login: string
       }>
-    >("/auth/me");
+    >('/auth/me')
   },
   login(data: LoginParamsType) {
-    return instance.post<ResponseType<{ userId: number }>>(`auth/login`, data);
+    return instance.post<ResponseType<{ userId: number }>>(`auth/login`, data)
   },
   logout() {
-    return instance.delete<ResponseType>("auth/login");
+    return instance.delete<ResponseType>('auth/login')
   },
-};
+}
