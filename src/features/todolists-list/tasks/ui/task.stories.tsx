@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Task from 'features/todolists-list/tasks/ui/task' // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+import { Task } from 'features/todolists-list/tasks/ui/task' // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {
